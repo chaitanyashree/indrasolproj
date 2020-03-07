@@ -1,2 +1,25 @@
 This is the sample utility for ESSbase plugin for sheet. 
 It will make use of the spring boot project.
+
+Db
+http://ec2-13-127-165-106.ap-south-1.compute.amazonaws.com:28080/aps
+admin / admin123
+
+
+Hi Chaitanya,
+Code is uploaded at the below github link:
+
+https://github.com/pereshgithub/EssbaseUtility  
+
+Reference urls:
+https://docs.oracle.com/cd/E40248_01/epm.1112/aps_java_api/index.html?help-doc.html 
+
+Sample programs attached for your reference. 
+
+ESSBASE DB details are available in the code.
+
+
+Let me know if you need any info.
+
+Thanks
+Peresh 
