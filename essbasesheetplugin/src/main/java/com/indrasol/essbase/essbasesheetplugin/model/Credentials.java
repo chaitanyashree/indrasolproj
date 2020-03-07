@@ -1,5 +1,8 @@
 package com.indrasol.essbase.essbasesheetplugin.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Credentials {
     private String userName;
     private String password;
