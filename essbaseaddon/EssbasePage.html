@@ -1,69 +1,135 @@
-<!-- [START apps_script_sheets_essbase] -->
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <base target="_top">
-    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
-    <!-- The CSS package above applies Google styling to buttons and other elements. -->
 
-    <style>
+<head>
+  <base target="_top">
+  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+  <!-- The CSS package above applies Google styling to buttons and other elements. -->
+
+  <style>
     .branding-below {
       bottom: 56px;
       top: 0;
     }
+
     .branding-text {
       left: 7px;
       position: relative;
       top: 3px;
     }
+
     .col-contain {
       overflow: hidden;
     }
+
     .col-one {
       float: left;
       width: 50%;
     }
+
     .logo {
       vertical-align: middle;
     }
+
     .radio-spacer {
       height: 20px;
     }
+
     .width-100 {
       width: 100%;
     }
-    </style>
-  </head>
-  <body>
-    <div class="sidebar branding-below">
-      <form>
-        <div class="block form-group">
-          <label for="connecturl-text"><b>Connection URL</b></label>
-          <textarea class="width-100" id="connecturl-text" rows="10"></textarea>
-        </div>
-        <div class="block form-group">
-           <label><b>User Name</b></label>
-           <input type=text id="username-text" />
-        </div>
-       <div class="block form-group">
-           <label><b>Password</b></label>
-           <input type=password id="password-text" />
-        </div>        
-        <div class="block" id="button-bar">
-          <button class="blue" id="run-connect">Connect</button>
-          <button id="cancel-button" onclick="google.script.host.close()">Cancel</button>
-        </div>
-      </form>
-    </div>
+  </style>
 
-    <div class="sidebar bottom">
-      <img alt="Add-on logo" class="logo" src="https://www.gstatic.com/images/branding/product/1x/translate_48dp.png" width="27" height="27">
-      <span class="gray branding-text">Essbase sample by Indrasol</span>
-    </div>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-   
-  </body>
+</head>
+
+<body>
+  <div class="sidebar branding-below">
+    <form>
+      <div class="block form-group">
+        <label for="connecturl-text"><b>Connection URL</b></label>
+        <textarea class="width-100" id="connecturl-text"
+          rows="10">http://ec2-13-127-165-106.ap-south-1.compute.amazonaws.com:28080/aps/JAPI</textarea>
+      </div>
+      <div class="block form-group">
+        <label><b>Olap Server Name</b></label>
+        <input type=text id="olapServerName" name="olapServerName"
+          value="ec2-13-127-165-106.ap-south-1.compute.amazonaws.com" />
+      </div>
+      <div class="block form-group">
+        <label><b>User Name</b></label>
+        <input type=text id="userName" name="userName" value="admin" />
+      </div>
+      <div class="block form-group">
+        <label><b>Password</b></label>
+        <input type=password id="password" name="password" value="admin123" />
+      </div>
+      <div class="block" id="button-bar">
+        <button class="blue" id="connect-button">Connect</button>
+        <button id="cancel-button" onclick="google.script.host.close()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="sidebar bottom">
+    <img alt="Add-on logo" class="logo" src="https://www.gstatic.com/images/branding/product/1x/translate_48dp.png"
+      width="27" height="27">
+    <span class="gray branding-text">Essbase sample by Indrasol</span>
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>
+    /**
+     * On document load, assign click handlers to each button and try to load the
+     * user's origin and destination language preferences if previously set.
+     */
+    $(function () {
+      //alert('setting click');
+      $('#connect-button').click(onConnect);
+      // $('#insert-text').click(insertText);
+      //  google.script.run.withSuccessHandler(loadPreferences)
+      //     .withFailureHandler(showError).getPreferences();
+      //alert('setting click2');
+    });
+
+    function onConnect() {
+      //alert('hi');
+      var url = $('#connecturl-text').val();
+      var olapServerNameStr = $('#olapServerName').val();
+      var userNameStr = $('#userName').val();
+      var passwordStr = $('#password').val();
+      alert(url);
+
+      /*google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            alert('withsuccess');
+            element.disabled = false;
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            element.disabled = false;
+          })
+        .withUserObject(this)
+        .makeConnectCall(url,olapServerNameStr,userNameStr,passwordStr);*/
+        google.script.run.makeConnectCall(url,olapServerNameStr,userNameStr,passwordStr);
+       //google.script.run.sayHello();
+    }
+    /**
+     * Inserts a div that contains an error message after a given element.
+     *
+     * @param {string} msg The error message to display.
+     * @param {DOMElement} element The element after which to display the error.
+     */
+    function showError(msg, element) {
+      var div = $('<div id="error" class="error">' + msg + '</div>');
+      $(element).after(div);
+    }
+  </script>
+
+</body>
+
 </html>
-<!-- [END apps_script_sheets_essbase] -->
-
