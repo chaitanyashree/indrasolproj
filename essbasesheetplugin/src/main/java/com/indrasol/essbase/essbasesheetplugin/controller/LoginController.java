@@ -5,6 +5,8 @@ import com.indrasol.essbase.essbasesheetplugin.service.LoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +22,8 @@ public class LoginController {
     }
 
 
-    @GetMapping("/login")
-    public Credentials login() {
+    @GetMapping("/testlogin")
+    public Credentials testLogin() {
         String s_userName = "admin";
         String s_password = "admin123";   
         String s_olapSvrName = "ec2-13-127-165-106.ap-south-1.compute.amazonaws.com";
@@ -37,6 +39,22 @@ public class LoginController {
 
         return credentials;
     } 
+    @PostMapping("/login")
+    //@ResponseStatus(HttpStatus.CREATED)
+    public Credentials login(@RequestBody Credentials credentials) {
+        Credentials essbaseCredentials = new Credentials();
+        essbaseCredentials.setOlapServerName(credentials.getOlapServerName());
+        essbaseCredentials.setPassword(credentials.getPassword());
+        essbaseCredentials.setUrl(credentials.getUrl());
+        essbaseCredentials.setUserName(credentials.getUserName());
+        loginService.login(essbaseCredentials);
+        System.out.println("LOGIN TO ESSBASE SUCCESSFUL..."+essbaseCredentials.getUserName());
+        essbaseCredentials = loginService.getEssbaseConnection().getCredentials();
+
+        return essbaseCredentials;
+
+    }
+
 
     @GetMapping("/logout")
     public String logout() {

@@ -63,9 +63,16 @@ public class EssbaseHelper {
             String apiVerDetail = ess.getApiVersionDetail();
             System.out.println("API Version :"+apiVersion);
             System.out.println("API Version Detail :"+apiVerDetail);
+            credentials.setApiVersion(apiVersion);
+            credentials.setApiVersionDetail(apiVerDetail);
+
+            essbaseConnection.setApiVersion(apiVersion);
+            essbaseConnection.setApiVersionDetail(apiVerDetail);
+
             if (loadData) loadData(olapSvr);
             //return olapSvr;    
             essbaseConnection.setOlapSvr(olapSvr);
+            essbaseConnection.setCredentials(credentials);
             return essbaseConnection;
 		} catch (EssException x) {
             System.err.println("Error: " + x.getMessage());

@@ -9,6 +9,9 @@ public class Credentials {
     private String olapServerName;
     private String url;
 
+    private String apiVersion;
+    private String apiVersionDetail;
+
     public Credentials() {
     }
 
@@ -51,4 +54,21 @@ public class Credentials {
         this.url = url;
     }
 
+    public String getApiVersion() {
+        return apiVersion;
+    }
+
+    public void setApiVersion(String apiVersion) {
+        this.apiVersion = apiVersion;
+    }
+
+    public String getApiVersionDetail() {
+        return apiVersionDetail;
+    }
+
+    public void setApiVersionDetail(String apiVersionDetail) {
+        this.apiVersionDetail = apiVersionDetail;
+    }
+
+    
 }

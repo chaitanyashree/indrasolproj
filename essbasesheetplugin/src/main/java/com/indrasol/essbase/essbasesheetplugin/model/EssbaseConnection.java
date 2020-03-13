@@ -12,6 +12,9 @@ public class EssbaseConnection {
     private IEssOlapServer olapSvr;
     private IEssbase ess;
 
+    private String apiVersion;
+    private String apiVersionDetail;
+
 
     @Autowired
     private Credentials credentials;
@@ -41,6 +44,23 @@ public class EssbaseConnection {
         this.ess = ess;
     }
 
+    public String getApiVersion() {
+        return apiVersion;
+    }
+
+    public void setApiVersion(String apiVersion) {
+        this.apiVersion = apiVersion;
+    }
+
+    public String getApiVersionDetail() {
+        return apiVersionDetail;
+    }
+
+    public void setApiVersionDetail(String apiVersionDetail) {
+        this.apiVersionDetail = apiVersionDetail;
+    }
+
+    
     
     
 }
