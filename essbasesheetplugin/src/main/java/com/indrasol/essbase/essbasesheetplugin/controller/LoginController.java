@@ -22,6 +22,11 @@ public class LoginController {
     }
 
 
+    @GetMapping("/hello") 
+    public String sayHello() {
+        return "Hello Essbase plugin";
+    }
+
     @GetMapping("/testlogin")
     public Credentials testLogin() {
         String s_userName = "admin";
