@@ -93,8 +93,20 @@ var str = 'Bob Smith';
   Logger.log(response.getContentText());
 */
   Logger.log('done with call..');
+  return response.getContentText();
 }
 
+function makeLoadCall() {
+  Logger.log('makeLoadCall....');
+  return;
+}
+
+function makeLogoutCall() {
+  Logger.log('inside makeLogoutCall...');
+  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/logout');
+  Logger.log(response.getContentText());
+
+}
 function showError(message) {
   //document.getElementById('result').innerHTML = 'Error: ' + message;
   //alert('showerror');

@@ -45,9 +45,13 @@
 </head>
 
 <body>
+  <div id="msgBlock">
+  </div>
+  
   <div class="sidebar branding-below">
     <form>
-      <div class="block form-group">
+      <div id="connectBlock">
+      <div class="block form-group" >
         <label for="connecturl-text"><b>Connection URL</b></label>
         <textarea class="width-100" id="connecturl-text"
           rows="10">http://ec2-13-127-165-106.ap-south-1.compute.amazonaws.com:28080/aps/JAPI</textarea>
@@ -62,15 +66,27 @@
         <input type=text id="userName" name="userName" value="admin" />
       </div>
       <div class="block form-group">
-        <label><b>Password</b></label>
+        <label><b>Password</b></label> 
         <input type=password id="password" name="password" value="admin123" />
       </div>
       <div class="block" id="button-bar">
         <button class="blue" id="connect-button">Connect</button>
-        <button id="cancel-button" onclick="google.script.host.close()">Cancel</button>
+        <button id="cancel-button" onclick="callClose()">Cancel</button>
       </div>
+    </div>
+    <div id="pluginUI" hidden>
+      <label for="connecturl-text"><b>Connected Succesfully!</b></label></br></p>
+      <div class="block" id="button-bar">
+        <button class="blue" id="load-button">Load</button>
+        <button class="blue" id="logout-button">Logout</button>
+        <button id="cancel-button" onclick="callClose()">Cancel</button>
+      </div>
+      
+    </div>
     </form>
   </div>
+
+
 
   <div class="sidebar bottom">
     <img alt="Add-on logo" class="logo" src="https://www.gstatic.com/images/branding/product/1x/translate_48dp.png"
@@ -86,12 +102,62 @@
      */
     $(function () {
       //alert('setting click');
+      //$('#pluginUI').hide();
       $('#connect-button').click(onConnect);
+      $('#load-button').click(callLoad);
+      $('#logout-button').click(callLogout)
       // $('#insert-text').click(insertText);
       //  google.script.run.withSuccessHandler(loadPreferences)
       //     .withFailureHandler(showError).getPreferences();
       //alert('setting click2');
+
     });
+
+    function callLoad() {
+      console.log('inside callLoad.');
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('withsuccess'+returnSuccess);
+            //$('#connectBlock').hide();
+            //displayUIAfterConnect();
+            //element.disabled = false;
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+          })
+        //.withUserObject(this)
+        .makeLoadCall();
+
+    }
+    function callLogout() {
+      console.log('inside callLogout.');
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('withsuccess'+returnSuccess);
+            $('#pluginUI').hide();
+            $('#connectBlock').show();
+            //displayUIAfterConnect();
+            //element.disabled = false;
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+          })
+        //.withUserObject(this)
+        .makeLogoutCall();
+    }
+
+    function callClose() {
+      callLogout();
+      google.script.host.close();
+    }
 
     function onConnect() {
       //alert('hi');
@@ -101,21 +167,23 @@
       var passwordStr = $('#password').val();
       alert(url);
 
-      /*google.script.run
+      google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
-            alert('withsuccess');
-            element.disabled = false;
+            console.log('withsuccess'+returnSuccess);
+            $('#connectBlock').hide();
+            displayUIAfterConnect();
+            //element.disabled = false;
           })
         .withFailureHandler(
           function (msg, element) {
             alert('withfailure');
             showError(msg, $('#button-bar'));
-            element.disabled = false;
+            //element.disabled = false;
           })
-        .withUserObject(this)
-        .makeConnectCall(url,olapServerNameStr,userNameStr,passwordStr);*/
-        google.script.run.makeConnectCall(url,olapServerNameStr,userNameStr,passwordStr);
+        //.withUserObject(this)
+        .makeConnectCall(url,olapServerNameStr,userNameStr,passwordStr);
+        //google.script.run.makeConnectCall(url,olapServerNameStr,userNameStr,passwordStr);
        //google.script.run.sayHello();
     }
     /**
@@ -127,6 +195,10 @@
     function showError(msg, element) {
       var div = $('<div id="error" class="error">' + msg + '</div>');
       $(element).after(div);
+    }
+
+    function displayUIAfterConnect() {
+        $('#pluginUI').show();
     }
   </script>
 
