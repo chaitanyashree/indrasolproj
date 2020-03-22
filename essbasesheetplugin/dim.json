@@ -1,0 +1,466 @@
+[
+    {
+        "dimensionNumber": 1,
+        "dimensionName": "Year",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Qtr1",
+                "memberDescription": "",
+                "childCount": 3,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Qtr2",
+                "memberDescription": "",
+                "childCount": 3,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Qtr3",
+                "memberDescription": "",
+                "childCount": 3,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Qtr4",
+                "memberDescription": "",
+                "childCount": 3,
+                "dimensionRootMember": false
+            }
+        ]
+    },
+    {
+        "dimensionNumber": 2,
+        "dimensionName": "Measures",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 2,
+                "generationNumber": 2,
+                "memberName": "Profit",
+                "memberDescription": "",
+                "childCount": 2,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Inventory",
+                "memberDescription": "",
+                "childCount": 3,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Ratios",
+                "memberDescription": "",
+                "childCount": 3,
+                "dimensionRootMember": false
+            }
+        ]
+    },
+    {
+        "dimensionNumber": 3,
+        "dimensionName": "Product",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "100",
+                "memberDescription": "",
+                "childCount": 3,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "200",
+                "memberDescription": "",
+                "childCount": 4,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "300",
+                "memberDescription": "",
+                "childCount": 3,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "400",
+                "memberDescription": "",
+                "childCount": 3,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Diet",
+                "memberDescription": "",
+                "childCount": 3,
+                "dimensionRootMember": false
+            }
+        ]
+    },
+    {
+        "dimensionNumber": 4,
+        "dimensionName": "Market",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "East",
+                "memberDescription": "",
+                "childCount": 5,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "West",
+                "memberDescription": "",
+                "childCount": 5,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "South",
+                "memberDescription": "",
+                "childCount": 4,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Central",
+                "memberDescription": "",
+                "childCount": 6,
+                "dimensionRootMember": false
+            }
+        ]
+    },
+    {
+        "dimensionNumber": 5,
+        "dimensionName": "Scenario",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Actual",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Budget",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Variance",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Variance %",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            }
+        ]
+    },
+    {
+        "dimensionNumber": 6,
+        "dimensionName": "Caffeinated",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Caffeinated_True",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Caffeinated_False",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            }
+        ]
+    },
+    {
+        "dimensionNumber": 7,
+        "dimensionName": "Ounces",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Ounces_32",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Ounces_20",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Ounces_16",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Ounces_12",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            }
+        ]
+    },
+    {
+        "dimensionNumber": 8,
+        "dimensionName": "Pkg Type",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Bottle",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Can",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            }
+        ]
+    },
+    {
+        "dimensionNumber": 9,
+        "dimensionName": "Population",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Small",
+                "memberDescription": "",
+                "childCount": 2,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Medium",
+                "memberDescription": "",
+                "childCount": 4,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 1,
+                "generationNumber": 2,
+                "memberName": "Large",
+                "memberDescription": "",
+                "childCount": 5,
+                "dimensionRootMember": false
+            }
+        ]
+    },
+    {
+        "dimensionNumber": 10,
+        "dimensionName": "Intro Date",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Intro Date_03-25-1996",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Intro Date_04-01-1996",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Intro Date_09-27-1995",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Intro Date_07-26-1996",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Intro Date_12-10-1996",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Intro Date_06-26-1996",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Intro Date_10-01-1996",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            }
+        ]
+    },
+    {
+        "dimensionNumber": 11,
+        "dimensionName": "Attribute Calculations",
+        "dimensionDescription": null,
+        "members": [
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Sum",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Count",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Avg",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Min",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            },
+            {
+                "memberId": "",
+                "levelNumber": 0,
+                "generationNumber": 2,
+                "memberName": "Max",
+                "memberDescription": "",
+                "childCount": 0,
+                "dimensionRootMember": false
+            }
+        ]
+    }
+]

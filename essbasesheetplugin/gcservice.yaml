@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-03-17T16:59:54Z"
+  labels:
+    run: essbaseservice
+  name: essbaseservice
+  namespace: default
+  resourceVersion: "687712"
+  selfLink: /api/v1/namespaces/default/services/essbaseservice
+  uid: b94abd5f-6870-11ea-b004-42010a80008c
+spec:
+  clusterIP: 10.0.3.216
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30669
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: essbaseservice
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 35.184.51.106

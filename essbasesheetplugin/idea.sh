@@ -1,0 +1,1 @@
+/home/devendra/opt/idea-IC-182.3684.101/bin/idea.sh

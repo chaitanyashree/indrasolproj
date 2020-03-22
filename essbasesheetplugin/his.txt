@@ -1,0 +1,1000 @@
+  138  git commit
+  139  git config --global user.email "chaitanyashree786@gmail.com"
+  140  git config --global user.name "chaitanyashree"
+  141  git commit;
+  142  git commit -M "initial"
+  143  git commit 
+  144  clear
+  145  ls -ltr
+  146  clear
+  147  ls -ltr
+  148  cd essbaseutilityservice/
+  149  ls
+  150  git commit 
+  151  git commit
+  152  git push
+  153  cd ..
+  154  ls -ltr
+  155  cd essbaseutilityservice/
+  156  ls
+  157  cd essbaseutilityservice/
+  158  ls
+  159  mv essbasesheetplugin/ ../..
+  160  cd ..
+  161  ls
+  162  cd ..
+  163  ls
+  164  clear
+  165  ls -ltr
+  166  clear
+  167  ls -ltr
+  168  ls
+  169  cd essbaseutilityservice/
+  170  ls
+  171  rm -R *
+  172  rm -r -F *
+  173  rm -f -R *
+  174  ls -ltr
+  175  git clone https://github.com/chaitanayshree/essbaseproj.git
+  176  git info
+  177  git mailinfo
+  178  rm -R -f ~/.gitconfig 
+  179  clear
+  180  ls -ltr
+  181  git login
+  182  clear
+  183  ls -ltr
+  184  git clone https://github.com/chaitanayshree/essbaseproj.git
+  185  ls -ltr
+  186  ls -a
+  187  rm .git
+  188  rm -R -f .git
+  189  clear
+  190  git clone https://github.com/chaitanayshree/essbaseproj.git
+  191  ls -a
+  192  ls -a ~/
+  193  clear
+  194  git config --help
+  195  git clone https://github.com/chaitanyashree/essbaseproj.git
+  196  ls -ltr
+  197  cd essbaseproj/
+  198  ls
+  199  clear
+  200  cd ..
+  201  ls
+  202  la -a
+  203  ls -a
+  204  ls ..
+  205  ls ../essbasesheetplugin/
+  206  mv ../essbasesheetplugin/ essbaseproj/
+  207  ls -ltr
+  208  cd essbaseproj/
+  209  ls
+  210  cd git add essbasesheetplugin/
+  211  git add essbasesheetplugin/
+  212  git push 
+  213  ls -ltr
+  214  git add essbasesheetplugin/
+  215  git commit -M "initial"
+  216  git commit
+  217  git config --global user.name "chaitanyashree"
+  218  git config --global user.email "chaitanyashree786@gmail.com"
+  219  git commit
+  220  git push
+  221  clear
+  222  ls -ltr
+  223  clear
+  224  ls -ltr
+  225  git config
+  226  git --show-origin
+  227  clear
+  228  ls
+  229  mv essbasesheetplugin/ ~/
+  230  cd ..
+  231  ls
+  232  rm -R -f *
+  233  ls -ltr
+  234  clear
+  235  ls -a
+  236  ls ~/
+  237  ls -a ~
+  238  rm -R -f ~/.gitconfig
+  239  ls -a ~
+  240  git login
+  241  git --help
+  242  ls 
+  243  git init
+  244  git clone .
+  245  git clone chaitanyashree@github.com:/.
+  246  ls /etc/gitconfig
+  247  clear
+  248  ls -a ~
+  249  git config --list
+  250  git config --global user.name "chaitanyashree"
+  251  git config --global user.email "chaitanyashree786@gmail.com"
+  252  git config --list
+  253  git config --global color.ui true
+  254  git config --global color.status auto
+  255  git config --global color.branch auto
+  256  git config --list
+  257  ls -a
+  258  rm -R -f .git
+  259  clear
+  260  git --bare init
+  261  ls
+  262  rm -R -f *
+  263  ls -a
+  264  git init
+  265  touch notes.txt
+  266  git status
+  267  git add notes.txt
+  268  git commit -m "myfirstcommit"
+  269  git branch
+  270  echo "# indrasolproj" >> README.md
+  271  git init
+  272  git add README.md
+  273  git commit -m "first commit"
+  274  git remote add origin https://github.com/chaitanyashree/indrasolproj.git
+  275  git push -u origin master
+  276  ls ~
+  277  mv ~/essbasesheetplugin/ .
+  278  git add essbasesheetplugin/
+  279  git status
+  280  git commit -m "initial code"
+  281  git push -u origin master
+  282  clear
+  283  ls -ltr
+  284  git add notes.txt 
+  285  git commit -m "notes.txt"
+  286  git push -u origin master
+  287  clear
+  288  ls -ltr
+  289  exit
+  290  ll
+  291  lcear
+  292  clear
+  293  cd Documents/
+  294  ls
+  295  cd work/
+  296  ls
+  297  cd essbaseutilityservice/
+  298  ls
+  299  ls -a
+  300  git help
+  301  git pull
+  302  ls -ltr
+  303  cd essbasesheetplugin/
+  304  ls
+  305  cd src/
+  306  ls
+  307  cd main
+  308  ls
+  309  cd ..
+  310  ls
+  311  ls data
+  312  ls -ltr
+  313  cd src/main/java/com/indrasol/essbase/essbasesheetplugin/model/
+  314  ls
+  315  vim EssbaseConnection.java 
+  316  cd
+  317  clear
+  318  pwd
+  319  sudo ls -ltr
+  320  clear
+  321  # Add the Cloud SDK distribution URI as a package source
+  322  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+  323  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+  324  sudo apt-get update && sudo apt-get install google-cloud-sdk
+  325  gcloud init
+  326  ls
+  327  cd Doc
+  328  cd Documents/
+  329  ls
+  330  cd work
+  331  ls
+  332  clear
+  333  gcloud init
+  334  clear
+  335  ls -ltr
+  336  curl https://start.spring.io/starter.tgz   -d bootVersion=2.1.8.RELEASE   -d dependencies=web   -d baseDir=gae-standard-example | tar -xzvf -
+  337  cd gae-standard-example/
+  338  ls
+  339  ll
+  340  vim pom.xml 
+  341  vim pom.xml
+  342  mkdir -p src/main/appengine/
+  343  touch src/main/appengine/app.yaml
+  344  vim src/main/appengine/app.yaml 
+  345  vim src/main/java/com/example/demo/DemoApplication.java 
+  346  clear
+  347  ls
+  348  mvn clean install
+  349  clear
+  350  mvn -DskipTests spring-boot:run
+  351  gcloud app create --region us-central
+  352  clear
+  353  mvn -DskipTests package appengine:deploy
+  354  ls
+  355  clear
+  356  ls
+  357  cd src/main/appengine/
+  358  s
+  359  ls
+  360  vim app.yaml 
+  361  cd ..
+  362  clear
+  363  ls -ltr
+  364  mvn clean package
+  365  mvn -DskipTests package appengine:deploy
+  366  ls target/
+  367  java -jar target/demo-0.0.1-SNAPSHOT.jar 
+  368  ls
+  369  clear
+  370  cd ..
+  371  ls
+  372  cd essbaseutilityservice/
+  373  ls
+  374  cd essbasesheetplugin/
+  375  ls
+  376  exit
+  377  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  378  ls -a
+  379  cd essbasesheetplugin/
+  380  ls
+  381  ls -a
+  382  ls -ltr
+  383  mvn clean install
+  384  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  385  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" package -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  386  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" install -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  387  ll
+  388  gcloud --version
+  389  cd Documents/
+  390  ls
+  391  cd work
+  392  ls
+  393  clear
+  394  ls -ltr
+  395  cd gae-standard-example/
+  396  ls
+  397  exit
+  398  ls -ltr
+  399  cd Documents/
+  400  ls
+  401  cd work
+  402  ls
+  403  cd essbaseutilityservice/
+  404  ls
+  405  ls 0a
+  406  ls -
+  407  ls -a
+  408  clear
+  409  ls -ltr
+  410  cd essbasesheetplugin/
+  411  ls
+  412  ls -a
+  413  exit
+  414  gcloud config list
+  415  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  416  ls
+  417  cd essbasesheetplugin/
+  418  mvn clean install
+  419  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  420  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" install -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  421  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  422  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" install -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  423  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  424  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" install -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  425  /home/devendra/opt/jdk1.8.0_91/bin/java -Dfile.encoding=UTF-8 -cp /tmp/cp_ce5a5q48hr3rnhzkcgyxpxc6t.jar com.indrasol.essbase.essbasesheetplugin.EssbaseUtilityPlugiApplication 
+  426  cd /home/chaitanaya/Documents/work/essbaseutilityservice ; /home/devendra/opt/jdk1.8.0_91/bin/java -Dfile.encoding=UTF-8 -cp /tmp/cp_ce5a5q48hr3rnhzkcgyxpxc6t.jar com.indrasol.essbase.essbasesheetplugin.EssbaseUtilityPlugiApplication 
+  427  cd /home/chaitanaya/Documents/work/essbaseutilityservice ; /home/devendra/opt/jdk1.8.0_91/bin/java -Dfile.encoding=UTF-8 -cp /tmp/cp_2dql8nzu402cqviwz4dwx60yq.jar com.indrasol.essbase.essbasesheetplugin.EssbaseUtilityPlugiApplication 
+  428  cd /home/chaitanaya/Documents/work/essbaseutilityservice ; /home/devendra/opt/jdk1.8.0_91/bin/java -Dfile.encoding=UTF-8 -cp /tmp/cp_ce5a5q48hr3rnhzkcgyxpxc6t.jar com.indrasol.essbase.essbasesheetplugin.EssbaseUtilityPlugiApplication 
+  429  cd ..
+  430  ls
+  431  cd essbaseutilityservice/
+  432  ls
+  433  git add essbaseaddon/
+  434  git commit -m "addon code added"
+  435  git push 
+  436  ls -ltr
+  437  clear
+  438  xrandr
+  439  cvt 1600 900
+  440  sudo xrandr --newmode "1600x900_60.00"  118.25  1600 1696 1856 2112  900 903 908 934 -hsync +vsync
+  441  sudo xrandr --addmode eDP-1 "1600x900_60.00"
+  442  cvt 1920 1080
+  443  sudo xrandr --newmode "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+  444  sudo xrandr --addmode eDP-1 "1920x1080_60.00"
+  445  clear
+  446  ls -ltr
+  447  cd Documents/
+  448  ls
+  449  cd work
+  450  ls
+  451  cd essbaseutilityservice/
+  452  ls
+  453  clear
+  454  ls -ltr
+  455  cd essbasesheetplugin/
+  456  ls
+  457  ls src
+  458  tree .
+  459  tree > struct.txt
+  460  vim struct.txt 
+  461  clear
+  462  ls -ltr
+  463  vim pom.xml 
+  464  mvn clean install
+  465  clear
+  466  glcloud app regions list
+  467  gcloud app regions list
+  468  gcloud config list
+  469  clear
+  470  ls -ltr
+  471  gcloud app list
+  472  gcloud app regions list
+  473  gcloud app instances list
+  474  clear
+  475  ls -ltr
+  476  gcloud app region list
+  477  gcloud app regions list
+  478  gcloud app create --region asia-south1
+  479  clear
+  480  mvn clean install 
+  481  mvn -DskipTests appengine:deploy
+  482  clear
+  483  mvn -DskipTests appengine:deploy
+  484  mvn -DskipTests clean appengine:deploy
+  485  mvn clean
+  486  mvn -DskipTests appengine:deploy
+  487  mvn package
+  488  mvn -DskipTests appengine:deploy
+  489  ls -ltr
+  490  ls target/
+  491  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+  492  mvn clean 
+  493  ls -ltr
+  494  mvn clean install
+  495  ls target/
+  496  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+  497  clear
+  498  mvn clean install
+  499  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+  500  clear
+  501  mvn clean install
+  502  clear
+  503  mvn clean install
+  504  history
+  505  cvt 1920 1080
+  506  sudo xrandr --newmode "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+  507  sudo xrandr --addmode eDP-1 "1920x1080_60.00"
+  508  sudo nano /etc/profile
+  509  exit
+  510  cd Documents/
+  511  cd 
+  512  cd Documents/
+  513  ls
+  514  cd work/
+  515  ls
+  516  cd essbaseutilityservice/
+  517  ls
+  518  cd essbasesheetplugin/
+  519  ls -ltr
+  520  clear
+  521  ll
+  522  clear
+  523  ls
+  524  mvn clean install
+  525  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+  526  clear
+  527  ls -ltr
+  528  jar -tvf target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+  529  clear
+  530  ls -ltr target/essbasesheetplugin-0.0.1-SNAPSHOT.jar
+  531  mvn clean -DskipTests=true package
+  532  mvn package
+  533  mvn -DskipTests=true package
+  534  mvn clean
+  535  mvn -DskipTests=true package
+  536  mvn -DskipTests=true appengine:deploy
+  537  mvn -DskipTests appengine:deploy
+  538  mvn clean package
+  539  mvn -DskipTest=true  appengine:deploy
+  540  gcloud config list
+  541  ls
+  542  ls src/main/appengine/app.yaml 
+  543  mvn clean
+  544  clear
+  545  mvn package
+  546  cleear
+  547  clear
+  548  mvn -DskipTests appengine:deploy
+  549  clear
+  550  mvn package
+  551  mvn -DskipTests appengine:deploy
+  552  gcloud app services list
+  553  mvn package
+  554  mvn clean 
+  555  mvn -DskipTests install
+  556  mvn -DskipTests appengine:deploy
+  557  gcloud app services set-traffic --help
+  558  gcloud app services set-traffic V1=1
+  559  gcloud app services set-traffic --splits V1=1
+  560  gcloud app list
+  561  gcloud app services list
+  562  gcloud app services delete default
+  563  gcloud app versions list
+  564  gcloud info --run-diagnostics
+  565  gcloud app services list
+  566  clear
+  567  ls -ltr
+  568  gcloud app services list
+  569  gcloud config list
+  570  exit
+  571  cd Documents/
+  572  cd work
+  573  ls
+  574  cd essbaseutilityservice/
+  575  ls
+  576  cd essbasesheetplugin/
+  577  ls
+  578  glcoud app services list
+  579  gcloud app services list
+  580  gcloud info --run-diagnostics
+  581  glcoud app services list
+  582  gcloud app services list
+  583  mvn -DskipTests appengine:deploy
+  584  clear
+  585  mvn clean
+  586  mvn -DskipTests install
+  587  mvn -DskipTests appengine:deploy
+  588  gcloud app logs tail -s default
+  589  gcloud app browse
+  590  gcloud app logs tail -s default
+  591  clear
+  592  gcloud config list
+  593  gcloud project list
+  594  gcloud projects list
+  595  gcloud app servies list
+  596  gcloud app services list
+  597  gcloud app instances list
+  598  gcloud app services list
+  599  gcloud app versions list
+  600  gcloud app version delete default:2
+  601  gcloud app versions delete default 
+  602  gcloud app versions delete 1
+  603  gcloud app versions stop 2
+  604  gcloud app versions delete 2
+  605  gcloud app versions list
+  606  gcloud app versions delete 2
+  607  clar
+  608  clear
+  609  ls -ltr
+  610  gcloud app service lists
+  611  gcloud app services list
+  612  clear
+  613  gcloud app list
+  614  gcloud app instances list
+  615  clear
+  616  exit
+  617  ls -ltr
+  618  cd Documents/
+  619  ls
+  620  cd work
+  621  ls
+  622  cd essbaseutilityservice/
+  623  ls
+  624  cd ls
+  625  ls
+  626  cd essbasesheetplugin/
+  627  ls
+  628  ls target/
+  629  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+  630  ls -ltr
+  631  cd ..
+  632  ls
+  633  dir
+  634  cd ..
+  635  ls
+  636  ls -ltr
+  637  cd essbaseutilityservice/
+  638  ls
+  639  ls -a
+  640  git --help
+  641  git commit -m "removed gae code"
+  642  gcloud init
+  643  gcloud config list
+  644  ls
+  645  cd essbasesheetplugin/
+  646  ls
+  647  git history pom.xml
+  648  git help
+  649  git logs pom.xml
+  650  git log pom.xml
+  651  git status
+  652  mvn clean install
+  653  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+  654  clear
+  655  ls -ltr
+  656  vim pom.xml 
+  657  mvn clean install
+  658  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+  659  ls
+  660  gcloud config list
+  661  export GOOGLE_CLOUD_PROJECT="indrasolproj-2020"
+  662  echo $GOOGLE_CLOUD_PROJECT
+  663  mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/$GOOGLE_CLOUD_PROJECT/essbaseservice:v1
+  664  mvn clean install
+  665  mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/$GOOGLE_CLOUD_PROJECT/essbaseservice:v1
+  666  clear
+  667  ls
+  668  mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  669  docker help
+  670  docker login gcr.io/indrasolproj-2020
+  671  docker pull gcr.io/indrasolproj-2020/essbaseservice:v1
+  672  clear
+  673  ls -ltr
+  674  ps -eaf | grep docker
+  675  clear
+  676  sudo mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  677  clear
+  678  sudo docker pull gcr.io/indrasolproj-2020/essbaseservice:v1
+  679  docker verison
+  680  docker version
+  681  docker --version
+  682  docker -version
+  683  gcloud auth configure-docker 
+  684  clear
+  685  ls -ltr
+  686  docker pull gcr.io/indrasolproj-2020/essbaseservice:v1
+  687  sudo docker pull gcr.io/indrasolproj-2020/essbaseservice:v1
+  688  docker images list
+  689  sudo docker images list
+  690  sudo docker image list
+  691  sudo docker run -it --rm gcr.io/indrasolproj-2020/essbaseservice:v1
+  692  sudo docker run -it --rm gcr.io/indrasolproj-2020/essbaseservice:v1 /bin/bash
+  693  sudo docker ps -a
+  694  sudo docker ps 
+  695  sudo docker rmi gcr.io/indrasolproj-2020/essbaseservice:v1
+  696  clear
+  697  exit
+  698  ls
+  699  cd Public/
+  700  ls
+  701  git clone https://github.com/TechPrimers/spring-boot-lazy-init-example.git
+  702  ls 
+  703  cd spring-boot-lazy-init-example/
+  704  ls
+  705  vim pom.xml 
+  706  tree 
+  707  cat src/main/resources/application.properties 
+  708  cat src/main/resources/application.yml
+  709  clar
+  710  clear
+  711  ls -ltr
+  712  ./mvnw com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/spring-boot-example:v1
+  713  cd
+  714  clear
+  715  sudo docker image list[B
+  716  sudo docker run -ti --rm -p 8080:8080 gcr.io/indrasolproj-2020/essbaseservice:v1
+  717  sudo docker run -ti --rm -p 8080:8080 gcr.io/indrasolproj-2020/essbaseservice:v1 /bin/sh
+  718  ls -ltr
+  719  clear
+  720  ls -ltr
+  721  clear
+  722  ls -ltr
+  723  cd Public/
+  724  ls
+  725  cd spring-boot-lazy-init-example/
+  726  ls
+  727  mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/spring-boot-example:v1
+  728  mvn clean install
+  729  mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/spring-boot-example:v1
+  730  sudo docker run -it --rm -p 8080:8080 gcr.io/indrasolproj-2020/spring-boot-example:v1
+  731  docker ps 
+  732  sudo docker ps -a
+  733  cler
+  734  clear
+  735  ls -ltr
+  736  clear
+  737  cd 
+  738  cd Documents/
+  739  ls
+  740  cd work
+  741  ls
+  742  cd essbaseutilityservice/
+  743  ls
+  744  cd essbasesheetplugin/
+  745  ls
+  746  vim pom.xml 
+  747  mvn clean install
+  748  clear
+  749  mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v2
+  750  cat /home/chaitanaya/.docker/config.json
+  751  ./mvnw com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v21
+  752  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  753  mvn clean install
+  754  ls
+  755  cd essbasesheetplugin/
+  756  mvn clean install
+  757  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  758  clear
+  759  mvn clean install
+  760  clear
+  761  mvn clean com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  762  mvn clean install
+  763  clear
+  764  mvn  com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  765  clear
+  766  ls -ltr
+  767  cd Documents/
+  768  cd work
+  769  cd 
+  770  cd Documents/work
+  771  ls
+  772  cd essbaseutilityservice/
+  773  ls
+  774  cd essbasesheetplugin/
+  775  ls
+  776  mvn clean install
+  777  clear
+  778  mvn clean install
+  779  exit
+  780  cd Documents/
+  781  ls
+  782  cd work
+  783  ls
+  784  cd essbaseutilityservice/
+  785  ls
+  786  exit
+  787  sudo usermod -aG docker $USER
+  788  ls -a
+  789  ls -ltr .
+  790  ls -ltra
+  791  cd Documents/work/
+  792  ls
+  793  cd essbaseutilityservice/
+  794  ls
+  795  cd essbasesheetplugin/
+  796  ls
+  797  vim pom.xml 
+  798  ls -ltr
+  799  mvn clean install
+  800  mvn clean install 
+  801  mvn clean
+  802  mvn clean 
+  803  mvn install
+  804  mvn package
+  805  mvn clean install
+  806  clear
+  807  ls -ltr
+  808  mvn clean install
+  809  mvn clean 
+  810  mvn clean install
+  811  clear
+  812  mvn clean install
+  813  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+  814  clear
+  815  ls -ltr
+  816  glcoud config list
+  817  gcloud config list
+  818  mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  819  mvn clean 
+  820  mvn clean install
+  821  mvn com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  822  mvn -v com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  823  mvn  com.google.cloud.tools:jib-maven-plugin:build -v -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  824  mvn  com.google.cloud.tools:jib-maven-plugin:build  -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1 -v
+  825  mvn --help
+  826  mvn  com.google.cloud.tools:jib-maven-plugin:build  -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  827  mvn clean install
+  828  mvn  com.google.cloud.tools:jib-maven-plugin:build  -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  829  clear
+  830  ls -ltr
+  831  mvn clean 
+  832  mvn clean install
+  833  mvn  com.google.cloud.tools:jib-maven-plugin:build  -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  834  clear
+  835  mvn clean install
+  836  mvn  com.google.cloud.tools:jib-maven-plugin:build  -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  837  mvn  com.google.cloud.tools:jib-maven-plugin:build  -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1 -e
+  838  mvn  com.google.cloud.tools:jib-maven-plugin:build  -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1 -X
+  839  clear
+  840  mvn clean
+  841  mvn clean install
+  842  mvn  com.google.cloud.tools:jib-maven-plugin:build  -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1 
+  843  clear
+  844  mvn  jib:dockerBuild
+  845  mvn clean
+  846  mvn clean install
+  847  mvn  com.google.cloud.tools:jib-maven-plugin:build  -DmainClass=com.indrasol.essbase.essbasesheetplugin.EssbaseUtilityPluginApplication -Dimage=gcr.[Aio/indrasolproj-2020/essbaseservice:v1 
+  848  mvn  com.google.cloud.tools:jib-maven-plugin:build  -DmainClass=com.indrasol.essbase.essbasesheetplugin.EssbaseUtilityPluginApplication -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  849  docker image list
+  850  docker rmi gcr.io/indrasolproj-2020/essbaseservice:v1
+  851  clear
+  852  ls -ltr
+  853  mvn  com.google.cloud.tools:jib-maven-plugin:build  -DmainClass=com.indrasol.essbase.essbasesheetplugin.EssbaseUtilityPluginApplication -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  854  docker image list
+  855  docker pull gcr.io/indrasolproj-2020/essbaseservice:v1
+  856  docker run -it --rm -p 8080:8080 gcr.io/indrasolproj-2020/essbaseservice:v1
+  857  mvn clean 
+  858  mvn clean install
+  859  mvn com.google.cloud.tools:jib-maven-plugin:2.1.0:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  860  mvn clean
+  861  mvn clean install
+  862  mvn compile jib:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  863  clear
+  864  mvn clean install
+  865  mvn compile jib:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  866  clear
+  867  mvn compile jib:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+  868  docker image list
+  869  docker rmi gcr.io/indrasolproj-2020/essbaseservice:v1
+  870  docker clear
+  871  clear
+  872  docker run -ti --rm -p 8080:8080 gcr.io/indrasolproj-2020/essbaseservice:v1
+  873  docker image list
+  874  docker ps 
+  875  clear
+  876  ls -ltr
+  877  ll
+  878  history
+  879  sudo apt-get install httpie
+  880  http --version
+  881  http --help
+  882  http https://8080-dot-11138311-dot-devshell.appspot.com/essbase/hello
+  883  clar
+  884  clear
+  885  http https://8080-dot-11138311-dot-devshell.appspot.com/?authuser=0&environment_id=default
+  886  http https://accounts.google.com/o/oauth2/auth?client_id=618104708054-jqgabbtcm3fusmhf5hu82r7j8emh7aoa.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fdevshell.appspot.com%2F_cloudshellProxy%2Foauth2callback&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&state=eyJYU1JGVG9rZW4iOiJZSlJnLVB5Q2s1ZVB0MmF2ZEFaQ0VBclhYNUU6MTU4NDQ2MDgwMTcwNiIsIkFwcFVSTCI6Imh0dHBzOi8vODA4MC1kb3QtMTExMzgzMTEtZG90LWRldnNoZWxsLmFwcHNwb3QuY29tLz9hdXRodXNlcj0wIn0%3D&authuser=0
+  887  ls
+  888  clear
+  889  ls -ltr
+  890  http https://8080-dot-11138311-dot-devshell.appspot.com/?authuser=0&environment_id=default
+  891  ls -ltr
+  892  clear
+  893  ls -ltr
+  894  http https://8080-dot-11138311-dot-devshell.appspot.com/essbase/hello
+  895  http https://accounts.google.com/o/oauth2/auth?client_id=618104708054-jqgabbtcm3fusmhf5hu82r7j8emh7aoa.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fdevshell.appspot.com%2F_cloudshellProxy%2Foauth2callback&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&state=eyJYU1JGVG9rZW4iOiI0dUI4V0g3TVJ2WW9IMllnbFdHbjY1Nk4yWXM6MTU4NDQ2MDkxNzc2NSIsIkFwcFVSTCI6Imh0dHBzOi8vODA4MC1kb3QtMTExMzgzMTEtZG90LWRldnNoZWxsLmFwcHNwb3QuY29tL2Vzc2Jhc2UvaGVsbG8ifQ%3D%3D
+  896  clear
+  897  ls -ltr
+  898  clear
+  899  http GET https://8080-dot-11138311-dot-devshell.appspot.com/essbase/hello
+  900  clear
+  901  gcloud container clusters get-credentials indra20k8 --zone us-central1-c
+  902  ls -ltr
+  903  kubectl
+  904  clear
+  905  ls -ltr
+  906  ls /home/devendra/opt
+  907  ls /home/devendra/opt/minikube/
+  908  ls /home/devendra/opt/minikube/kubectl --version
+  909  /home/devendra/opt/minikube/kubectl --version
+  910  /home/devendra/opt/minikube/kubectl get pods
+  911  /home/devendra/opt/minikube/kubectl get services
+  912  clear
+  913  http http://35.184.51.106:8080/essbase/hello
+  914  http http://35.184.51.106:8080/essbase/testlogin
+  915  http http://35.184.51.106:8080/essbase/logout
+  916  /home/devendra/opt/minikube/kubectl get rc
+  917  /home/devendra/opt/minikube/kubectl get services
+  918  /home/devendra/opt/minikube/kubectl help
+  919  /home/devendra/opt/minikube/kubectl scale rc help
+  920  /home/devendra/opt/minikube/kubectl get pods
+  921  /home/devendra/opt/minikube/kubectl get deployments
+  922  /home/devendra/opt/minikube/kubectl get service
+  923  kubectl scale deployment essbaseservice --replicas=0
+  924  /home/devendra/opt/minikube/kubectl scale deployment essbaseservice --replicas=0
+  925  /home/devendra/opt/minikube/kubectl get service
+  926  /home/devendra/opt/minikube/kubectl get deployments
+  927  /home/devendra/opt/minikube/kubectl get pods
+  928  /home/devendra/opt/minikube/kubectl scale deployment essbaseservice --replicas=1
+  929  /home/devendra/opt/minikube/kubectl get pods
+  930  /home/devendra/opt/minikube/kubectl get deployments
+  931  /home/devendra/opt/minikube/kubectl get service
+  932  /home/devendra/opt/minikube/kubectl scale deployment essbaseservice --replicas=0
+  933  exit
+  934  ls
+  935  cd Documents/wok
+  936  cd Documents/
+  937  ls
+  938  cd work/
+  939  ls
+  940  history
+  941  /home/devendra/opt/minikube/kubectl get pods
+  942  gcloud container clusters get-credentials indra20k8 --zone us-central1-c
+  943  /home/devendra/opt/minikube/kubectl get pods
+  944  /home/devendra/opt/minikube/kubectl scale deployment essbaseservice --replicas=1
+  945  ls -ltr
+  946  clear
+  947  /home/devendra/opt/minikube/kubectl get pods
+  948  /home/devendra/opt/minikube/kubectl get services
+  949  /home/devendra/opt/minikube/kubectl scale deployment essbaseservice --replicas=0
+  950  clear
+  951  ls -ltr
+  952  clear
+  953  ls -ltr
+  954  exit
+  955  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  956  mvn clean install
+  957  ls -ltr
+  958  mnv clean
+  959  mvn clean
+  960  ls 
+  961  cd essbasesheetplugin/
+  962  ls
+  963  mvn clean install
+  964  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  965  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" install -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  966  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  967  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" package -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  968  mvn clean install
+  969  ls
+  970  cd essbasesheetplugin/
+  971  mvn clean install
+  972  clear
+  973  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" clean -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  974  "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/mvnw" install -f "/home/chaitanaya/Documents/work/essbaseutilityservice/essbasesheetplugin/pom.xml"
+  975  ls
+  976  clear
+  977  ls -ltr
+  978  sudo apt-get install 
+  979  clear
+  980  sudo apt-get update
+  981  ls -ltr
+  982  clear
+  983  history
+  984  gcloud container clusters get-credentials indra20k8 --zone us-central1-c
+  985  ls -ltr
+  986  ls .a
+  987  ls -a
+  988  vim .bashrc 
+  989  clear
+  990  ls /usr/share/bin
+  991  ls /usr/share/
+  992  ls /usr/bin/
+  993  ln -l /home/devendra/opt/minikube/kubectl 
+  994  ln -l 
+  995  ln --help
+  996  cd /usr/bin
+  997  ls
+  998  sudo ln -l /home/devendra/opt/minikube/kubectl . 
+  999  ln -l kubectl /home/devendra/opt/minikube/kubectl 
+ 1000  ln -l ./kubectl /home/devendra/opt/minikube/kubectl 
+ 1001  ln --help
+ 1002  ln -L ./kubectl /home/devendra/opt/minikube/kubectl 
+ 1003  ln -L  /home/devendra/opt/minikube/kubectl 
+ 1004  sudo ln -L /home/devendra/opt/minikube/kubectl 
+ 1005  ls -ltr
+ 1006  ls -ltr kubectl 
+ 1007  rm kubectl 
+ 1008  suod rm kubectl
+ 1009  sudo rm kubectl
+ 1010  ls -ltr
+ 1011  sudo ln -l /home/devendra/opt/minikube/kubectl .
+ 1012  man ln
+ 1013  sudo ln -L -s /home/devendra/opt/minikube/kubectl 
+ 1014  ls -ltr kubectl 
+ 1015  clear
+ 1016  cd
+ 1017  kubectl --version
+ 1018  clear
+ 1019  ls -ltr
+ 1020  cd Documents/
+ 1021  ls
+ 1022  cd wok
+ 1023  cd work
+ 1024  ls
+ 1025  clear
+ 1026  ls -ltr
+ 1027  cd essbaseutilityservice/
+ 1028  ls
+ 1029  l
+ 1030  ll
+ 1031  ls
+ 1032  cd essbasesheetplugin/
+ 1033  mvn clean install
+ 1034  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+ 1035  clear
+ 1036  ls -ltr
+ 1037  kubectl get pods
+ 1038  kubectl get deployments
+ 1039  kubectl get services
+ 1040  clear
+ 1041  ls -ltr
+ 1042  clear
+ 1043  ping ec2-13-127-165-106.ap-south-1.compute.amazonaws.com
+ 1044  ls -ltr
+ 1045  ping ec2-13-127-165-106.ap-south-1.compute.amazonaws.com
+ 1046  ifconfig
+ 1047  ping ec2-13-127-165-106.ap-south-1.compute.amazonaws.com
+ 1048  gcloud container clusters get-credentials indra20k8 --zone us-central1-c
+ 1049  glcloud get pods
+ 1050  gcloud container clusters get-credentials indra20k8 --zone us-central1-c
+ 1051  ping ec2-13-127-165-106.ap-south-1.compute.amazonaws.com
+ 1052  clear
+ 1053  ls -ltr
+ 1054  cd Documents/
+ 1055  ls
+ 1056  cd work/
+ 1057  ls
+ 1058  cd essbaseutilityservice/
+ 1059  ls
+ 1060  cd essbasesheetplugin/
+ 1061  cear
+ 1062  clear
+ 1063  ls target/
+ 1064  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+ 1065  clear
+ 1066  ifconfig
+ 1067  gcloud container clusters get-credentials indra20k8 --zone us-central1-c
+ 1068  kubectl scale deployment essbaseservice --replicas=1
+ 1069  kubectl get pods
+ 1070  kubectl get services
+ 1071  kubectl get pods
+ 1072  kubectl get instances
+ 1073  kubectl help
+ 1074  kubectl cluster-info
+ 1075  kubectl describe 
+ 1076  kubectl get deployments
+ 1077  kubectl get pods
+ 1078  kubectl get service
+ 1079  clear
+ 1080  ping ec2-13-126-171-22.ap-south-1.compute.amazonaws.com
+ 1081  exit
+ 1082  ll
+ 1083  clear
+ 1084  ls -ltr
+ 1085  history
+ 1086  clear
+ 1087  ping ec2-3-6-38-242.ap-south-1.compute.amazonaws.com
+ 1088  gcloud container clusters get-credentials indra20k8 --zone us-central1-c
+ 1089  kubectl get pods
+ 1090  kubectl get services
+ 1091  clear
+ 1092  kubectl get services
+ 1093  kubectl scale deployment essbaseservice --replicas=0
+ 1094  gcloud container clusters get-credentials indra20k8 --zone us-central1-c
+ 1095  ifconfig
+ 1096  clear
+ 1097  ll
+ 1098  cd Documents/
+ 1099  cd work
+ 1100  ls
+ 1101  cd essbaseutilityservice/
+ 1102  ls
+ 1103  clear
+ 1104  ls -ltr
+ 1105  essbasesheetplugin/
+ 1106  cd essbasesheetplugin/
+ 1107  ls -ltr
+ 1108  clear
+ 1109  mvn clean install
+ 1110  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+ 1111  clear
+ 1112  mvn clean install
+ 1113  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+ 1114  ll
+ 1115  clear
+ 1116  mvn clean install
+ 1117  java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar 
+ 1118  clear
+ 1119  mvn clean install
+ 1120* java -jar target/essbasesheetplugin-0.0.1-SNAPSHOT.jar [B
+ 1121  claer
+ 1122  clear
+ 1123  ls -ltr
+ 1124  mvn clean install
+ 1125  clear
+ 1126  ls -ltr
+ 1127  gcloud container clusters get-credentials indra20k8 --zone us-central1-c
+ 1128  kubectl scale deployment essbaseservice --replicas=1
+ 1129  mvn compile jib:build -Dimage=gcr.io/indrasolproj-2020/essbaseservice:v1
+ 1130  docker images list
+ 1131  docker image list
+ 1132  date
+ 1133  kubectl get pods
+ 1134  ls -ltr
+ 1135  clear
+ 1136  ls -ltr
+ 1137  history > his.txt

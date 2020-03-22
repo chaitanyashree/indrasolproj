@@ -1,7 +1,13 @@
 package com.indrasol.essbase.essbasesheetplugin.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.essbase.api.base.EssException;
+import com.essbase.api.metadata.IEssDimension;
 import com.indrasol.essbase.essbasesheetplugin.model.Credentials;
+import com.indrasol.essbase.essbasesheetplugin.model.Dimension;
+import com.indrasol.essbase.essbasesheetplugin.model.EMembers;
 import com.indrasol.essbase.essbasesheetplugin.model.EssbaseConnection;
 import com.indrasol.essbase.essbasesheetplugin.util.EssbaseHelper;
 
@@ -19,11 +25,12 @@ public class  LoginService {
         this.essbaseConnection =  EssbaseHelper.connect(credentials);
     }
 
-    public String loadData() {
+    public List<IEssDimension> loadData() {
         String str = "Failed";
+        List<IEssDimension> list = new ArrayList<IEssDimension>();
         try {
             if(this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
-                EssbaseHelper.loadData(this.essbaseConnection.getOlapSvr());
+                list = EssbaseHelper.loadData(this.essbaseConnection.getOlapSvr());
                 str = "Loaded";
             } else {
                 str = "No Connection available";
@@ -33,7 +40,34 @@ public class  LoginService {
             e.printStackTrace();
             str = e.getMessage();
         }
-        return str;
+        return list;
+    }
+
+    public List<Dimension> getAllDimensions() {
+        List<Dimension> dimensionList = new ArrayList<Dimension>();
+        try {
+            if(this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+                dimensionList = EssbaseHelper.getAllDimensions(this.essbaseConnection.getOlapSvr());
+            } 
+                
+		} catch (EssException e) {
+            e.printStackTrace();
+        }
+        return dimensionList;
+    }
+
+    public List<EMembers> getAllMembersForDimensions(String dimName) {
+        List<EMembers> membersList = new ArrayList<EMembers>();
+        try {
+            if(this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+                membersList = EssbaseHelper.getAllMembersForDimensions(this.essbaseConnection.getOlapSvr(), dimName);
+            } 
+                
+		} catch (EssException e) {
+            e.printStackTrace();
+        }
+        return membersList;
+
     }
 
     public void disconnect() {
