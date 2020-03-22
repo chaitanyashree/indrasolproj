@@ -98,6 +98,8 @@ var str = 'Bob Smith';
 
 function makeLoadCall() {
   Logger.log('makeLoadCall....');
+  var response = urlFetchApp.fetch('http://35.184.51.106:8080/essbase/dimensions');
+  return response.getContentText();
   return;
 }
 
