@@ -1,7 +1,9 @@
 package com.indrasol.essbase.essbasesheetplugin.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.essbase.api.base.EssException;
 import com.essbase.api.metadata.IEssDimension;
@@ -41,6 +43,24 @@ public class  LoginService {
             str = e.getMessage();
         }
         return list;
+    }
+
+    public Map<String,List<String>> getAllApplications() {
+        String str = "Failed";
+        Map<String,List<String>> map = new HashMap<String,List<String>>();
+        try {
+            if(this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+                map = EssbaseHelper.getAllApplications(this.essbaseConnection.getOlapSvr());
+                str = "Loaded";
+            } else {
+                str = "No Connection available";
+            }
+
+        } catch (EssException e) {
+            e.printStackTrace();
+            str = e.getMessage();
+        }
+        return map;
     }
 
     public List<Dimension> getAllDimensions() {

@@ -1,11 +1,16 @@
 package com.indrasol.essbase.essbasesheetplugin.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.essbase.api.base.EssException;
+import com.essbase.api.base.IEssBaseObject;
+import com.essbase.api.base.IEssIterator;
 import com.essbase.api.dataquery.IEssCubeView;
 import com.essbase.api.datasource.IEssCube;
+import com.essbase.api.datasource.IEssOlapApplication;
 import com.essbase.api.datasource.IEssOlapFileObject;
 import com.essbase.api.datasource.IEssOlapServer;
 import com.essbase.api.domain.IEssDomain;
@@ -17,6 +22,7 @@ import com.indrasol.essbase.essbasesheetplugin.model.Credentials;
 import com.indrasol.essbase.essbasesheetplugin.model.Dimension;
 import com.indrasol.essbase.essbasesheetplugin.model.EMembers;
 import com.indrasol.essbase.essbasesheetplugin.model.EssbaseConnection;
+import javafx.application.Application;
 
 /**
     Connect example signs on to Analytic Server and signs off.
@@ -117,6 +123,27 @@ public class EssbaseHelper {
 
     }
 
+
+    public static Map<String,List<String>> getAllApplications(IEssOlapServer olapSvr) throws EssException {
+        Map<String,List<String>> listMapApplications = new HashMap<String,List<String>>();
+        IEssBaseObject[] appObjArr  =  olapSvr.getApplications().getAll();
+        for (IEssBaseObject anAppObjArr : appObjArr) {
+            IEssOlapApplication appObj = (IEssOlapApplication) anAppObjArr;
+            String appName = appObj.getName();
+            System.out.println("ApplicationName=" + appName);
+            IEssBaseObject[] cubeArr = appObj.getCubes().getAll();
+            List<String> listCubes = new ArrayList<String>();
+            for (IEssBaseObject aCubeArr : cubeArr) {
+                IEssCube cube = (IEssCube) aCubeArr;
+                System.out.println("\tCubeName: " + cube.getName());
+                listCubes.add(cube.getName());
+            }
+            listMapApplications.put(appName,listCubes);
+        }
+        return listMapApplications;
+
+    }
+
     public static List<Dimension> getAllDimensions(IEssOlapServer olapSvr) throws EssException {
         List<Dimension> listDimension = new ArrayList<Dimension>();
         List<EMembers> listMembers = new ArrayList<EMembers>();
@@ -196,6 +223,24 @@ public class EssbaseHelper {
         } catch (EssException x) {
             System.err.println("Error: " + x.getMessage());
         }
+    }
+
+    public static void main(String args[]) throws Exception {
+        Credentials credentials = new Credentials();
+        credentials.setOlapServerName("ec2-3-7-12-73.ap-south-1.compute.amazonaws.com");
+        credentials.setUrl("http://ec2-3-7-12-73.ap-south-1.compute.amazonaws.com:28080/aps/JAPI");
+        credentials.setUserName("admin");
+        credentials.setPassword("admin123");
+
+        EssbaseConnection con = EssbaseHelper.connect(credentials);
+        Map<String,List<String>> list = new HashMap<String, List<String>>();
+        if(con != null && con.getOlapSvr() != null) {
+            list = EssbaseHelper.getAllApplications(con.getOlapSvr());
+        }
+        System.out.println("List="+list);
+        EssbaseHelper.disconnect(con);
+
+
     }
 
 }

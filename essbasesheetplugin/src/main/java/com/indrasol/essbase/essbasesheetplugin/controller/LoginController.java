@@ -1,6 +1,7 @@
 package com.indrasol.essbase.essbasesheetplugin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import com.essbase.api.metadata.IEssDimension;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,6 +41,9 @@ public class LoginController {
     @Value("${essbase.s_provider}")
     private String s_provider;
 
+    @Value("${essbase.plugin.version}")
+    private String sVersion;
+
     @Autowired
     public LoginController(LoginService loginService) {
         this.loginService = loginService;
@@ -48,7 +52,7 @@ public class LoginController {
 
     @GetMapping("/hello")
     public String sayHello() {
-        return "Hello Essbase plugin";
+        return "Hello Essbase plugin version: "+sVersion;
     }
 
     @GetMapping("/testlogin")
@@ -99,6 +103,11 @@ public class LoginController {
     @GetMapping("/loaddata")
     public List<IEssDimension> loadData() {
         return loginService.loadData();
+    }
+
+    @GetMapping("/applications")
+    public Map<String,List<String>> getAllApplications() {
+        return loginService.getAllApplications();
     }
 
     @GetMapping("/dimensions")
