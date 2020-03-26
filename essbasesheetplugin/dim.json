@@ -464,3 +464,73 @@
         ]
     }
 ]
+
+[
+    {
+        "applicationName": "Demo",
+        "cubeNames": [
+            "Basic"
+        ]
+    },
+    {
+        "applicationName": "Sample",
+        "cubeNames": [
+            "Basic",
+            "Xchgrate",
+            "Interntl"
+        ]
+    },
+    {
+        "applicationName": "Sample_U",
+        "cubeNames": [
+            "Basic"
+        ]
+    },
+    {
+        "applicationName": "Samppart",
+        "cubeNames": [
+            "Company"
+        ]
+    },
+    {
+        "applicationName": "Sampeast",
+        "cubeNames": [
+            "East"
+        ]
+    },
+    {
+        "applicationName": "ASOsamp",
+        "cubeNames": [
+            "Sample"
+        ]
+    },
+    {
+        "applicationName": "Vision",
+        "cubeNames": [
+            "Plan1",
+            "Plan2",
+            "Plan3"
+        ]
+    },
+    {
+        "applicationName": "FBTax",
+        "cubeNames": [
+            "FBTax"
+        ]
+    },
+    {
+        "applicationName": "FBPlanA",
+        "cubeNames": [
+            "FinStmt",
+            "RevCOGS",
+            "Wrkforce",
+            "Capex"
+        ]
+    },
+    {
+        "applicationName": "FBCP",
+        "cubeNames": [
+            "CostPlus"
+        ]
+    }
+]

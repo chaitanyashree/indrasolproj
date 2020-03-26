@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <!-- The CSS package above applies Google styling to buttons and other elements. -->
+
+
+    <style>
+        .branding-below {
+            bottom: 56px;
+            top: 0;
+        }
+
+        .branding-text {
+            left: 7px;
+            position: relative;
+            top: 3px;
+        }
+
+        .col-contain {
+            overflow: hidden;
+        }
+
+        .col-one {
+            float: left;
+            width: 50%;
+        }
+
+        .logo {
+            vertical-align: middle;
+        }
+
+        .radio-spacer {
+            height: 20px;
+        }
+
+        .width-100 {
+            width: 100%;
+        }
+    </style>
+    <style>
+        /* Remove default bullets */
+        ul,
+        #myUL {
+            list-style-type: none;
+        }
+
+        /* Remove margins and padding from the parent ul */
+        #myUL {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style the caret/arrow */
+        .caret {
+            cursor: pointer;
+            user-select: none;
+            /* Prevent text selection */
+        }
+
+        /* Create the caret/arrow with a unicode, and style it */
+        .caret::before {
+            content: "\25B6";
+            color: black;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+        .caret-down::before {
+            transform: rotate(90deg);
+        }
+
+        /* Hide the nested list */
+        .nested {
+            display: none;
+        }
+
+        /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+        .active {
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="msgBlock">
+    </div>
+
+    <div class="sidebar branding-below">
+        <form>
+            <div id="connectBlock" hidden>
+                <div class="block form-group">
+                    <label for="connecturl-text"><b>Connection URL</b></label>
+                    <textarea class="width-100" id="connecturl-text"
+                        rows="10">http://ec2-3-7-12-73.ap-south-1.compute.amazonaws.com:28080/aps/JAPI</textarea>
+                </div>
+                <div class="block form-group">
+                    <label><b>Olap Server Name</b></label>
+                    <input type=text id="olapServerName" name="olapServerName"
+                        value="ec2-3-7-12-73.ap-south-1.compute.amazonaws.com" />
+                </div>
+                <div class="block form-group">
+                    <label><b>User Name</b></label>
+                    <input type=text id="userName" name="userName" value="admin" />
+                </div>
+                <div class="block form-group">
+                    <label><b>Password</b></label>
+                    <input type=password id="password" name="password" value="admin123" />
+                </div>
+                <div class="block" id="button-bar">
+                    <button class="blue" id="connect-button">Connect</button>
+                    <button id="cancel-button" onclick="callClose()">Cancel</button>
+                </div>
+            </div>
+            <div id="pluginUI" hidden>
+                <label for="connecturl-text"><b>Connected Succesfully!</b></label></br></p>
+                <div class="block" id="button-bar">
+                    <button class="blue" id="load-button">Load</button>
+                    <button class="blue" id="logout-button">Logout</button>
+                    <button id="cancel-button" onclick="callClose()">Cancel</button>
+                </div>
+
+            </div>
+            <!--div id="applicationTreeView" hidden>
+                </p>
+                <ul id="myUL">
+                    <li><span class="caret">Beverages</span>
+                        <ul class="nested">
+                            <li>Water</li>
+                            <li>Coffee</li>
+                            <li><span class="caret">Tea</span>
+                                <ul class="nested">
+                                    <li>Black Tea</li>
+                                    <li>White Tea</li>
+                                    <li><span class="caret">Green Tea</span>
+                                        <ul class="nested">
+                                            <li>Sencha</li>
+                                            <li>Gyokuro</li>
+                                            <li>Matcha</li>
+                                            <li>Pi Lo Chun</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div/-->
+        </form>
+    </div>
+
+    <div id="treeview_json">
+        <ul id='rootUl'>
+            <li id='rootAppNode'><b>Applications</b></li>
+        </ul>
+    </div>
+
+    <div class="sidebar bottom">
+        <img alt="Add-on logo" class="logo" src="https://www.gstatic.com/images/branding/product/1x/translate_48dp.png"
+            width="27" height="27">
+        <span class="gray branding-text">Essbase sample by Indrasol</span>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script>
+        /**
+         * On document load, assign click handlers to each button and try to load the
+         * user's origin and destination language preferences if previously set.
+         */
+        // var toggler = document.getElementsByClassName("caret");
+        // var i;
+
+        // for (i = 0; i < toggler.length; i++) {
+        //     toggler[i].addEventListener("click", function () {
+        //         this.parentElement.querySelector(".nested").classList.toggle("active");
+        //         this.classList.toggle("caret-down");
+        //     });
+        // }
+
+        $(document).on('click', '.caret', function () {
+            console.log('inside click');
+            console.log($(this).parent().select('.nested').classList);
+        });
+
+
+        $(function () {
+            //alert('setting click');
+            //$('#pluginUI').hide();
+            $('#connect-button').click(onConnect);
+            $('#load-button').click(callLoad);
+            $('#logout-button').click(callLogout);
+            /* var returnSuccess = {
+                 "FBPlanA": [
+                     "FinStmt",
+                     "RevCOGS",
+                     "Wrkforce",
+                     "Capex"
+                 ],
+                 "Demo": [
+                     "Basic"
+                 ],
+                 "Sample": [
+                     "Basic",
+                     "Xchgrate",
+                     "Interntl"
+                 ],
+                 "Vision": [
+                     "Plan1",
+                     "Plan2",
+                     "Plan3"
+                 ],
+                 "FBTax": [
+                     "FBTax"
+                 ],
+                 "Samppart": [
+                     "Company"
+                 ],
+                 "ASOsamp": [
+                     "Sample"
+                 ],
+                 "Sampeast": [
+                     "East"
+                 ],
+                 "FBCP": [
+                     "CostPlus"
+                 ],
+                 "Sample_U": [
+                     "Basic"
+                 ]
+             };
+             */
+            var returnSuccess = [
+                {
+                    "applicationName": "Demo",
+                    "cubeNames": [
+                        "Basic"
+                    ]
+                },
+                {
+                    "applicationName": "Sample",
+                    "cubeNames": [
+                        "Basic",
+                        "Xchgrate",
+                        "Interntl"
+                    ]
+                },
+                {
+                    "applicationName": "Sample_U",
+                    "cubeNames": [
+                        "Basic"
+                    ]
+                },
+                {
+                    "applicationName": "Samppart",
+                    "cubeNames": [
+                        "Company"
+                    ]
+                },
+                {
+                    "applicationName": "Sampeast",
+                    "cubeNames": [
+                        "East"
+                    ]
+                },
+                {
+                    "applicationName": "ASOsamp",
+                    "cubeNames": [
+                        "Sample"
+                    ]
+                },
+                {
+                    "applicationName": "Vision",
+                    "cubeNames": [
+                        "Plan1",
+                        "Plan2",
+                        "Plan3"
+                    ]
+                },
+                {
+                    "applicationName": "FBTax",
+                    "cubeNames": [
+                        "FBTax"
+                    ]
+                },
+                {
+                    "applicationName": "FBPlanA",
+                    "cubeNames": [
+                        "FinStmt",
+                        "RevCOGS",
+                        "Wrkforce",
+                        "Capex"
+                    ]
+                },
+                {
+                    "applicationName": "FBCP",
+                    "cubeNames": [
+                        "CostPlus"
+                    ]
+                }
+            ];
+            formApplicationTree(returnSuccess);
+            // $('#insert-text').click(insertText);
+            //  google.script.run.withSuccessHandler(loadPreferences)
+            //     .withFailureHandler(showError).getPreferences();
+            //alert('setting click2');
+            //  var toggler = document.getElementsByClassName("caret");
+
+             var toggler = document.getElementsByClassName("caret");
+            var i;
+
+            for (i = 0; i < toggler.length; i++) {
+                toggler[i].addEventListener("click", function () {
+                    this.parentElement.querySelector(".nested").classList.toggle("active");
+                    this.classList.toggle("caret-down");
+                });
+            }
+
+
+            // $(document).on("click", ".nested", function () {
+            //     alert('span check');
+            // });
+  
+
+        });
+
+        /*function renderContents(contents) {
+            var index, ul;
+
+            // Create a list for these contents
+            ul = $("<ul>");
+            //ul.addClass("nested");
+
+            // Fill it in
+            $.each(contents, function (index, entry) {
+                var li;
+
+                // Create list item
+                li = $("<li>");
+                
+
+                
+                // Set the text
+                li.text(index);
+                // Append a sublist of its contents if it has them
+                if (entry.content) {
+                    li.append(renderContents(entry.content));
+                }
+
+                // Add this item to our list
+                ul.append(li);
+            });
+
+            // Return it
+            return ul;
+        }
+*/
+
+        var list = "<ul>";
+
+        function recurse(key, val) {
+            console.log("key=" + key + "\tval=" + val);
+
+            list += "<li>";
+            var intRegex = /^\d+$/;
+            if (intRegex.test(key)) {
+                //key = 'Item ' + key;
+                key = '' + key;;
+            }
+            if (val instanceof Object) {
+                var conf_id = key.replace(/ /g, '');
+                list += '<span  id="conf_' + conf_id + '" class="caret">' + key + '</span>' + "<ul class='nested'>";
+                $.each(val, recurse);
+                list += "</ul>";
+            } else {
+                //list += key + ":" + val;
+                list += "- <a href='#'>" + val + "</a>";
+            }
+            list += "</li>";
+        }
+
+        function clickMe(e) {
+            e.parentElement.querySelector(".nested").classList.toggle("active");
+            e.classList.toggle("caret-down");
+        }
+
+        function formApplicationTree(obj) {
+            //     // $('#applicationTreeView').append(renderContents(obj));
+
+            //     $.each(obj, recurse);
+            //     //var depth = 0;
+
+            //     list += "</ul>";
+            //     console.log(list);
+            //    //$("body").html(list);
+            //     html = $.parseHTML( list );
+            //     $('#treeview_json').append(html);
+            //     //document.getElementById('treeview_json').innerHTML=list;
+            list = "<ul>";
+            for (var i in obj) {
+                var o = obj[i];
+                list += "<li>";
+                list += '<span  id="' + o.applicationName + '" class="caret">' + o.applicationName + '</span>' + "<ul class='nested'>";
+                for (var c in o.cubeNames) {
+                    list += "<li>";
+                    list += "- <a href='#'>" + o.cubeNames[c] + "</a>";
+                    list += "</li>";
+                }
+                list += "</ul></li>";
+            }
+            list += "</ul>";
+            console.log(list);
+            //$("body").html(list);
+            // document.getElementById('treeview_json').innerHTML=list;
+            html = $.parseHTML(list);
+            $('#rootUl').replace(html);
+            //$('#rootAppNode').html(list);
+
+
+        }
+        function callLoad() {
+            console.log('inside callLoad.');
+            //   google.script.run
+            //     .withSuccessHandler(
+            //       function (returnSuccess, element) {
+            //         console.log('withsuccess' + returnSuccess);
+            //         //$('#connectBlock').hide();
+            //         //displayUIAfterConnect();
+            //         //element.disabled = false;
+            //         formApplicationTree(returnSuccess,element);
+            //         $('#applicationTreeView').show();
+            //       })
+            //     .withFailureHandler(
+            //       function (msg, element) {
+            //         alert('withfailure');
+            //         showError(msg, $('#button-bar'));
+            //         //element.disabled = false;
+            //       })
+            //     //.withUserObject(this)
+            //     .makeLoadCall();
+
+        }
+        function callLogout() {
+            console.log('inside callLogout.');
+            //   google.script.run
+            //     .withSuccessHandler(
+            //       function (returnSuccess, element) {
+            //         console.log('withsuccess' + returnSuccess);
+            //         $('#pluginUI').hide();
+            //         $('#connectBlock').show();
+            //         //displayUIAfterConnect();
+            //         //element.disabled = false;
+            //       })
+            //     .withFailureHandler(
+            //       function (msg, element) {
+            //         alert('withfailure');
+            //         showError(msg, $('#button-bar'));
+            //         //element.disabled = false;
+            //       })
+            //     //.withUserObject(this)
+            //     .makeLogoutCall();
+        }
+
+        function callClose() {
+            callLogout();
+            //   google.script.host.close();
+        }
+
+        function onConnect() {
+            //alert('hi');
+            //   var url = $('#connecturl-text').val();
+            //   var olapServerNameStr = $('#olapServerName').val();
+            //   var userNameStr = $('#userName').val();
+            //   var passwordStr = $('#password').val();
+            //   alert(url);
+
+            //   google.script.run
+            //     .withSuccessHandler(
+            //       function (returnSuccess, element) {
+            //         console.log('withsuccess' + returnSuccess);
+            //         $('#connectBlock').hide();
+            //         displayUIAfterConnect();
+            //         //element.disabled = false;
+            //       })
+            //     .withFailureHandler(
+            //       function (msg, element) {
+            //         alert('withfailure');
+            //         showError(msg, $('#button-bar'));
+            //         //element.disabled = false;
+            //       })
+            //     //.withUserObject(this)
+            //     .makeConnectCall(url, olapServerNameStr, userNameStr, passwordStr);
+            //google.script.run.makeConnectCall(url,olapServerNameStr,userNameStr,passwordStr);
+            //google.script.run.sayHello();
+        }
+        /**
+         * Inserts a div that contains an error message after a given element.
+         *
+         * @param {string} msg The error message to display.
+         * @param {DOMElement} element The element after which to display the error.
+         */
+        function showError(msg, element) {
+            var div = $('<div id="error" class="error">' + msg + '</div>');
+            $(element).after(div);
+        }
+
+        function displayUIAfterConnect() {
+            $('#pluginUI').show();
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,209 @@
+{
+    "FBPlanA": [
+        "FinStmt",
+        "RevCOGS",
+        "Wrkforce",
+        "Capex"
+    ],
+    "Demo": [
+        "Basic"
+    ],
+    "Sample": [
+        "Basic",
+        "Xchgrate",
+        "Interntl"
+    ],
+    "Vision": [
+        "Plan1",
+        "Plan2",
+        "Plan3"
+    ],
+    "FBTax": [
+        "FBTax"
+    ],
+    "Samppart": [
+        "Company"
+    ],
+    "ASOsamp": [
+        "Sample"
+    ],
+    "Sampeast": [
+        "East"
+    ],
+    "FBCP": [
+        "CostPlus"
+    ],
+    "Sample_U": [
+        "Basic"
+    ]
+}
+//----
+[
+    {
+        "id": "1",
+        "name": "Electronics",
+        "text": "Electronics",
+        "parent_id": "0",
+        "children": [
+            {
+                "id": "2",
+                "name": "Mobile",
+                "text": "Mobile",
+                "parent_id": "1",
+                "children": [
+                    {
+                        "id": "7",
+                        "name": "Samsung",
+                        "text": "Samsung",
+                        "parent_id": "2",
+                        "children": [],
+                        "data": {},
+                        "a_attr": {
+                            "href": "google.com"
+                        }
+                    },
+                    {
+                        "id": "8",
+                        "name": "Apple",
+                        "text": "Apple",
+                        "parent_id": "2",
+                        "children": [],
+                        "data": {},
+                        "a_attr": {
+                            "href": "google.com"
+                        }
+                    }
+                ],
+                "data": {},
+                "a_attr": {
+                    "href": "google.com"
+                }
+            },
+            {
+                "id": "3",
+                "name": "Laptop",
+                "text": "Laptop",
+                "parent_id": "1",
+                "children": [
+                    {
+                        "id": "4",
+                        "name": "Keyboard",
+                        "text": "Keyboard",
+                        "parent_id": "3",
+                        "children": [],
+                        "data": {},
+                        "a_attr": {
+                            "href": "google.com"
+                        }
+                    },
+                    {
+                        "id": "5",
+                        "name": "Computer Peripherals",
+                        "text": "Computer Peripherals",
+                        "parent_id": "3",
+                        "children": [
+                            {
+                                "id": "6",
+                                "name": "Printers",
+                                "text": "Printers",
+                                "parent_id": "5",
+                                "children": [],
+                                "data": {},
+                                "a_attr": {
+                                    "href": "google.com"
+                                }
+                            },
+                            {
+                                "id": "10",
+                                "name": "Monitors",
+                                "text": "Monitors",
+                                "parent_id": "5",
+                                "children": [],
+                                "data": {},
+                                "a_attr": {
+                                    "href": "google.com"
+                                }
+                            }
+                        ],
+                        "data": {},
+                        "a_attr": {
+                            "href": "google.com"
+                        }
+                    },
+                    {
+                        "id": "11",
+                        "name": "Dell",
+                        "text": "Dell",
+                        "parent_id": "3",
+                        "children": [],
+                        "data": {},
+                        "a_attr": {
+                            "href": "google.com"
+                        }
+                    }
+                ],
+                "data": {},
+                "a_attr": {
+                    "href": "google.com"
+                }
+            }
+        ],
+        "data": {},
+        "a_attr": {
+            "href": "google.com"
+        }
+    }
+]
+
+
+jQuery(function($) {
+
+    display("Loading the JSON data");
+    $.ajax({
+      type:     "GET",
+      url:      "/path/to/the/data",
+      dataType: "JSON",
+      success:  function(data) {
+        display("Got the data, rendering it.");
+        $(document.body).append(renderContents(data.contents));
+      },
+      error:    function() {
+        display("An error occurred.");
+      }
+    });
+  
+    function renderContents(contents) {
+      var index, ul;
+  
+      // Create a list for these contents
+      ul = $("<ul>");
+  
+      // Fill it in
+      $.each(contents, function(index, entry) {
+        var li;
+  
+        // Create list item
+        li = $("<li>");
+  
+        // Set the text
+        li.text(entry.filename);
+  
+        // Append a sublist of its contents if it has them
+        if (entry.content) {
+          li.append(renderContents(entry.content));
+        }
+  
+        // Add this item to our list
+        ul.append(li);
+      });
+  
+      // Return it
+      return ul;
+    }
+  
+    function display(msg) {
+      $("<p>").html(msg).appendTo(document.body);
+    }
+  });
+  
+  

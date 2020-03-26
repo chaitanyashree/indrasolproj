@@ -18,10 +18,7 @@ import com.essbase.api.metadata.IEssCubeOutline;
 import com.essbase.api.metadata.IEssDimension;
 import com.essbase.api.metadata.IEssMember;
 import com.essbase.api.session.IEssbase;
-import com.indrasol.essbase.essbasesheetplugin.model.Credentials;
-import com.indrasol.essbase.essbasesheetplugin.model.Dimension;
-import com.indrasol.essbase.essbasesheetplugin.model.EMembers;
-import com.indrasol.essbase.essbasesheetplugin.model.EssbaseConnection;
+import com.indrasol.essbase.essbasesheetplugin.model.*;
 import javafx.application.Application;
 
 /**
@@ -124,8 +121,8 @@ public class EssbaseHelper {
     }
 
 
-    public static Map<String,List<String>> getAllApplications(IEssOlapServer olapSvr) throws EssException {
-        Map<String,List<String>> listMapApplications = new HashMap<String,List<String>>();
+    public static List<EApplication> getAllApplications(IEssOlapServer olapSvr) throws EssException {
+        List<EApplication> listApplications = new ArrayList<EApplication>();
         IEssBaseObject[] appObjArr  =  olapSvr.getApplications().getAll();
         for (IEssBaseObject anAppObjArr : appObjArr) {
             IEssOlapApplication appObj = (IEssOlapApplication) anAppObjArr;
@@ -138,9 +135,10 @@ public class EssbaseHelper {
                 System.out.println("\tCubeName: " + cube.getName());
                 listCubes.add(cube.getName());
             }
-            listMapApplications.put(appName,listCubes);
+            EApplication application = new EApplication(appName,listCubes);
+            listApplications.add(application);
         }
-        return listMapApplications;
+        return listApplications;
 
     }
 
@@ -233,7 +231,7 @@ public class EssbaseHelper {
         credentials.setPassword("admin123");
 
         EssbaseConnection con = EssbaseHelper.connect(credentials);
-        Map<String,List<String>> list = new HashMap<String, List<String>>();
+        List<EApplication> list = new ArrayList<EApplication>();
         if(con != null && con.getOlapSvr() != null) {
             list = EssbaseHelper.getAllApplications(con.getOlapSvr());
         }

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.indrasol.essbase.essbasesheetplugin.model.Credentials;
 import com.indrasol.essbase.essbasesheetplugin.model.Dimension;
+import com.indrasol.essbase.essbasesheetplugin.model.EApplication;
 import com.indrasol.essbase.essbasesheetplugin.model.EMembers;
 import com.indrasol.essbase.essbasesheetplugin.service.LoginService;
 
@@ -106,7 +107,7 @@ public class LoginController {
     }
 
     @GetMapping("/applications")
-    public Map<String,List<String>> getAllApplications() {
+    public List<EApplication> getAllApplications() {
         return loginService.getAllApplications();
     }
 

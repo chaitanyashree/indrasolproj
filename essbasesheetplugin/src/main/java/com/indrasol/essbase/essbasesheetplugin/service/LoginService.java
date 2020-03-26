@@ -7,10 +7,7 @@ import java.util.Map;
 
 import com.essbase.api.base.EssException;
 import com.essbase.api.metadata.IEssDimension;
-import com.indrasol.essbase.essbasesheetplugin.model.Credentials;
-import com.indrasol.essbase.essbasesheetplugin.model.Dimension;
-import com.indrasol.essbase.essbasesheetplugin.model.EMembers;
-import com.indrasol.essbase.essbasesheetplugin.model.EssbaseConnection;
+import com.indrasol.essbase.essbasesheetplugin.model.*;
 import com.indrasol.essbase.essbasesheetplugin.util.EssbaseHelper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +42,12 @@ public class  LoginService {
         return list;
     }
 
-    public Map<String,List<String>> getAllApplications() {
+    public List<EApplication> getAllApplications() {
         String str = "Failed";
-        Map<String,List<String>> map = new HashMap<String,List<String>>();
+        List<EApplication> appList = new ArrayList<EApplication>();
         try {
             if(this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
-                map = EssbaseHelper.getAllApplications(this.essbaseConnection.getOlapSvr());
+                appList = EssbaseHelper.getAllApplications(this.essbaseConnection.getOlapSvr());
                 str = "Loaded";
             } else {
                 str = "No Connection available";
@@ -60,7 +57,7 @@ public class  LoginService {
             e.printStackTrace();
             str = e.getMessage();
         }
-        return map;
+        return appList;
     }
 
     public List<Dimension> getAllDimensions() {
