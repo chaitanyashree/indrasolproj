@@ -40,48 +40,84 @@
     }
   </style>
   <style>
-    /* Remove default bullets */
-    ul,
-    #myUL {
-      list-style-type: none;
+    /*body {
+      background: #111 no-repeat;
+      background-image: -webkit-gradient(radial, 50% 0, 150, 50% 0, 300, from(#444), to(#111));
+    }*/
+
+    h1,
+    h2 {
+      text-align: center;
+      color: #111;
     }
 
-    /* Remove margins and padding from the parent ul */
-    #myUL {
-      margin: 0;
-      padding: 0;
+    h2 a {
+      color: #0184e3;
+      text-decoration: none;
     }
 
-    /* Style the caret/arrow */
-    .caret {
+    h2 a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: 1000px;
+      margin: auto;
+      color: #111;
+      font-size: 15px;
+    }
+
+    .container h3 {
+      font-size: 20px;
+    }
+
+    #content {
+      border: dashed 2px #FFF;
+      padding: 10px;
+    }
+
+    #treeview,
+    #treeview ul {
+      list-style: none;
+      padding-left: 15px;
+    }
+
+    #treeview .parent {
+      position: relative;
       cursor: pointer;
-      user-select: none;
-      /* Prevent text selection */
     }
 
-    /* Create the caret/arrow with a unicode, and style it */
-    .caret::before {
-      content: "\25B6";
-      color: black;
-      display: inline-block;
-      margin-right: 6px;
+    #treeview .parent:before {
+      padding-left: 25px;
+      padding-bottom: 25px;
+      background: url(https://www.demo.yogihosting.com/jquery/jquery-treeview/image/plus-minus.png) no-repeat;
+      background-position: -25px top;
+      content: "";
+      height: 25px;
     }
 
-    /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
-    .caret-down::before {
-      transform: rotate(90deg);
+    #treeview .close:before {
+      background-position: 0 top;
     }
 
-    /* Hide the nested list */
-    .nested {
+    #treeview .parent>ul {
       display: none;
     }
 
-    /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
-    .active {
-      display: block;
+    #reset {
+      padding: 5px 10px;
+      background: #4CAF50;
+      border: none;
+      color: #FFF;
+      cursor: pointer;
+    }
+
+    #reset:hover {
+      color: #4CAF50;
+      background: #FFF;
     }
   </style>
+
 
 </head>
 
@@ -124,30 +160,10 @@
         </div>
 
       </div>
-      <div id="applicationTreeView" hidden>
-      </p>
-        <ul id="myUL">
-          <li><span class="caret">Beverages</span>
-            <ul class="nested">
-              <li>Water</li>
-              <li>Coffee</li>
-              <li><span class="caret">Tea</span>
-                <ul class="nested">
-                  <li>Black Tea</li>
-                  <li>White Tea</li>
-                  <li><span class="caret">Green Tea</span>
-                    <ul class="nested">
-                      <li>Sencha</li>
-                      <li>Gyokuro</li>
-                      <li>Matcha</li>
-                      <li>Pi Lo Chun</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
+
+      <div class="container block">
+        <div id="content">
+        </div>
       </div>
     </form>
   </div>
@@ -166,33 +182,57 @@
      * On document load, assign click handlers to each button and try to load the
      * user's origin and destination language preferences if previously set.
      */
-    var toggler = document.getElementsByClassName("caret");
-    var i;
 
-    for (i = 0; i < toggler.length; i++) {
-      toggler[i].addEventListener("click", function () {
-        this.parentElement.querySelector(".nested").classList.toggle("active");
-        this.classList.toggle("caret-down");
-      });
-    }
 
     $(function () {
       //alert('setting click');
       //$('#pluginUI').hide();
       $('#connect-button').click(onConnect);
       $('#load-button').click(callLoad);
-      $('#logout-button').click(callLogout)
+      $('#logout-button').click(callLogout);
       // $('#insert-text').click(insertText);
       //  google.script.run.withSuccessHandler(loadPreferences)
       //     .withFailureHandler(showError).getPreferences();
       //alert('setting click2');
+      $("#treeview .parent").click(function (e) {
+        e.stopPropagation();
+        $(this).find(">ul").toggle("slow");
+        if ($(this).hasClass("close"))
+          $(this).removeClass("close");
+        else
+          $(this).addClass("close");
+      });
 
     });
 
-    function formApplicationTree(returnSuccess,element) {
-      console.log(returnSuccess);
-      
-      var htmlStr = ""
+    function formApplicationTree(obj) {
+
+      list = "<ul id='treeview'>";
+      for (var i in obj) {
+        var o = obj[i];
+        var parentClassStr = "";
+        if (o.cubeNames && o.cubeNames.length) {
+          parentClassStr = " class='parent' ";
+          list += "<li " + parentClassStr + ">";
+          list += o.applicationName + "<ul>";
+          for (var c in o.cubeNames) {
+            list += "<li>";
+            list += "- <a href='#'>" + o.cubeNames[c] + "</a>";
+            list += "</li>";
+          }
+        }
+        list += "</ul></li>";
+
+
+      }
+      list += "</ul>";
+      console.log(list);
+      //$("body").html(list);
+      // document.getElementById('treeview_json').innerHTML=list;
+      html = $.parseHTML(list);
+      $('#content').append(html);
+      //$('#rootAppNode').html(list);
+
 
     }
     function callLoad() {
@@ -204,8 +244,17 @@
             //$('#connectBlock').hide();
             //displayUIAfterConnect();
             //element.disabled = false;
-            formApplicationTree(returnSuccess,element);
-            $('#applicationTreeView').show();
+            var jsonObj = JSON.parse(returnSuccess);
+            formApplicationTree(jsonObj);
+            $("#treeview .parent").click(function (e) {
+              e.stopPropagation();
+              $(this).find(">ul").toggle("slow");
+              if ($(this).hasClass("close"))
+                $(this).removeClass("close");
+              else
+                $(this).addClass("close");
+            });
+
           })
         .withFailureHandler(
           function (msg, element) {
@@ -219,6 +268,7 @@
     }
     function callLogout() {
       console.log('inside callLogout.');
+      $('#treeview').remove();
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
