@@ -60,13 +60,13 @@ public class  LoginService {
         return appList;
     }
 
-    public List<Dimension> getAllDimensions() {
+    public List<Dimension> getAllDimensions(String applicationName, String cubeName) {
         List<Dimension> dimensionList = new ArrayList<Dimension>();
         try {
             if(this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
-                dimensionList = EssbaseHelper.getAllDimensions(this.essbaseConnection.getOlapSvr());
+                dimensionList = EssbaseHelper.getAllDimensions(this.essbaseConnection.getOlapSvr(), applicationName,cubeName);
             } 
-                
+
 		} catch (EssException e) {
             e.printStackTrace();
         }

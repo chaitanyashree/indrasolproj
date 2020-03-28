@@ -111,9 +111,9 @@ public class LoginController {
         return loginService.getAllApplications();
     }
 
-    @GetMapping("/dimensions")
-    public List<Dimension> getAllDimensions() {
-        return loginService.getAllDimensions();
+    @GetMapping("/applications/{applicationName}/{cubeName}/dimensions")
+    public List<Dimension> getAllDimensions(@PathVariable("applicationName") String applicationName, @PathVariable("cubeName") String cubeName) {
+        return loginService.getAllDimensions(applicationName,cubeName);
 
     }
 

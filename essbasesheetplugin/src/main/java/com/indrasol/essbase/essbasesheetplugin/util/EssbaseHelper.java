@@ -19,7 +19,6 @@ import com.essbase.api.metadata.IEssDimension;
 import com.essbase.api.metadata.IEssMember;
 import com.essbase.api.session.IEssbase;
 import com.indrasol.essbase.essbasesheetplugin.model.*;
-import javafx.application.Application;
 
 /**
     Connect example signs on to Analytic Server and signs off.
@@ -142,11 +141,12 @@ public class EssbaseHelper {
 
     }
 
-    public static List<Dimension> getAllDimensions(IEssOlapServer olapSvr) throws EssException {
+    public static List<Dimension> getAllDimensions(IEssOlapServer olapSvr, String applicationName, String cubeName) throws EssException {
         List<Dimension> listDimension = new ArrayList<Dimension>();
         List<EMembers> listMembers = new ArrayList<EMembers>();
         
-        IEssCube cube = olapSvr.getApplication("Sample").getCube("Basic");
+        //IEssCube cube = olapSvr.getApplication("Sample").getCube("Basic");
+        IEssCube cube = olapSvr.getApplication(applicationName).getCube(cubeName);
         IEssCubeOutline otl = cube.openOutline();
         List<IEssDimension> dimensionObjList = EssbaseUtil.getDimensionsAsList(otl);
         System.out.println("\nOutline Viewing sample complete."+dimensionObjList);
@@ -234,8 +234,11 @@ public class EssbaseHelper {
         List<EApplication> list = new ArrayList<EApplication>();
         if(con != null && con.getOlapSvr() != null) {
             list = EssbaseHelper.getAllApplications(con.getOlapSvr());
+            List<Dimension> lisdim = EssbaseHelper.getAllDimensions(con.getOlapSvr(),"Sample", "Basic");
+            System.out.println("listdim="+lisdim);
         }
         System.out.println("List="+list);
+
         EssbaseHelper.disconnect(con);
 
 
