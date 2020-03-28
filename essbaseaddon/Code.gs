@@ -101,7 +101,15 @@ function makeLoadCall() {
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications');
   SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   return response.getContentText();
-  return;
+  
+}
+
+function makeLoadDimensions(selectedCube) {
+  Logger.log('makeLoadCall....');
+  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/'+selectedCube+'/dimensions');
+  SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
+  return response.getContentText();
+  
 }
 
 function makeLogoutCall() {

@@ -217,7 +217,7 @@
           list += o.applicationName + "<ul>";
           for (var c in o.cubeNames) {
             list += "<li>";
-            list += "- <a href='#'>" + o.cubeNames[c] + "</a>";
+            list += "- <a id='"+o.applicationName+"/"+o.cubeNames[c]+"' href='#'>" + o.cubeNames[c] + "</a>";
             list += "</li>";
           }
         }
@@ -228,7 +228,7 @@
       list += "</ul>";
       console.log(list);
       //$("body").html(list);
-      // document.getElementById('treeview_json').innerHTML=list;
+      // document.getElementById('treeview_json').innerHeTML=list;
       html = $.parseHTML(list);
       $('#content').append(html);
       //$('#rootAppNode').html(list);
@@ -249,10 +249,17 @@
             $("#treeview .parent").click(function (e) {
               e.stopPropagation();
               $(this).find(">ul").toggle("slow");
-              if ($(this).hasClass("close"))
+              if ($(this).hasClass("close")) {
                 $(this).removeClass("close");
-              else
+                var selectedCube = e.target.id;
+                console.log('selectedCube='+selectedCube);
+                if(selectedCube) {
+                  loadDimension(selectedCube);
+                }
+                
+              } else {
                 $(this).addClass("close");
+              }
             });
 
           })
@@ -265,6 +272,27 @@
         //.withUserObject(this)
         .makeLoadCall();
 
+    }
+    function loadDimension(selectedCube) {
+      console.log('inside loadDimensions');
+      console.log('selectedCube'+selectedCube);
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('withsuccess' + returnSuccess);
+            //$('#pluginUI').hide();
+            //$('#connectBlock').show();
+            //displayUIAfterConnect();
+            //element.disabled = false;
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+          })
+        //.withUserObject(this)
+        .makeLoadDimensions(selectedCube);
     }
     function callLogout() {
       console.log('inside callLogout.');

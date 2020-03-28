@@ -225,10 +225,12 @@
             $("#treeview .parent").click(function (e) {
                 e.stopPropagation();
                 $(this).find(">ul").toggle("slow");
-                if ($(this).hasClass("close"))
+                if ($(this).hasClass("close")){
                     $(this).removeClass("close");
-                else
+                    console.log('close is called....'+e.target.id);
+                } else {
                     $(this).addClass("close");
+                }
             });
         });
 
@@ -244,7 +246,7 @@
                     list +=  o.applicationName +  "<ul>";
                     for (var c in o.cubeNames) {
                         list += "<li>";
-                        list += "- <a href='#'>" + o.cubeNames[c] + "</a>";
+                        list += "- <a id='"+o.applicationName+"/"+o.cubeNames[c]+"' href='#'>" + o.cubeNames[c] + "</a>";
                         list += "</li>";
                     }
                 } 
