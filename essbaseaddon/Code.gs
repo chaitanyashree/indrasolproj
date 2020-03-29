@@ -17,7 +17,8 @@ function showSidebar() {
 
 function onOpen() {
   SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
-    .createMenu('Essbase Connector')
+    //.createMenu('Essbase Connector')
+    .createAddonMenu()
     .addItem('Essbase Setup', 'showSidebar')
     .addToUi();
   Logger.log('inside onopen');
@@ -99,15 +100,28 @@ var str = 'Bob Smith';
 function makeLoadCall() {
   Logger.log('makeLoadCall....');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications');
-  SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
+  //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   return response.getContentText();
   
 }
 
 function makeLoadDimensions(selectedCube) {
   Logger.log('makeLoadCall....');
-  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/'+selectedCube+'/dimensions');
-  SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
+  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/'+selectedCube+'/defaultGrid');
+  //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
+  var resstr = response.getContentText();
+  var jsonObj = JSON.parse(resstr);
+  var totalRowNum = 0;
+  var totalColNum = 0;
+  if(jsonObj) {
+    totalRowNum = jsonObj.length;
+    if(totalRowNum > 0) {
+      totalColNum = jsonObj[0].length;
+    }
+  }
+  Logger.log('totalRowNum='+totalRowNum);
+  Logger.log('totalColNUm='+totalColNum);
+  SpreadsheetApp.getActive().getActiveSheet().getRange(1,1,totalRowNum,totalColNum).setValues(jsonObj);
   return response.getContentText();
   
 }
