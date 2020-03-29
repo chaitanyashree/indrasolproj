@@ -117,6 +117,11 @@ public class LoginController {
 
     }
 
+    @GetMapping("/applications/{applicationName}/{cubeName}/defaultGrid")
+    public String[][] getDefaultGrid(@PathVariable("applicationName") String applicationName, @PathVariable("cubeName") String cubeName) {
+        return loginService.getDefaultGrid(applicationName,cubeName);
+    }
+
     @GetMapping("/dimensions/{dimensionName}/members")
     public List<EMembers> getAllMembersForDimensions(@PathVariable("dimensionName") String dimName) {
         return loginService.getAllMembersForDimensions(dimName);

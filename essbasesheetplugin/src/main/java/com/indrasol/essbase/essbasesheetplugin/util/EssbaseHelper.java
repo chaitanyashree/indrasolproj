@@ -141,6 +141,19 @@ public class EssbaseHelper {
 
     }
 
+    public static String[][] getDefaultGrid(IEssOlapServer olapSvr, String applicationName, String cubeName) throws EssException {
+        String[][]  grid = new String[][]{};
+
+        IEssCubeView cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+cubeName);
+        // Set couple of cube view properties.
+        cubeView.setRepeatMemberNames(false);
+        cubeView.setIncludeSelection(true);
+        cubeView.updatePropertyValues();
+        grid = EssbaseUtil.performCubeViewOperation(cubeView, "retrieve");
+
+        return grid;
+    }
+
     public static List<Dimension> getAllDimensions(IEssOlapServer olapSvr, String applicationName, String cubeName) throws EssException {
         List<Dimension> listDimension = new ArrayList<Dimension>();
         List<EMembers> listMembers = new ArrayList<EMembers>();
@@ -178,6 +191,8 @@ public class EssbaseHelper {
         return listDimension;
         
     }
+
+
     public static List<EMembers> getAllMembersForDimensions(IEssOlapServer olapSvr, String dimName) throws EssException {
         List<EMembers> listMembers = new ArrayList<EMembers>();
         

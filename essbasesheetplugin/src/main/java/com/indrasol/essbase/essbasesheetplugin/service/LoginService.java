@@ -73,6 +73,21 @@ public class  LoginService {
         return dimensionList;
     }
 
+    public String[][] getDefaultGrid(String applicationName, String cubeName) {
+        String[][]  grid = new String[][]{};
+        try {
+            if(this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+                grid = EssbaseHelper.getDefaultGrid(this.essbaseConnection.getOlapSvr(), applicationName,cubeName);
+            }
+
+        } catch (EssException e) {
+            e.printStackTrace();
+        }
+        return grid;
+
+
+    }
+
     public List<EMembers> getAllMembersForDimensions(String dimName) {
         List<EMembers> membersList = new ArrayList<EMembers>();
         try {
