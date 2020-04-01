@@ -4,6 +4,15 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+    
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - DataQuery",
+            "request": "launch",
+            "mainClass": "com.essbase.samples.japi.DataQuery",
+            "classPaths": ['lib','out'],
+            "args": "admin admin123 ec2-3-7-12-73.ap-south-1.compute.amazonaws.com http://ec2-3-7-12-73.ap-south-1.compute.amazonaws.com:28080/aps/JAPI"
+        },
         {
             "type": "java",
             "name": "Debug (Launch) - Current File",

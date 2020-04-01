@@ -185,15 +185,10 @@
 
 
     $(function () {
-      //alert('setting click');
-      //$('#pluginUI').hide();
       $('#connect-button').click(onConnect);
       $('#load-button').click(callLoad);
       $('#logout-button').click(callLogout);
-      // $('#insert-text').click(insertText);
-      //  google.script.run.withSuccessHandler(loadPreferences)
-      //     .withFailureHandler(showError).getPreferences();
-      //alert('setting click2');
+
       $("#treeview .parent").click(function (e) {
         e.stopPropagation();
         $(this).find(">ul").toggle("slow");
@@ -202,6 +197,14 @@
         else
           $(this).addClass("close");
       });
+     if(IS_LOGGEDIN) {
+          $('#connectBlock').hide();
+        displayUIAfterConnect();
+        //element.disabled = false;
+        IS_LOGGEDIN = true;
+        callLoad();
+        
+      }
 
     });
 
@@ -227,12 +230,9 @@
       }
       list += "</ul>";
       console.log(list);
-      //$("body").html(list);
-      // document.getElementById('treeview_json').innerHeTML=list;
+
       html = $.parseHTML(list);
       $('#content').append(html);
-      //$('#rootAppNode').html(list);
-
 
     }
     function callLoad() {
@@ -255,6 +255,7 @@
                 console.log('selectedCube='+selectedCube);
                 if(selectedCube) {
                   loadDimension(selectedCube);
+                  google.script.host.close();
                 }
                 
               } else {
@@ -305,12 +306,15 @@
             $('#connectBlock').show();
             //displayUIAfterConnect();
             //element.disabled = false;
+
+            IS_LOGGEDIN = false;
           })
         .withFailureHandler(
           function (msg, element) {
             alert('withfailure');
             showError(msg, $('#button-bar'));
             //element.disabled = false;
+            IS_LOGGEDIN=false;
           })
         //.withUserObject(this)
         .makeLogoutCall();
@@ -336,12 +340,15 @@
             $('#connectBlock').hide();
             displayUIAfterConnect();
             //element.disabled = false;
+            IS_LOGGEDIN = true;
           })
         .withFailureHandler(
           function (msg, element) {
             alert('withfailure');
             showError(msg, $('#button-bar'));
             //element.disabled = false;
+
+            IS_LOGGEDIN = false;
           })
         //.withUserObject(this)
         .makeConnectCall(url, olapServerNameStr, userNameStr, passwordStr);
@@ -362,6 +369,8 @@
     function displayUIAfterConnect() {
       $('#pluginUI').show();
     }
+    
+
   </script>
 
 </body>
