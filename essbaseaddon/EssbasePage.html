@@ -197,13 +197,13 @@
         else
           $(this).addClass("close");
       });
-     if(IS_LOGGEDIN) {
-          $('#connectBlock').hide();
+      if (IS_LOGGEDIN) {
+        $('#connectBlock').hide();
         displayUIAfterConnect();
         //element.disabled = false;
         IS_LOGGEDIN = true;
         callLoad();
-        
+
       }
 
     });
@@ -220,7 +220,7 @@
           list += o.applicationName + "<ul>";
           for (var c in o.cubeNames) {
             list += "<li>";
-            list += "- <a id='"+o.applicationName+"/"+o.cubeNames[c]+"' href='#'>" + o.cubeNames[c] + "</a>";
+            list += "- <a id='" + o.applicationName + "/" + o.cubeNames[c] + "' href='#'>" + o.cubeNames[c] + "</a>";
             list += "</li>";
           }
         }
@@ -252,12 +252,12 @@
               if ($(this).hasClass("close")) {
                 $(this).removeClass("close");
                 var selectedCube = e.target.id;
-                console.log('selectedCube='+selectedCube);
-                if(selectedCube) {
+                console.log('selectedCube=' + selectedCube);
+                if (selectedCube) {
                   loadDimension(selectedCube);
                   google.script.host.close();
                 }
-                
+
               } else {
                 $(this).addClass("close");
               }
@@ -276,7 +276,7 @@
     }
     function loadDimension(selectedCube) {
       console.log('inside loadDimensions');
-      console.log('selectedCube'+selectedCube);
+      console.log('selectedCube' + selectedCube);
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
@@ -314,7 +314,7 @@
             alert('withfailure');
             showError(msg, $('#button-bar'));
             //element.disabled = false;
-            IS_LOGGEDIN=false;
+            IS_LOGGEDIN = false;
           })
         //.withUserObject(this)
         .makeLogoutCall();
@@ -369,7 +369,7 @@
     function displayUIAfterConnect() {
       $('#pluginUI').show();
     }
-    
+
 
   </script>
 

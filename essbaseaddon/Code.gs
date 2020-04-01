@@ -1,6 +1,6 @@
 /** Essbase Plugin */
 
-var IS_LOGGEDIN=false;
+var IS_LOGGEDIN = false;
 
 function onOpen() {
   SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
@@ -84,10 +84,10 @@ function makeLoadDimensions(selectedCube) {
   SpreadsheetApp.getUi()
     .createAddonMenu()
     .addSubMenu(SpreadsheetApp.getUi().createMenu(selectedCube)
-    .addItem('List Applications', 'showLoggedInSideBar')
-    .addSeparator()
-    .addItem('Zoom In', 'showLoggedInSideBar')
-    .addItem('Zoom Out', 'showLoggedInSideBar'))
+      .addItem('List Applications', 'showLoggedInSideBar')
+      .addSeparator()
+      .addItem('Zoom In', 'showLoggedInSideBar')
+      .addItem('Zoom Out', 'showLoggedInSideBar'))
     .addSeparator()
     .addItem('Logout', 'makeLogoutCall')
     .addToUi();
@@ -102,17 +102,17 @@ function showLoggedInSideBar() {
   var html = HtmlService.createHtmlOutputFromFile('EssbasePage')
     .setTitle('Essbase Applications')
     .setWidth(300);
-    html.append('<script>\n var IS_LOGGEDIN = true; \n</script>');
-  SpreadsheetApp.getUi() 
+  html.append('<script>\n var IS_LOGGEDIN = true; \n</script>');
+  SpreadsheetApp.getUi()
     .showSidebar(html);
   return true;
-  
+
 }
 
 function makeLogoutCall() {
   Logger.log('inside makeLogoutCall...');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/logout');
-  SpreadsheetApp.getUi() 
+  SpreadsheetApp.getUi()
     .createAddonMenu()
     .addItem('Essbase Setup', 'showSidebar')
     .addToUi();
