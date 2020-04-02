@@ -11,6 +11,7 @@ import com.essbase.api.metadata.IEssDimension;
 import com.essbase.api.metadata.IEssMember;
 
 import com.essbase.api.session.IEssbase;
+import com.indrasol.essbase.essbasesheetplugin.model.DataGrid;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -49,9 +50,60 @@ public class EssbaseUtil {
 		return membersList;
     }
 
-	static String[][] performCubeViewOperation(IEssCubeView cv,
-										 String opStr) throws EssException {
+    public static DataGrid performZoomInViewOperations(IEssCubeView cv,
+													   DataGrid dataGrid, int startRow, int startColumn) throws EssException {
 		String[][] gridView = new String[][]{};
+		DataGrid updatedGrid = new DataGrid();
+		//int startRow=1,startColumn=0;
+		// Create a grid view with the input for the operation.
+		IEssGridView grid = cv.getGridView();
+        grid.setSize(dataGrid.getTotalRows(), dataGrid.getTotalCols());
+        gridView = dataGrid.getDataGrid();
+
+        for(int r=0; r<gridView.length; r++) {
+            for(int c=0; c<gridView[r].length; c++){
+                grid.setValue(r,c,gridView[r][c]);
+                //System.out.println(gridView[r][c]);
+            }
+        }
+
+		IEssOperation op = null;
+
+		op = cv.createIEssOpZoomIn();
+        IEssOpZoomIn opCzi  = ((IEssOpZoomIn)op);
+        //opCzi.addRange(startRow, startColumn, dataGrid.getTotalRows(), dataGrid.getTotalCols());
+        //opCzi.setPreference(true, IEssOpZoomIn.EEssZoomInPreference.BOTTOM_LEVEL);
+		//((IEssOpZoomIn)op).addRange(startRow, startColumn,  grid.getCountRows(), grid.getCountColumns());
+        opCzi.addCell(startRow, startColumn);
+
+		// Perform the operation.
+		cv.performOperation(opCzi);
+		// Get the result and print the output.
+		int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
+		gridView= new String[cntRows][cntCols];
+        updatedGrid.setTotalRows(cntRows);
+        updatedGrid.setTotalCols(cntCols);
+		System.out.print("Query Results for the Operation: Zoom In"  + "\n" +
+				"-----------------------------------------------------\n");
+		for (int i = 0; i < cntRows; i++) {
+			for (int j = 0; j < cntCols; j++) {
+				System.out.print(grid.getValue(i, j) + "\t");
+				gridView[i][j] = grid.getValue(i, j).toString();
+			}
+			System.out.println();
+		}
+		System.out.println("\n");
+		updatedGrid.setDataGrid(gridView);
+		return updatedGrid;
+
+
+	}
+
+
+	public static DataGrid performCubeViewOperation(IEssCubeView cv,
+													String opStr) throws EssException {
+		String[][] gridView = new String[][]{};
+		DataGrid dataGrid = new DataGrid();
 		// Create a grid view with the input for the operation.
 		IEssGridView grid = cv.getGridView();
 //		grid.setSize(3, 5);
@@ -84,7 +136,7 @@ public class EssbaseUtil {
 			System.out.print("Query Results for the Operation: " + opStr + "\n" +
 					"-----------------------------------------------------\n");
 			System.out.println(grid.toString());
-			return gridView;
+			return dataGrid;
 		} else if (opStr.equals("reportFile_with_no_parsing")) {
 			op = cv.createIEssOpReport();
 			((IEssOpReport)op).set("Actsales", false, false);
@@ -93,7 +145,7 @@ public class EssbaseUtil {
 			System.out.print("Query Results for the Operation: " + opStr + "\n" +
 					"-----------------------------------------------------\n");
 			System.out.println(grid.toString());
-			return gridView;
+			return dataGrid;
 		} else if (opStr.equals("retrieve")) {
 			op = cv.createIEssOpRetrieve();
 		} else if (opStr.equals("zoomIn")) {
@@ -128,6 +180,9 @@ public class EssbaseUtil {
 		// Get the result and print the output.
 		int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
 		gridView= new String[cntRows][cntCols];
+
+		dataGrid.setTotalRows(cntRows);
+		dataGrid.setTotalCols(cntCols);
 		System.out.print("Query Results for the Operation: " + opStr + "\n" +
 				"-----------------------------------------------------\n");
 		for (int i = 0; i < cntRows; i++) {
@@ -138,7 +193,8 @@ public class EssbaseUtil {
 			System.out.println();
 		}
 		System.out.println("\n");
-		return gridView;
+		dataGrid.setDataGrid(gridView);
+		return dataGrid;
 	}
 
 

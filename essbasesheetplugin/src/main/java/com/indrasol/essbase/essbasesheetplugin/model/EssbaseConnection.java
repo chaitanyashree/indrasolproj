@@ -1,5 +1,6 @@
 package com.indrasol.essbase.essbasesheetplugin.model;
 
+import com.essbase.api.dataquery.IEssCubeView;
 import com.essbase.api.datasource.IEssOlapServer;
 import com.essbase.api.session.IEssbase;
 
@@ -11,6 +12,7 @@ public class EssbaseConnection {
 
     private IEssOlapServer olapSvr;
     private IEssbase ess;
+    private IEssCubeView cubeView;
 
     private String apiVersion;
     private String apiVersionDetail;
@@ -60,7 +62,11 @@ public class EssbaseConnection {
         this.apiVersionDetail = apiVersionDetail;
     }
 
-    
-    
-    
+    public IEssCubeView getCubeView() {
+        return cubeView;
+    }
+
+    public void setCubeView(IEssCubeView cubeView) {
+        this.cubeView = cubeView;
+    }
 }

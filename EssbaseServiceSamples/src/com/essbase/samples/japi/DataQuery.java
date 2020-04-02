@@ -63,11 +63,12 @@ public class DataQuery {
             // Perform various cube view operations.
 //            performCubeViewOperation(ess, cv, "conditionalRetrieve");
             performCubeViewOperation(ess, cv, "retrieve");
+//            performCubeViewOperation(ess, cv, "zoomIn");
             performCubeViewOperation(ess, cv, "zoomIn");
-//            performCubeViewOperation(ess, cv, "conditionalZoomIn");
-//            performCubeViewOperation(ess, cv, "zoomOut");
+            performCubeViewOperation(ess, cv, "conditionalZoomIn");
+            performCubeViewOperation(ess, cv, "zoomOut");
 
-            //performMemberSelection(ess, cv);
+            performMemberSelection(ess, cv);
 //
 //            performCubeViewOperation(ess, cv, "keepOnly");
 //            performCubeViewOperation(ess, cv, "removeOnly");
@@ -108,14 +109,14 @@ public class DataQuery {
 
         IEssGridView grid = cv.getGridView();
        // grid.setSize(3,3);
-//        grid.setSize(3, 5);
-//        grid.setValue(0, 2, "Product");
-//        grid.setValue(0, 3, "Market");
-//        grid.setValue(1, 2, "Jan"); ;
-//        grid.setValue(1, 3, "Feb");
-//        grid.setValue(1, 4, "Mar");
-//        grid.setValue(2, 0, "Actual");
-//        grid.setValue(2, 1, "Sales");
+        grid.setSize(3, 5);
+        grid.setValue(0, 2, "Product");
+        grid.setValue(0, 3, "Market");
+        grid.setValue(1, 2, "Jan"); ;
+        grid.setValue(1, 3, "Feb");
+        grid.setValue(1, 4, "Mar");
+        grid.setValue(2, 0, "Actual");
+        grid.setValue(2, 1, "Sales");
 
         // Create the operation specification.
         IEssOperation op = null;
@@ -152,7 +153,16 @@ public class DataQuery {
             op = cv.createIEssOpRetrieve();
         } else if (opStr.equals("zoomIn")) {
             op = cv.createIEssOpZoomIn();
-            ((IEssOpZoomIn)op).addRange(1, 0, 1, 1);
+            IEssOpZoomIn z = ((IEssOpZoomIn)op);
+           //((IEssOpZoomIn)op).addRange(1, 0, 1, 1);
+            System.out.println(z.getRanges().getAll()+"-->"+z.getPreference().getCountPossibleValues());
+           // ((IEssOpZoomIn)op).setPreference(true,
+           //         IEssOpZoomIn.EEssZoomInPreference.NEXT_LEVEL);
+           // ((IEssOpZoomIn)op).addCell(0,3);
+           //((IEssOpZoomIn)op).addRange(1, 0, 1, 1);
+
+            ((IEssOpZoomIn)op).addRange(0, 3, 1, 1);
+            System.out.println("--"+z.getCountRanges());
         } else if (opStr.equals("conditionalZoomIn")) {
             IEssOpZoomIn opCzi = cv.createIEssOpZoomIn();
             opCzi.addRange(0, 3, 1, 1);
@@ -189,7 +199,7 @@ public class DataQuery {
             System.out.println();
         }
         System.out.println("\n");
-        System.out.println(cv.getHtmlOutput());
+        //System.out.println(cv.getHtmlOutput());
     }
 
     static void performMemberSelection(IEssbase ess, IEssCubeView cv)

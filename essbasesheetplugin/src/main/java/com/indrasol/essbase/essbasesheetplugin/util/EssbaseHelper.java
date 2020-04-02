@@ -1,17 +1,13 @@
 package com.indrasol.essbase.essbasesheetplugin.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.essbase.api.base.EssException;
 import com.essbase.api.base.IEssBaseObject;
-import com.essbase.api.base.IEssIterator;
 import com.essbase.api.dataquery.IEssCubeView;
 import com.essbase.api.datasource.IEssCube;
 import com.essbase.api.datasource.IEssOlapApplication;
-import com.essbase.api.datasource.IEssOlapFileObject;
 import com.essbase.api.datasource.IEssOlapServer;
 import com.essbase.api.domain.IEssDomain;
 import com.essbase.api.metadata.IEssCubeOutline;
@@ -141,17 +137,35 @@ public class EssbaseHelper {
 
     }
 
-    public static String[][] getDefaultGrid(IEssOlapServer olapSvr, String applicationName, String cubeName) throws EssException {
-        String[][]  grid = new String[][]{};
+    public static DataGrid getDefaultGrid(IEssOlapServer olapSvr, String applicationName,String cubeName) throws EssException {
+        DataGrid  grid = new DataGrid();
 
-        IEssCubeView cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+cubeName);
+        IEssCubeView cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
+
         // Set couple of cube view properties.
         cubeView.setRepeatMemberNames(false);
         cubeView.setIncludeSelection(true);
         cubeView.updatePropertyValues();
         grid = EssbaseUtil.performCubeViewOperation(cubeView, "retrieve");
-
+        cubeView.close();
         return grid;
+    }
+
+    public static DataGrid getZoomInOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+        DataGrid grid = new DataGrid();
+
+        IEssCubeView cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
+        // Set couple of cube view properties.
+        cubeView.setRepeatMemberNames(false);
+        cubeView.setIncludeSelection(true);
+        cubeView.updatePropertyValues();
+
+
+        grid = EssbaseUtil.performZoomInViewOperations(cubeView, dataGrid,startRow,startColumn);
+        cubeView.close();
+        return grid;
+
+
     }
 
     public static List<Dimension> getAllDimensions(IEssOlapServer olapSvr, String applicationName, String cubeName) throws EssException {
