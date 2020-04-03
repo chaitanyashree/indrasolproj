@@ -62,9 +62,59 @@ function makeLoadCall() {
 
 }
 
+function makeZoomInCall(selectedCube) {
+  Logger.log('makeZoomInCall....');
+  var range = SpreadsheetApp.getActive().getDataRange();
+  var totalCols = range.getNumColumns();
+  var totalRows = range.getNumRows();
+  var dataGridValues = range.getDisplayValues();
+  
+  var data = {
+    "totalRows": totalRows,
+    "totalCols": totalCols,
+    "dataGrid": dataGridValues
+  };
+  Logger.log(JSON.stringify(data));
+  var options = {
+    'method': 'post',
+    'contentType': 'application/json',
+    'payload': JSON.stringify(data)
+  };
+  var selCel = SpreadsheetApp.getActive().getCurrentCell();
+  var selCelRow = selCel.getRow();
+  var selCelCol = selCel.getColumn();
+  if(selCelRow>0) {
+    selCelRow = selCelRow - 1;
+  }
+  if(selCelCol>0) {
+    selCelCol = selCelCol -1;
+  }
+  Logger.log('activecell - '+selCelRow+"\t"+selCelCol);
+
+  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/zoomIn/'+selCelRow+'/'+selCelCol;
+
+  var response = UrlFetchApp.fetch(zoomUrl,options);
+   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
+   var resstr = response.getContentText();
+   var jsonObj = JSON.parse(resstr);
+   var totalRowNum = 0;
+   var totalColNum = 0;
+   var dataGrid;
+   if (jsonObj) {
+     totalRowNum = jsonObj.totalRows;
+     totalColNum = jsonObj.totalCols;
+     dataGrid = jsonObj.dataGrid;
+   }
+   Logger.log('totalRowNum=' + totalRowNum);
+   Logger.log('totalColNUm=' + totalColNum);
+   SpreadsheetApp.getActive().getActiveSheet().getRange(1, 1, totalRowNum, totalColNum).setValues(dataGrid);
+   return response.getContentText();
+
+}
+
 function makeLoadDimensions(selectedCube) {
   Logger.log('makeLoadCall....');
-  Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
+  //Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   var resstr = response.getContentText();
@@ -120,6 +170,8 @@ function makeLogoutCall() {
   Logger.log(response.getContentText());
 
 }
+
+
 function showError(message) {
   //document.getElementById('result').innerHTML = 'Error: ' + message;
   //alert('showerror');

@@ -152,13 +152,13 @@
         </div>
       </div>
       <div id="pluginUI" hidden>
-        <label id="heading" for="connecturl-text"><b>Connected Succesfully!</b></label></br></p>
+        <label id="connectHeading" for="connecturl-text"><b>Connected Succesfully!</b></label></br></p>
         <div class="block" id="button-bar" hidden>
-          <div id='loadBtnDiv'><button class="blue" id="load-button">Load</button></br></p></div>
-          <div id='zoomInBtnDiv'><button class="blue" id="zoomIn-button">Zoom In</button></br></p></div>
-          <div id='zoomOutBtnDiv'><button class="blue" id="zoomOut-button">Zoom Out</button></br></p></div>
-          <div id='logoutBtnDiv'><button class="blue" id="logout-button">Logout</button></br></p></div>
-          <div id='cancelBtnDiv'><button id="cancel-button" onclick="callClose()">Cancel</button></br></p></div>
+          <div class="block" id='loadBtnDiv'><button class="blue" id="load-button">Load</button></br></div>
+          <div class="block" id='zoomInBtnDiv'><button class="blue" id="zoomIn-button">Zoom In</button></br></div>
+          <div class="block" id='zoomOutBtnDiv'><button class="blue" id="zoomOut-button">Zoom Out</button></br></div>
+          <div class="block" id='logoutBtnDiv'><button class="blue" id="logout-button">Logout</button></br></div>
+          <div class="block" id='cancelBtnDiv'><button id="cancel-button" onclick="callClose()">Cancel</button></br></div>
         </div>
 
       </div>
@@ -167,7 +167,7 @@
         <div id="content">
         </div>
       </div>
-
+      <input type=hidden id='selCube' name='selCube'/>
      
     </form>
   </div>
@@ -192,7 +192,7 @@
       $('#connect-button').click(onConnect);
       $('#load-button').click(callLoad);
       $('#logout-button').click(callLogout);
-      $('#zoomIn-button').click(callLogout);
+      $('#zoomIn-button').click(callZoomIn);
       $('#zoomOut-button').click(callLogout);
 
 
@@ -266,8 +266,7 @@
                 console.log('selectedCube=' + selectedCube);
                 if (selectedCube) {
                   loadDimension(selectedCube);
-
-                  //google.script.host.close();
+                  //google.screipt.host.close();
                 }
 
               } else {
@@ -301,6 +300,8 @@
             // $('#content').html(h);
             $('#content').hide();
             displayUIAfterLoad();
+            $('input[name="selCube"]:hidden').val(selectedCube);
+            $('#connectHeading').html("<b>"+selectedCube+"</b>");
            
           })
         .withFailureHandler(
@@ -344,6 +345,27 @@
       google.script.host.close();
     }
 
+    function callZoomIn() {
+      var sCube = $('input[name="selCube"]:hidden').val();
+      console.log('callZoomIn...'+sCube);
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('callZoomIn withsuccess' + returnSuccess);
+
+
+           
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+          })
+        //.withUserObject(this)
+        .makeZoomInCall(sCube);
+
+    }
     function onConnect() {
       //alert('hi');
       var url = $('#connecturl-text').val();
