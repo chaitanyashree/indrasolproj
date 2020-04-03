@@ -152,11 +152,13 @@
         </div>
       </div>
       <div id="pluginUI" hidden>
-        <label for="connecturl-text"><b>Connected Succesfully!</b></label></br></p>
-        <div class="block" id="button-bar">
-          <button class="blue" id="load-button">Load</button>
-          <button class="blue" id="logout-button">Logout</button>
-          <button id="cancel-button" onclick="callClose()">Cancel</button>
+        <label id="heading" for="connecturl-text"><b>Connected Succesfully!</b></label></br></p>
+        <div class="block" id="button-bar" hidden>
+          <div id='loadBtnDiv'><button class="blue" id="load-button">Load</button></br></p></div>
+          <div id='zoomInBtnDiv'><button class="blue" id="zoomIn-button">Zoom In</button></br></p></div>
+          <div id='zoomOutBtnDiv'><button class="blue" id="zoomOut-button">Zoom Out</button></br></p></div>
+          <div id='logoutBtnDiv'><button class="blue" id="logout-button">Logout</button></br></p></div>
+          <div id='cancelBtnDiv'><button id="cancel-button" onclick="callClose()">Cancel</button></br></p></div>
         </div>
 
       </div>
@@ -165,6 +167,8 @@
         <div id="content">
         </div>
       </div>
+
+     
     </form>
   </div>
 
@@ -188,6 +192,11 @@
       $('#connect-button').click(onConnect);
       $('#load-button').click(callLoad);
       $('#logout-button').click(callLogout);
+      $('#zoomIn-button').click(callLogout);
+      $('#zoomOut-button').click(callLogout);
+
+
+
 
       $("#treeview .parent").click(function (e) {
         e.stopPropagation();
@@ -197,14 +206,14 @@
         else
           $(this).addClass("close");
       });
-      if (IS_LOGGEDIN) {
-        $('#connectBlock').hide();
-        displayUIAfterConnect();
-        //element.disabled = false;
-        IS_LOGGEDIN = true;
-        callLoad();
+      // if (IS_LOGGEDIN) {
+      //   $('#connectBlock').hide();
+      //   displayUIAfterConnect();
+      //   //element.disabled = false;
+      //   IS_LOGGEDIN = true;
+      //   callLoad();
 
-      }
+      // }
 
     });
 
@@ -244,6 +253,8 @@
             //$('#connectBlock').hide();
             //displayUIAfterConnect();
             //element.disabled = false;
+            var h  = $.parseHTML('</p>');
+            $('#content').html(h);
             var jsonObj = JSON.parse(returnSuccess);
             formApplicationTree(jsonObj);
             $("#treeview .parent").click(function (e) {
@@ -255,7 +266,8 @@
                 console.log('selectedCube=' + selectedCube);
                 if (selectedCube) {
                   loadDimension(selectedCube);
-                  google.script.host.close();
+
+                  //google.script.host.close();
                 }
 
               } else {
@@ -285,6 +297,11 @@
             //$('#connectBlock').show();
             //displayUIAfterConnect();
             //element.disabled = false;
+            // var h  = $.parseHTML('</p><h5><b>'+selectedCube+'</b></h5>');
+            // $('#content').html(h);
+            $('#content').hide();
+            displayUIAfterLoad();
+           
           })
         .withFailureHandler(
           function (msg, element) {
@@ -303,7 +320,9 @@
           function (returnSuccess, element) {
             console.log('withsuccess' + returnSuccess);
             $('#pluginUI').hide();
+            $('#operationUI').hide();
             $('#connectBlock').show();
+
             //displayUIAfterConnect();
             //element.disabled = false;
 
@@ -367,9 +386,21 @@
     }
 
     function displayUIAfterConnect() {
+      $('#loadBtnDiv').show();
+      $('#zoomInBtnDiv').hide();
+      $('#zoomOutBtnDiv').hide();
+      $('#logoutBtnDiv').show();
+      $('#cancelBtnDiv').show();
       $('#pluginUI').show();
     }
-
+    function displayUIAfterLoad() {
+      $('#loadBtnDiv').hide();
+      $('#zoomInBtnDiv').show();
+      $('#zoomOutBtnDiv').show();
+      $('#logoutBtnDiv').show();
+      $('#cancelBtnDiv').show();
+      $('#pluginUI').show();
+    }
 
   </script>
 

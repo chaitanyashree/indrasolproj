@@ -64,33 +64,34 @@ function makeLoadCall() {
 
 function makeLoadDimensions(selectedCube) {
   Logger.log('makeLoadCall....');
+  Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   var resstr = response.getContentText();
   var jsonObj = JSON.parse(resstr);
   var totalRowNum = 0;
   var totalColNum = 0;
+  var dataGrid;
   if (jsonObj) {
-    totalRowNum = jsonObj.length;
-    if (totalRowNum > 0) {
-      totalColNum = jsonObj[0].length;
-    }
+    totalRowNum = jsonObj.totalRows;
+    totalColNum = jsonObj.totalCols;
+    dataGrid = jsonObj.dataGrid;
   }
   Logger.log('totalRowNum=' + totalRowNum);
   Logger.log('totalColNUm=' + totalColNum);
-  SpreadsheetApp.getActive().getActiveSheet().getRange(1, 1, totalRowNum, totalColNum).setValues(jsonObj);
+  SpreadsheetApp.getActive().getActiveSheet().getRange(1, 1, totalRowNum, totalColNum).setValues(dataGrid);
   //add Menu item for applications
 
-  SpreadsheetApp.getUi()
-    .createAddonMenu()
-    .addSubMenu(SpreadsheetApp.getUi().createMenu(selectedCube)
-      .addItem('List Applications', 'showLoggedInSideBar')
-      .addSeparator()
-      .addItem('Zoom In', 'showLoggedInSideBar')
-      .addItem('Zoom Out', 'showLoggedInSideBar'))
-    .addSeparator()
-    .addItem('Logout', 'makeLogoutCall')
-    .addToUi();
+  // SpreadsheetApp.getUi()
+  //   .createAddonMenu()
+  //   .addSubMenu(SpreadsheetApp.getUi().createMenu(selectedCube)
+  //     .addItem('List Applications', 'showLoggedInSideBar')
+  //     .addSeparator()
+  //     .addItem('Zoom In', 'showLoggedInSideBar')
+  //     .addItem('Zoom Out', 'showLoggedInSideBar'))
+  //   .addSeparator()
+  //   .addItem('Logout', 'makeLogoutCall')
+  //   .addToUi();
 
   return response.getContentText();
 

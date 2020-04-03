@@ -89,6 +89,8 @@ public class EssbaseUtil {
 			for (int j = 0; j < cntCols; j++) {
 				System.out.print(grid.getValue(i, j) + "\t");
 				gridView[i][j] = grid.getValue(i, j).toString();
+				String dt = grid.getFormattedValue(i,j);
+				System.out.print("\t|"+dt+"|");
 			}
 			System.out.println();
 		}
