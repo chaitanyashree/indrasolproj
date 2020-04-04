@@ -155,10 +155,19 @@
         <label id="connectHeading" for="connecturl-text"><b>Connected Succesfully!</b></label></br></p>
         <div class="block" id="button-bar" hidden>
           <div class="block" id='loadBtnDiv'><button class="blue" id="load-button">Load</button></br></div>
-          <div class="block" id='zoomInBtnDiv'><button class="blue" id="zoomIn-button">Zoom In</button></br></div>
-          <div class="block" id='zoomOutBtnDiv'><button class="blue" id="zoomOut-button">Zoom Out</button></br></div>
-          <div class="block" id='logoutBtnDiv'><button class="blue" id="logout-button">Logout</button></br></div>
-          <div class="block" id='cancelBtnDiv'><button id="cancel-button" onclick="callClose()">Cancel</button></br></div>
+          <div class="block" id='zoomInBtnDiv'>
+            <button class="blue" id="defaultRetrieve-button">Default Retrieve</button></p>
+            <button class="blue" id="zoomInNext-button">Zoom In Next</button>
+            <button class="blue" id="zoomInBottom-button">Zoom In Bottom</button></p>
+            <button class="blue" id="zoomInAll-button">Zoom In All</button>
+            <button class="blue" id="zoomOut-button">Zoom Out</button>
+          </div>
+          
+          <div class="block" id='logoutBtnDiv'>
+            <button class="blue" id="logout-button">Logout</button>
+            <button id="cancel-button" onclick="callClose()">Cancel</button></br>
+          </div>
+          
         </div>
 
       </div>
@@ -192,8 +201,11 @@
       $('#connect-button').click(onConnect);
       $('#load-button').click(callLoad);
       $('#logout-button').click(callLogout);
-      $('#zoomIn-button').click(callZoomIn);
-      $('#zoomOut-button').click(callLogout);
+      $('#zoomInNext-button').click(callZoomInNext);
+      $('#zoomInBottom-button').click(callZoomInBottom);
+      $('#zoomInAll-button').click(callZoomInAll);
+      $('#zoomOut-button').click(callZoomOut);
+      $('#defaultRetrieve-button').click(callDefaultRetrieve);
 
 
 
@@ -345,13 +357,14 @@
       google.script.host.close();
     }
 
-    function callZoomIn() {
+
+    function callZoomOut() {
       var sCube = $('input[name="selCube"]:hidden').val();
-      console.log('callZoomIn...'+sCube);
+      console.log('callZoomOut...'+sCube);
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
-            console.log('callZoomIn withsuccess' + returnSuccess);
+            console.log('callZoomOut withsuccess' + returnSuccess);
 
 
            
@@ -363,7 +376,95 @@
             //element.disabled = false;
           })
         //.withUserObject(this)
-        .makeZoomInCall(sCube);
+        .makeZoomOutCall(sCube);
+
+    }
+
+    function callZoomInAll() {
+      var sCube = $('input[name="selCube"]:hidden').val();
+      console.log('callZoomInAll...'+sCube);
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('callZoomInAll withsuccess' + returnSuccess);
+
+
+           
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+          })
+        //.withUserObject(this)
+        .makeZoomInAllCall(sCube);
+
+    }
+
+    function callZoomInBottom() {
+      var sCube = $('input[name="selCube"]:hidden').val();
+      console.log('callZoomInBottom...'+sCube);
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('callZoomInBottom withsuccess' + returnSuccess);
+
+
+           
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+          })
+        //.withUserObject(this)
+        .makeZoomInBottomCall(sCube);
+
+    }
+
+    function callDefaultRetrieve() {
+      var sCube = $('input[name="selCube"]:hidden').val();
+      console.log('callDefaultRetrieve...'+sCube);
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('callDefaultRetrieve withsuccess' + returnSuccess);
+
+
+           
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+          })
+        //.withUserObject(this)
+        .makeDefaultRetrieve(sCube);
+
+    }
+
+    function callZoomInNext() {
+      var sCube = $('input[name="selCube"]:hidden').val();
+      console.log('callZoomInNext...'+sCube);
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('callZoomInNext withsuccess' + returnSuccess);
+
+
+           
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+          })
+        //.withUserObject(this)
+        .makeZoomInNextCall(sCube);
 
     }
     function onConnect() {
@@ -410,17 +511,17 @@
     function displayUIAfterConnect() {
       $('#loadBtnDiv').show();
       $('#zoomInBtnDiv').hide();
-      $('#zoomOutBtnDiv').hide();
+      //$('#zoomOutBtnDiv').hide();
       $('#logoutBtnDiv').show();
-      $('#cancelBtnDiv').show();
+      //$('#cancelBtnDiv').show();
       $('#pluginUI').show();
     }
     function displayUIAfterLoad() {
       $('#loadBtnDiv').hide();
       $('#zoomInBtnDiv').show();
-      $('#zoomOutBtnDiv').show();
+      //$('#zoomOutBtnDiv').show();
       $('#logoutBtnDiv').show();
-      $('#cancelBtnDiv').show();
+      //$('#cancelBtnDiv').show();
       $('#pluginUI').show();
     }
 

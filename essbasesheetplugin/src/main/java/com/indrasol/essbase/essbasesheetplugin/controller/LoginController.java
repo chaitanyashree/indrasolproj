@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.indrasol.essbase.essbasesheetplugin.model.*;
 import com.indrasol.essbase.essbasesheetplugin.service.LoginService;
+import com.indrasol.essbase.essbasesheetplugin.util.EssbaseHelper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -119,7 +120,31 @@ public class LoginController {
                                        @PathVariable("cubeName") String cubeName,
                                        @PathVariable("startRow") Integer startRow,
                                        @PathVariable("startColumn") Integer startColumn) {
-        return loginService.getZoomInOperation(applicationName,cubeName,dataGrid,startRow,startColumn);
+        return loginService.getZoomInOperation(applicationName,cubeName,dataGrid,startRow,startColumn, LoginService.NEXT_LEVEL);
+    }
+
+    @PostMapping("/applications/{applicationName}/{cubeName}/zoomInBottom/{startRow}/{startColumn}")
+    public DataGrid getZoomInOperationBottom(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
+                                       @PathVariable("cubeName") String cubeName,
+                                       @PathVariable("startRow") Integer startRow,
+                                       @PathVariable("startColumn") Integer startColumn) {
+        return loginService.getZoomInOperation(applicationName,cubeName,dataGrid,startRow,startColumn, LoginService.BOTTOM_LEVEL);
+    }
+
+    @PostMapping("/applications/{applicationName}/{cubeName}/zoomInAll/{startRow}/{startColumn}")
+    public DataGrid getZoomInOperationAll(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
+                                       @PathVariable("cubeName") String cubeName,
+                                       @PathVariable("startRow") Integer startRow,
+                                       @PathVariable("startColumn") Integer startColumn) {
+        return loginService.getZoomInOperation(applicationName,cubeName,dataGrid,startRow,startColumn, LoginService.ALL_LEVEL);
+    }
+
+    @PostMapping("/applications/{applicationName}/{cubeName}/zoomOut/{startRow}/{startColumn}")
+    public DataGrid getZoomOutOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
+                                       @PathVariable("cubeName") String cubeName,
+                                       @PathVariable("startRow") Integer startRow,
+                                       @PathVariable("startColumn") Integer startColumn) {
+        return loginService.getZoomOutOperation(applicationName,cubeName,dataGrid,startRow,startColumn);
     }
     @GetMapping("/dimensions/{dimensionName}/members")
     public List<EMembers> getAllMembersForDimensions(@PathVariable("dimensionName") String dimName) {

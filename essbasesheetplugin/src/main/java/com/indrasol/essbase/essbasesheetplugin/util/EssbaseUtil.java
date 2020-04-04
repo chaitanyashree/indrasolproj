@@ -89,8 +89,66 @@ public class EssbaseUtil {
 			for (int j = 0; j < cntCols; j++) {
 				System.out.print(grid.getValue(i, j) + "\t");
 				gridView[i][j] = grid.getValue(i, j).toString();
-				String dt = grid.getFormattedValue(i,j);
-				System.out.print("\t|"+dt+"|");
+				//String dt = grid.getFormattedValue(i,j);
+				//System.out.print("\t|"+dt+"|");
+			}
+			System.out.println();
+		}
+		System.out.println("\n");
+		updatedGrid.setDataGrid(gridView);
+		return updatedGrid;
+
+
+	}
+
+	public static DataGrid performZoomOutViewOperations(IEssCubeView cv,
+													   DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+		String[][] gridView = new String[][]{};
+		DataGrid updatedGrid = new DataGrid();
+		//int startRow=1,startColumn=0;
+		// Create a grid view with the input for the operation.
+		IEssGridView grid = cv.getGridView();
+		//grid.setSize(0,0);
+		grid.setSize(dataGrid.getTotalRows(), dataGrid.getTotalCols());
+		
+        gridView = dataGrid.getDataGrid();
+
+        for(int r=0; r<gridView.length; r++) {
+            for(int c=0; c<gridView[r].length; c++){
+                grid.setValue(r,c,gridView[r][c]);
+                //System.out.println(gridView[r][c]);
+            }
+        }
+
+		IEssOperation op = null;
+
+
+		op = cv.createIEssOpZoomOut();
+		
+
+        IEssOpZoomOut opCzo  = ((IEssOpZoomOut)op);
+        //opCzi.addRange(startRow, startColumn, dataGrid.getTotalRows(), dataGrid.getTotalCols());
+        //opCzi.setPreference(true, IEssOpZoomIn.EEssZoomInPreference.BOTTOM_LEVEL);
+		//((IEssOpZoomIn)op).addRange(startRow, startColumn,  grid.getCountRows(), grid.getCountColumns());
+		//opCzo.addRange(startRow, startColumn,  1, 1);
+        opCzo.addCell(startRow, startColumn);
+
+		// Perform the operation.
+		cv.performOperation(opCzo);
+		// Get the result and print the output.
+		int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
+		System.out.println("cntRows="+cntRows+"\tcntCols="+cntCols);
+		gridView= new String[cntRows][cntCols];
+        updatedGrid.setTotalRows(cntRows);
+        updatedGrid.setTotalCols(cntCols);
+		System.out.print("Query Results for the Operation: Zoom Out"  + "\n" +
+				"-----------------------------------------------------\n");
+		for (int i = 0; i < cntRows; i++) {
+			for (int j = 0; j < cntCols; j++) {
+				System.out.print(grid.getValue(i, j) + "\t");
+				gridView[i][j] = grid.getValue(i, j).toString();
+				//String dt = grid.getFormattedValue(i,j);
+				//System.out.print("\t|"+dt+"|");
 			}
 			System.out.println();
 		}

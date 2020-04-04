@@ -17,6 +17,11 @@ public class LoginService {
     private EssbaseConnection essbaseConnection;
 
 
+    public static final int NEXT_LEVEL = 0;
+    public static final int BOTTOM_LEVEL = 1;
+    public static final int ALL_LEVEL = 2;
+
+
     public void login(Credentials credentials) {
         this.essbaseConnection = EssbaseHelper.connect(credentials);
     }
@@ -61,7 +66,8 @@ public class LoginService {
         List<Dimension> dimensionList = new ArrayList<Dimension>();
         try {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
-                dimensionList = EssbaseHelper.getAllDimensions(this.essbaseConnection.getOlapSvr(), applicationName, cubeName);
+                dimensionList = EssbaseHelper.getAllDimensions(this.essbaseConnection.getOlapSvr(), applicationName,
+                        cubeName);
             }
 
         } catch (EssException e) {
@@ -74,9 +80,10 @@ public class LoginService {
         DataGrid grid = new DataGrid();
         try {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
-                //IEssCubeView cubeView = this.essbaseConnection.getOlapSvr().getApplication(applicationName).getCube(cubeName).openCubeView(this.essbaseConnection.getOlapSvr()+"-"+cubeName);
+                // IEssCubeView cubeView =
+                // this.essbaseConnection.getOlapSvr().getApplication(applicationName).getCube(cubeName).openCubeView(this.essbaseConnection.getOlapSvr()+"-"+cubeName);
                 grid = EssbaseHelper.getDefaultGrid(this.essbaseConnection.getOlapSvr(), applicationName, cubeName);
-                //this.essbaseConnection.setCubeView(cubeView);
+                // this.essbaseConnection.setCubeView(cubeView);
             }
 
         } catch (EssException e) {
@@ -85,11 +92,40 @@ public class LoginService {
         return grid;
     }
 
-    public DataGrid getZoomInOperation(String applicationName, String cubeName, DataGrid dataGrid,int startRow, int startColumn) {
+    public DataGrid getZoomInOperation(String applicationName, String cubeName, DataGrid dataGrid,int startRow, int startColumn, int zoomLevel) {
         DataGrid grid = new DataGrid();
         try {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
-                grid = EssbaseHelper.getZoomInOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn);
+                switch(zoomLevel) {
+                    case NEXT_LEVEL:
+                        grid = EssbaseHelper.getZoomInOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn);
+                        break;
+                    case BOTTOM_LEVEL:
+                        grid = EssbaseHelper.getZoomInOperationBottomLevel(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn);
+                        break;
+                    case ALL_LEVEL:
+                        grid = EssbaseHelper.getZoomInOperationAllLevel(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn);
+                        break;
+                    default:
+                        grid = EssbaseHelper.getZoomInOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn);
+
+                }
+                
+            }
+
+        }catch(EssException e)
+    {
+        e.printStackTrace();
+    }return grid;
+    }
+
+    public DataGrid getZoomOutOperation(String applicationName, String cubeName, DataGrid dataGrid, int startRow,
+            int startColumn) {
+        DataGrid grid = new DataGrid();
+        try {
+            if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+                grid = EssbaseHelper.getZoomOutOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,
+                        dataGrid, startRow, startColumn);
             }
 
         } catch (EssException e) {
@@ -126,6 +162,5 @@ public class LoginService {
     public void setEssbaseConnection(EssbaseConnection essbaseConnection) {
         this.essbaseConnection = essbaseConnection;
     }
-
 
 }
