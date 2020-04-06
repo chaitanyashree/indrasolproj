@@ -53,6 +53,7 @@ public class EssbaseUtil {
     public static DataGrid performZoomInViewOperations(IEssCubeView cv,
 													   DataGrid dataGrid, int startRow, int startColumn) throws EssException {
 		String[][] gridView = new String[][]{};
+		Integer[][] gridMetaData = new Integer[][]{};
 		DataGrid updatedGrid = new DataGrid();
 		//int startRow=1,startColumn=0;
 		// Create a grid view with the input for the operation.
@@ -81,6 +82,7 @@ public class EssbaseUtil {
 		// Get the result and print the output.
 		int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
 		gridView= new String[cntRows][cntCols];
+		gridMetaData = new Integer[cntRows][cntCols];
         updatedGrid.setTotalRows(cntRows);
         updatedGrid.setTotalCols(cntCols);
 		System.out.print("Query Results for the Operation: Zoom In"  + "\n" +
@@ -91,11 +93,13 @@ public class EssbaseUtil {
 				gridView[i][j] = grid.getValue(i, j).toString();
 				//String dt = grid.getFormattedValue(i,j);
 				//System.out.print("\t|"+dt+"|");
+				gridMetaData[i][j] = grid.getCellType(i, j).intValue();
 			}
 			System.out.println();
 		}
 		System.out.println("\n");
 		updatedGrid.setDataGrid(gridView);
+		updatedGrid.setDataGridMetaData(gridMetaData);
 		return updatedGrid;
 
 
@@ -104,22 +108,31 @@ public class EssbaseUtil {
 	public static DataGrid performZoomOutViewOperations(IEssCubeView cv,
 													   DataGrid dataGrid, int startRow, int startColumn) throws EssException {
 		String[][] gridView = new String[][]{};
+		Integer[][] gridMetaData = new Integer[][]{};
 		DataGrid updatedGrid = new DataGrid();
 		//int startRow=1,startColumn=0;
 		// Create a grid view with the input for the operation.
 		IEssGridView grid = cv.getGridView();
-		//grid.setSize(0,0);
+		//grid.setSize(1,1);
 		grid.setSize(dataGrid.getTotalRows(), dataGrid.getTotalCols());
+
+		System.out.println("totalRows=>"+dataGrid.getTotalRows()+"\t"+dataGrid.getTotalCols());
 		
-        gridView = dataGrid.getDataGrid();
+		gridView = dataGrid.getDataGrid();
+		gridMetaData = dataGrid.getDataGridMetaData();
+		System.out.println("totalRows=>"+dataGrid.getTotalRows()+"\t"+dataGrid.getTotalCols());
+		System.out.println("gridMetaData.rows=>"+gridMetaData.length);
 
         for(int r=0; r<gridView.length; r++) {
             for(int c=0; c<gridView[r].length; c++){
-                grid.setValue(r,c,gridView[r][c]);
+				if(gridMetaData[r][c] == IEssCell.EEssCellType.MEMBER.intValue()) {
+					grid.setValue(r,c,gridView[r][c]);
+				}
+                
                 //System.out.println(gridView[r][c]);
             }
         }
-
+		System.out.println("@@@@totalRows=>"+dataGrid.getTotalRows()+"\t"+dataGrid.getTotalCols());
 		IEssOperation op = null;
 
 
@@ -139,6 +152,7 @@ public class EssbaseUtil {
 		int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
 		System.out.println("cntRows="+cntRows+"\tcntCols="+cntCols);
 		gridView= new String[cntRows][cntCols];
+		gridMetaData = new Integer[cntRows][cntCols];
         updatedGrid.setTotalRows(cntRows);
         updatedGrid.setTotalCols(cntCols);
 		System.out.print("Query Results for the Operation: Zoom Out"  + "\n" +
@@ -149,11 +163,16 @@ public class EssbaseUtil {
 				gridView[i][j] = grid.getValue(i, j).toString();
 				//String dt = grid.getFormattedValue(i,j);
 				//System.out.print("\t|"+dt+"|");
+				gridMetaData[i][j] = grid.getCellType(i, j).intValue();
+				
+
 			}
 			System.out.println();
 		}
 		System.out.println("\n");
 		updatedGrid.setDataGrid(gridView);
+		updatedGrid.setDataGridMetaData(gridMetaData);
+		
 		return updatedGrid;
 
 
@@ -163,6 +182,7 @@ public class EssbaseUtil {
 	public static DataGrid performCubeViewOperation(IEssCubeView cv,
 													String opStr) throws EssException {
 		String[][] gridView = new String[][]{};
+		Integer[][] gridMetaData = new Integer[][]{};
 		DataGrid dataGrid = new DataGrid();
 		// Create a grid view with the input for the operation.
 		IEssGridView grid = cv.getGridView();
@@ -240,6 +260,7 @@ public class EssbaseUtil {
 		// Get the result and print the output.
 		int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
 		gridView= new String[cntRows][cntCols];
+		gridMetaData = new Integer[cntRows][cntCols];
 
 		dataGrid.setTotalRows(cntRows);
 		dataGrid.setTotalCols(cntCols);
@@ -249,11 +270,13 @@ public class EssbaseUtil {
 			for (int j = 0; j < cntCols; j++) {
 				System.out.print(grid.getValue(i, j) + "\t");
 				gridView[i][j] = grid.getValue(i, j).toString();
+				gridMetaData[i][j] = grid.getCellType(i, j).intValue();
 			}
 			System.out.println();
 		}
 		System.out.println("\n");
 		dataGrid.setDataGrid(gridView);
+		dataGrid.setDataGridMetaData(gridMetaData);
 		return dataGrid;
 	}
 

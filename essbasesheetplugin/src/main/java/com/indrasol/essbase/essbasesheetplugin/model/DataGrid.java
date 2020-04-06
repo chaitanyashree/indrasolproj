@@ -4,6 +4,8 @@ public class DataGrid {
     private int totalRows;
     private int totalCols;
     private String[][] dataGrid;
+    private Integer[][] dataGridMetaData;
+
 
     public DataGrid() {
 
@@ -32,4 +34,16 @@ public class DataGrid {
     public void setDataGrid(String[][] dataGrid) {
         this.dataGrid = dataGrid;
     }
+
+    public Integer[][] getDataGridMetaData() {
+        return dataGridMetaData;
+    }
+
+    public void setDataGridMetaData(Integer[][] dataGridMetaData) {
+        this.dataGridMetaData = dataGridMetaData;
+    }
+
+
+
+    
 }

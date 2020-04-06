@@ -177,6 +177,7 @@
         </div>
       </div>
       <input type=hidden id='selCube' name='selCube'/>
+      <input type=hidden id='metaDataGrid' name='metaDataGrid' />
      
     </form>
   </div>
@@ -312,7 +313,10 @@
             // $('#content').html(h);
             $('#content').hide();
             displayUIAfterLoad();
+            var jsonObj = JSON.parse(returnSuccess);
+            var metaGridVal = jsonObj.dataGridMetaData;
             $('input[name="selCube"]:hidden').val(selectedCube);
+            $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
             $('#connectHeading').html("<b>"+selectedCube+"</b>");
            
           })
@@ -321,6 +325,7 @@
             alert('withfailure');
             showError(msg, $('#button-bar'));
             //element.disabled = false;
+            $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
         .makeLoadDimensions(selectedCube);
@@ -360,12 +365,16 @@
 
     function callZoomOut() {
       var sCube = $('input[name="selCube"]:hidden').val();
+      var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
+      console.log('sMetaDataGrid '+sMetaDataGrid);
       console.log('callZoomOut...'+sCube);
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
             console.log('callZoomOut withsuccess' + returnSuccess);
-
+            var jsonObj = JSON.parse(returnSuccess);
+            var metaGridVal = jsonObj.dataGridMetaData;
+            $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
 
            
           })
@@ -374,20 +383,26 @@
             alert('withfailure');
             showError(msg, $('#button-bar'));
             //element.disabled = false;
+            $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
-        .makeZoomOutCall(sCube);
+        .makeZoomOutCall(sCube,sMetaDataGrid);
 
     }
 
     function callZoomInAll() {
       var sCube = $('input[name="selCube"]:hidden').val();
+      var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
+      console.log('sMetaDataGrid '+sMetaDataGrid);
       console.log('callZoomInAll...'+sCube);
+      
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
             console.log('callZoomInAll withsuccess' + returnSuccess);
-
+            var jsonObj = JSON.parse(returnSuccess);
+            var metaGridVal = jsonObj.dataGridMetaData;
+            $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
 
            
           })
@@ -396,20 +411,25 @@
             alert('withfailure');
             showError(msg, $('#button-bar'));
             //element.disabled = false;
+            $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
-        .makeZoomInAllCall(sCube);
+        .makeZoomInAllCall(sCube,sMetaDataGrid);
 
     }
 
     function callZoomInBottom() {
       var sCube = $('input[name="selCube"]:hidden').val();
+      var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
+      console.log('sMetaDataGrid '+sMetaDataGrid);
       console.log('callZoomInBottom...'+sCube);
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
             console.log('callZoomInBottom withsuccess' + returnSuccess);
-
+            var jsonObj = JSON.parse(returnSuccess);
+            var metaGridVal = jsonObj.dataGridMetaData;
+            $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
 
            
           })
@@ -418,20 +438,25 @@
             alert('withfailure');
             showError(msg, $('#button-bar'));
             //element.disabled = false;
+            $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
-        .makeZoomInBottomCall(sCube);
+        .makeZoomInBottomCall(sCube,sMetaDataGrid);
 
     }
 
     function callDefaultRetrieve() {
       var sCube = $('input[name="selCube"]:hidden').val();
+      var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
+      console.log('sMetaDataGrid '+sMetaDataGrid);
       console.log('callDefaultRetrieve...'+sCube);
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
             console.log('callDefaultRetrieve withsuccess' + returnSuccess);
-
+            var jsonObj = JSON.parse(returnSuccess);
+            var metaGridVal = jsonObj.dataGridMetaData;
+            $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
 
            
           })
@@ -440,6 +465,7 @@
             alert('withfailure');
             showError(msg, $('#button-bar'));
             //element.disabled = false;
+            $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
         .makeDefaultRetrieve(sCube);
@@ -448,12 +474,16 @@
 
     function callZoomInNext() {
       var sCube = $('input[name="selCube"]:hidden').val();
+      var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
+      console.log('sMetaDataGrid '+sMetaDataGrid);
       console.log('callZoomInNext...'+sCube);
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
             console.log('callZoomInNext withsuccess' + returnSuccess);
-
+            var jsonObj = JSON.parse(returnSuccess);
+            var metaGridVal = jsonObj.dataGridMetaData;
+            $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
 
            
           })
@@ -462,9 +492,10 @@
             alert('withfailure');
             showError(msg, $('#button-bar'));
             //element.disabled = false;
+            $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
-        .makeZoomInNextCall(sCube);
+        .makeZoomInNextCall(sCube,sMetaDataGrid);
 
     }
     function onConnect() {
