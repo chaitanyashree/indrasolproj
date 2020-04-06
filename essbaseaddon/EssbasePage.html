@@ -76,6 +76,11 @@
       padding: 10px;
     }
 
+  #contentbox {
+      border: dashed 2px #4CAF50;
+      padding: 10px;
+    }
+    
     #treeview,
     #treeview ul {
       list-style: none;
@@ -156,11 +161,34 @@
         <div class="block" id="button-bar" hidden>
           <div class="block" id='loadBtnDiv'><button class="blue" id="load-button">Load</button></br></div>
           <div class="block" id='zoomInBtnDiv'>
-            <button class="blue" id="defaultRetrieve-button">Default Retrieve</button></p>
-            <button class="blue" id="zoomInNext-button">Zoom In Next</button>
-            <button class="blue" id="zoomInBottom-button">Zoom In Bottom</button></p>
-            <button class="blue" id="zoomInAll-button">Zoom In All</button>
-            <button class="blue" id="zoomOut-button">Zoom Out</button>
+            <div class="block" id="zoomInBtnDiv" style="display: block;">
+<table>
+<tr>
+            <td colspan=4><button class="blue" id="defaultRetrieve-button">Default Retrieve</button></td>
+</tr>
+<tr>
+            <td colspan=2><button class="blue" id="refresh-button">Refresh</button></td>
+            <td colspan=2><button class="blue" id="refreshAll-button">Refresh All</button></td>
+</tr><tr>
+            <td colspan=4><button class="blue" id="submit-button">Submit</button></td>
+</tr><tr>
+            <td><button class="blue" id="zoomInNext-button">Zoom In Next</button></td>
+            <td><button class="blue" id="zoomInBottom-button">Zoom In Bottom</button></td><td></td>
+            <td><button class="blue" id="zoomInAll-button">Zoom In All</button></td>
+<tr><tr>
+            <td colspan=4><button class="blue" id="zoomOut-button">Zoom Out</button></td>
+</tr><tr>
+            <td colspan=2><button class="blue" id="keepOnly-button">Keep Only</button></td>
+            <td colspan=2><button class="blue" id="removeOnly-button">Remove Only</button></td>
+</tr><tr>
+            <td colspan=2><button class="blue" id="pivot-button">Pivot</button></td>
+            <td colspan=2><button class="blue" id="pivotToPov-button">Pivot To POV</button></td>
+</tr><tr>
+            <td colspan=2><button class="blue" id="memberSelection-button">Member Selection</button></td>
+            <td colspan=2><button class="blue" id="changeAlias-button">Change Alias</button></td>
+</tr>
+</table>
+          </div>
           </div>
           
           <div class="block" id='logoutBtnDiv'>
