@@ -228,16 +228,16 @@ jQuery(function($) {
 
     display("Loading the JSON data");
     $.ajax({
-      type:     "GET",
-      url:      "/path/to/the/data",
+      type: "GET",
+      url: "/path/to/the/data",
       dataType: "JSON",
       success:  function(data) {
         display("Got the data, rendering it.");
         $(document.body).append(renderContents(data.contents));
-      },
+        },
       error:    function() {
         display("An error occurred.");
-      }
+        }
     });
   
     function renderContents(contents) {
@@ -259,11 +259,10 @@ jQuery(function($) {
         // Append a sublist of its contents if it has them
         if (entry.content) {
           li.append(renderContents(entry.content));
-        }
-  
-        // Add this item to our list
+            }
+            // Add this item to our list
         ul.append(li);
-      });
+        });
   
       // Return it
       return ul;
@@ -272,6 +271,241 @@ jQuery(function($) {
     function display(msg) {
       $("<p>").html(msg).appendTo(document.body);
     }
-  });
+});
   
   
+  {
+    "totalRows": 18,
+    "totalCols": 5,
+    "dataGrid": [
+        [
+            "",
+            "Measures",
+            "Product",
+            "Market",
+            "Scenario"
+        ],
+        [
+            "Jan",
+            "8024",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Feb",
+            "8346",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Mar",
+            "8333",
+            "",
+            "",
+            ""
+        ],
+        [
+            "     Qtr1",
+            "24703",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Apr",
+            "8644",
+            "",
+            "",
+            ""
+        ],
+        [
+            "May",
+            "8929",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Jun",
+            "9534",
+            "",
+            "",
+            ""
+        ],
+        [
+            "     Qtr2",
+            "27107",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Jul",
+            "9878",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Aug",
+            "9545",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Sep",
+            "8489",
+            "",
+            "",
+            ""
+        ],
+        [
+            "     Qtr3",
+            "27912",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Oct",
+            "8653",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Nov",
+            "8367",
+            "",
+            "",
+            ""
+        ],
+        [
+            "Dec",
+            "8780",
+            "",
+            "",
+            ""
+        ],
+        [
+            "     Qtr4",
+            "25800",
+            "",
+            "",
+            ""
+        ],
+        [
+            "          Year",
+            "105522",
+            "",
+            "",
+            ""
+        ]
+    ],
+    "dataGridMetaData": [
+        [
+            2,
+            0,
+            0,
+            0,
+            0
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ],
+        [
+            0,
+            1,
+            2,
+            2,
+            2
+        ]
+    ]
+}
+
+
+{"totalRows":18,"totalCols":5,"dataGrid":[["","Measures","Product","Market","Scenario"],["Jan","8024.0","","",""],["Feb","8346.0","","",""],["Mar","8333.0","","",""],["     Qtr1","24703.0","","",""],["Apr","8644.0","","",""],["May","8929.0","","",""],["Jun","9534.0","","",""],["     Qtr2","27107.0","","",""],["Jul","9878.0","","",""],["Aug","9545.0","","",""],["Sep","8489.0","","",""],["     Qtr3","27912.0","","",""],["Oct","8653.0","","",""],["Nov","8367.0","","",""],["Dec","8780.0","","",""],["     Qtr4","25800.0","","",""],["          Year","105522.0","","",""]],"dataGridMetaData":[[2,0,0,0,0],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2],[0,1,2,2,2]]}
