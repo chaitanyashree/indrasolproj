@@ -151,5 +151,26 @@ public class LoginController {
         return loginService.getAllMembersForDimensions(dimName);
     }
 
+    @PostMapping("/applications/{applicationName}/{cubeName}/refresh")
+    public DataGrid getRefreshOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
+                                       @PathVariable("cubeName") String cubeName) {
+        return loginService.getRefreshOperation(applicationName,cubeName,dataGrid);
+    }
+
+    @PostMapping("/applications/{applicationName}/{cubeName}/keepOnly/{startRow}/{startColumn}")
+    public DataGrid getKeepOnlyOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
+                                       @PathVariable("cubeName") String cubeName,
+                                       @PathVariable("startRow") Integer startRow,
+                                       @PathVariable("startColumn") Integer startColumn) {
+        return loginService.getKeepOnlyOperation(applicationName,cubeName,dataGrid,startRow,startColumn);
+    }
+
+    @PostMapping("/applications/{applicationName}/{cubeName}/removeOnly/{startRow}/{startColumn}")
+    public DataGrid getRemoveOnlyOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
+                                       @PathVariable("cubeName") String cubeName,
+                                       @PathVariable("startRow") Integer startRow,
+                                       @PathVariable("startColumn") Integer startColumn) {
+        return loginService.getRemoveOnlyOperation(applicationName,cubeName,dataGrid,startRow,startColumn);
+    }    
 
 }

@@ -134,6 +134,50 @@ public class LoginService {
         return grid;
     }
 
+    public DataGrid getKeepOnlyOperation(String applicationName, String cubeName, DataGrid dataGrid, int startRow,
+            int startColumn) {
+        DataGrid grid = new DataGrid();
+        try {
+            if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+                grid = EssbaseHelper.getKeepOnlyOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,
+                        dataGrid, startRow, startColumn);
+            }
+
+        } catch (EssException e) {
+            e.printStackTrace();
+        }
+        return grid;
+    }  
+
+    public DataGrid getRemoveOnlyOperation(String applicationName, String cubeName, DataGrid dataGrid, int startRow,
+            int startColumn) {
+        DataGrid grid = new DataGrid();
+        try {
+            if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+                grid = EssbaseHelper.getRemoveOnlyOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,
+                        dataGrid, startRow, startColumn);
+            }
+
+        } catch (EssException e) {
+            e.printStackTrace();
+        }
+        return grid;
+    }      
+
+    public DataGrid getRefreshOperation(String applicationName, String cubeName, DataGrid dataGrid) {
+        DataGrid grid = new DataGrid();
+        try {
+            if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+                grid = EssbaseHelper.getRefreshOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,
+                        dataGrid);
+            }
+
+        } catch (EssException e) {
+            e.printStackTrace();
+        }
+        return grid;
+    }    
+
     public List<EMembers> getAllMembersForDimensions(String dimName) {
         List<EMembers> membersList = new ArrayList<EMembers>();
         try {

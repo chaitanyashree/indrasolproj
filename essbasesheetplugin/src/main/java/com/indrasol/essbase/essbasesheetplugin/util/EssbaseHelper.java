@@ -249,7 +249,7 @@ public class EssbaseHelper {
 
     }
 
-    public static DataGrid getZoomOutOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+    public static DataGrid getKeepOnlyOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
@@ -257,9 +257,11 @@ public class EssbaseHelper {
             // Set couple of cube view properties.
             cubeView.setRepeatMemberNames(false);
             cubeView.setIncludeSelection(true);
+            cubeView.setAliasNames(true);
+
             cubeView.updatePropertyValues();
     
-            grid = EssbaseUtil.performZoomOutViewOperations(cubeView, dataGrid,startRow,startColumn);
+            grid = EssbaseUtil.performKeepOnlyOperations(cubeView, dataGrid,startRow,startColumn);
         }catch(EssException ex) {
             ex.printStackTrace();
             throw ex;
@@ -275,6 +277,90 @@ public class EssbaseHelper {
 
 
     }
+
+    public static DataGrid getRemoveOnlyOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+        DataGrid grid = new DataGrid();
+        IEssCubeView cubeView = null;
+        try {
+            cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
+            // Set couple of cube view properties.
+            cubeView.setRepeatMemberNames(false);
+            cubeView.setIncludeSelection(true);
+            cubeView.setAliasNames(true);
+
+            cubeView.updatePropertyValues();
+    
+            grid = EssbaseUtil.performRemoveOnlyOperations(cubeView, dataGrid,startRow,startColumn);
+        }catch(EssException ex) {
+            ex.printStackTrace();
+            throw ex;
+
+        } finally {
+            if(cubeView != null) {
+                cubeView.close();
+            }
+        }
+
+        return grid;
+
+
+
+    }
+
+    public static DataGrid getZoomOutOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+        DataGrid grid = new DataGrid();
+        IEssCubeView cubeView = null;
+        try {
+            cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
+            // Set couple of cube view properties.
+            cubeView.setRepeatMemberNames(false);
+            cubeView.setIncludeSelection(true);
+            cubeView.setAliasNames(true);
+
+            cubeView.updatePropertyValues();
+    
+            grid = EssbaseUtil.performZoomOutViewOperations(cubeView, dataGrid,startRow,startColumn);
+        }catch(EssException ex) {
+            ex.printStackTrace();
+            throw ex;
+
+        } finally {
+            if(cubeView != null) {
+                cubeView.close();
+            }
+        }
+
+        return grid;
+    }
+
+
+    public static DataGrid getRefreshOperation(IEssOlapServer olapSvr, String applicationName, String cubeName, DataGrid dataGrid) throws EssException {
+
+        DataGrid grid = new DataGrid();
+        IEssCubeView cubeView = null;
+        try {
+            cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
+            // Set couple of cube view properties.
+            cubeView.setRepeatMemberNames(false);
+            cubeView.setIncludeSelection(true);
+            cubeView.setAliasNames(true);
+
+            cubeView.updatePropertyValues();
+    
+            grid = EssbaseUtil.performRefreshOperations(cubeView, dataGrid);
+        }catch(EssException ex) {
+            ex.printStackTrace();
+            throw ex;
+
+        } finally {
+            if(cubeView != null) {
+                cubeView.close();
+            }
+        }
+
+        return grid;
+    }
+
 
     public static List<Dimension> getAllDimensions(IEssOlapServer olapSvr, String applicationName, String cubeName) throws EssException {
         List<Dimension> listDimension = new ArrayList<Dimension>();
@@ -347,6 +433,8 @@ public class EssbaseHelper {
         return listMembers;
         
     }
+
+
     
     public static void disconnect(EssbaseConnection essbaseConnection) {
         // Sign off.
@@ -380,5 +468,6 @@ public class EssbaseHelper {
 
 
     }
+
 
 }

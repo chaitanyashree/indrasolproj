@@ -1,7 +1,7 @@
-GET http://localhost:8080/essbase/hello HTTP/1.1
+GET http://35.184.51.106:8080/essbase/hello HTTP/1.1
 
 ###
-POST http://localhost:8080/essbase/login HTTP/1.1
+POST http://35.184.51.106:8080/essbase/login HTTP/1.1
 Content-Type: application/json
 
 {
@@ -12,18 +12,18 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/essbase/logout HTTP/1.1
+GET http://35.184.51.106:8080/essbase/logout HTTP/1.1
 
 ###
-GET http://localhost:8080/essbase/applications HTTP/1.1
+GET http://35.184.51.106:8080/essbase/applications HTTP/1.1
 content-type: application/json
 
 
 ###
-GET http://localhost:8080/essbase/applications/Sample/Basic/defaultGrid HTTP/1.1
+GET http://35.184.51.106:8080/essbase/applications/Sample/Basic/defaultGrid HTTP/1.1
 
 ###
-POST http://localhost:8080/essbase/applications/Sample/Basic/refresh HTTP/1.1
+POST http://35.184.51.106:8080/essbase/applications/Sample/Basic/refresh HTTP/1.1
 Content-Type: application/json
 
 {
@@ -64,7 +64,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/essbase/applications/Sample/Basic/zoomIn/1/0 HTTP/1.1
+POST http://35.184.51.106:8080/essbase/applications/Sample/Basic/zoomIn/1/0 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -107,7 +107,7 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:8080/essbase/applications/Sample/Basic/zoomInBottom/1/0 HTTP/1.1
+POST http://35.184.51.106:8080/essbase/applications/Sample/Basic/zoomInBottom/1/0 HTTP/1.1
 
 Content-Type: application/json
 
@@ -133,7 +133,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/essbase/applications/Sample/Basic/zoomInAll/1/0 HTTP/1.1
+POST http://35.184.51.106:8080/essbase/applications/Sample/Basic/zoomInAll/1/0 HTTP/1.1
 
 Content-Type: application/json
 
@@ -185,7 +185,7 @@ Content-Type: application/json
 }
 
 ### 
-POST http://localhost:8080/essbase/applications/Sample/Basic/keepOnly/1/0  HTTP/1.1
+POST http://35.184.51.106:8080/essbase/applications/Sample/Basic/keepOnly/1/0  HTTP/1.1
 Content-Type: application/json
 
 {
@@ -282,7 +282,7 @@ Content-Type: application/json
 }
 
 ### 
-POST http://localhost:8080/essbase/applications/Sample/Basic/removeOnly/1/0  HTTP/1.1
+POST http://35.184.51.106:8080/essbase/applications/Sample/Basic/removeOnly/1/0  HTTP/1.1
 Content-Type: application/json
 
 {

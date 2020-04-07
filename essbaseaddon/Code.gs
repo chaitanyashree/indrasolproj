@@ -319,6 +319,139 @@ function makeZoomOutCall(selectedCube,sMetaDataGrid) {
 
 }
 
+function makeKeepOnlyCall(selectedCube,sMetaDataGrid) {
+  Logger.log('makeKeepOnlyCall....');
+  var range = SpreadsheetApp.getActive().getDataRange();
+  var totalCols = range.getNumColumns();
+  var totalRows = range.getNumRows();
+  var dataGridValues = range.getDisplayValues();
+
+  // var devMetaFinder = SpreadsheetApp.getActive().getActiveSheet().createDeveloperMetadataFinder();
+ 
+  // //var developerMetaData = SpreadsheetApp.getActive().getActiveSheet().getDeveloperMetadata();
+  // var developerMetaData =  devMetaFinder.withKey('metaDataGrid').find();
+  // Logger.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
+  // console.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
+
+
+  var data = {
+    "totalRows": totalRows,
+    "totalCols": totalCols,
+    "dataGrid": dataGridValues,
+    "dataGridMetaData": JSON.parse(sMetaDataGrid)
+  };
+  Logger.log(JSON.stringify(data));
+  var options = {
+    'method': 'post',
+    'contentType': 'application/json',
+    'payload': JSON.stringify(data)
+  };
+  var selCel = SpreadsheetApp.getActive().getCurrentCell();
+  var selCelRow = selCel.getRow();
+  var selCelCol = selCel.getColumn();
+  if(selCelRow>0) {
+    selCelRow = selCelRow - 1;
+  }
+  if(selCelCol>0) {
+    selCelCol = selCelCol -1;
+  }
+  Logger.log('activecell - '+selCelRow+"\t"+selCelCol);
+
+  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/keepOnly/'+selCelRow+'/'+selCelCol;
+
+  var response = UrlFetchApp.fetch(zoomUrl,options);
+   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
+   var resstr = response.getContentText();
+   var jsonObj = JSON.parse(resstr);
+   var totalRowNum = 0;
+   var totalColNum = 0;
+   var dataGrid;
+   var metaDataGrid;
+
+   if (jsonObj) {
+     totalRowNum = jsonObj.totalRows;
+     totalColNum = jsonObj.totalCols;
+     dataGrid = jsonObj.dataGrid;
+     metaDataGrid = JSON.stringify(jsonObj.dataGridMetaData);
+   }
+   Logger.log('totalRowNum=' + totalRowNum);
+   Logger.log('totalColNUm=' + totalColNum);
+   Logger.log('metaDataGrid.length='+metaDataGrid.length);
+   Logger.log('received data ='+JSON.stringify(jsonObj));
+   SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();
+   SpreadsheetApp.getActive().getActiveSheet().getRange(1, 1, totalRowNum, totalColNum).setValues(dataGrid);
+  //  SpreadsheetApp.getActive().getActiveSheet().addDeveloperMetadata('metaDataGrid',metaDataGrid);
+   return response.getContentText();
+
+}
+
+function makeRemoveOnlyCall(selectedCube,sMetaDataGrid) {
+  Logger.log('makeRemoveOnlyCall....');
+  var range = SpreadsheetApp.getActive().getDataRange();
+  var totalCols = range.getNumColumns();
+  var totalRows = range.getNumRows();
+  var dataGridValues = range.getDisplayValues();
+
+  // var devMetaFinder = SpreadsheetApp.getActive().getActiveSheet().createDeveloperMetadataFinder();
+ 
+  // //var developerMetaData = SpreadsheetApp.getActive().getActiveSheet().getDeveloperMetadata();
+  // var developerMetaData =  devMetaFinder.withKey('metaDataGrid').find();
+  // Logger.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
+  // console.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
+
+
+  var data = {
+    "totalRows": totalRows,
+    "totalCols": totalCols,
+    "dataGrid": dataGridValues,
+    "dataGridMetaData": JSON.parse(sMetaDataGrid)
+  };
+  Logger.log(JSON.stringify(data));
+  var options = {
+    'method': 'post',
+    'contentType': 'application/json',
+    'payload': JSON.stringify(data)
+  };
+  var selCel = SpreadsheetApp.getActive().getCurrentCell();
+  var selCelRow = selCel.getRow();
+  var selCelCol = selCel.getColumn();
+  if(selCelRow>0) {
+    selCelRow = selCelRow - 1;
+  }
+  if(selCelCol>0) {
+    selCelCol = selCelCol -1;
+  }
+  Logger.log('activecell - '+selCelRow+"\t"+selCelCol);
+
+  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/removeOnly/'+selCelRow+'/'+selCelCol;
+
+  var response = UrlFetchApp.fetch(zoomUrl,options);
+   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
+   var resstr = response.getContentText();
+   var jsonObj = JSON.parse(resstr);
+   var totalRowNum = 0;
+   var totalColNum = 0;
+   var dataGrid;
+   var metaDataGrid;
+
+   if (jsonObj) {
+     totalRowNum = jsonObj.totalRows;
+     totalColNum = jsonObj.totalCols;
+     dataGrid = jsonObj.dataGrid;
+     metaDataGrid = JSON.stringify(jsonObj.dataGridMetaData);
+   }
+   Logger.log('totalRowNum=' + totalRowNum);
+   Logger.log('totalColNUm=' + totalColNum);
+   Logger.log('metaDataGrid.length='+metaDataGrid.length);
+   Logger.log('received data ='+JSON.stringify(jsonObj));
+   SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();
+   SpreadsheetApp.getActive().getActiveSheet().getRange(1, 1, totalRowNum, totalColNum).setValues(dataGrid);
+  //  SpreadsheetApp.getActive().getActiveSheet().addDeveloperMetadata('metaDataGrid',metaDataGrid);
+   return response.getContentText();
+
+}
+
+
 function makeLoadDimensions(selectedCube) {
   Logger.log('makeLoadCall....');
   //Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');

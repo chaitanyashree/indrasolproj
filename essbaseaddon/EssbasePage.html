@@ -76,11 +76,11 @@
       padding: 10px;
     }
 
-  #contentbox {
+    #contentbox {
       border: dashed 2px #4CAF50;
       padding: 10px;
     }
-    
+
     #treeview,
     #treeview ul {
       list-style: none;
@@ -162,40 +162,47 @@
           <div class="block" id='loadBtnDiv'><button class="blue" id="load-button">Load</button></br></div>
           <div class="block" id='zoomInBtnDiv'>
             <div class="block" id="zoomInBtnDiv" style="display: block;">
-<table>
-<tr>
-            <td colspan=4><button class="blue" id="defaultRetrieve-button">Default Retrieve</button></td>
-</tr>
-<tr>
-            <td colspan=2><button class="blue" id="refresh-button">Refresh</button></td>
-            <td colspan=2><button class="blue" id="refreshAll-button">Refresh All</button></td>
-</tr><tr>
-            <td colspan=4><button class="blue" id="submit-button">Submit</button></td>
-</tr><tr>
-            <td><button class="blue" id="zoomInNext-button">Zoom In Next</button></td>
-            <td><button class="blue" id="zoomInBottom-button">Zoom In Bottom</button></td><td></td>
-            <td><button class="blue" id="zoomInAll-button">Zoom In All</button></td>
-<tr><tr>
-            <td colspan=4><button class="blue" id="zoomOut-button">Zoom Out</button></td>
-</tr><tr>
-            <td colspan=2><button class="blue" id="keepOnly-button">Keep Only</button></td>
-            <td colspan=2><button class="blue" id="removeOnly-button">Remove Only</button></td>
-</tr><tr>
-            <td colspan=2><button class="blue" id="pivot-button">Pivot</button></td>
-            <td colspan=2><button class="blue" id="pivotToPov-button">Pivot To POV</button></td>
-</tr><tr>
-            <td colspan=2><button class="blue" id="memberSelection-button">Member Selection</button></td>
-            <td colspan=2><button class="blue" id="changeAlias-button">Change Alias</button></td>
-</tr>
-</table>
+              <table>
+                <tr>
+                  <td colspan=4><button class="blue" id="defaultRetrieve-button">Default Retrieve</button></td>
+                </tr>
+                <tr>
+                  <td colspan=2><button class="blue" id="refresh-button">Refresh</button></td>
+                  <td colspan=2><button class="blue" id="refreshAll-button">Refresh All</button></td>
+                </tr>
+                <tr>
+                  <td colspan=4><button class="blue" id="submit-button">Submit</button></td>
+                </tr>
+                <tr>
+                  <td><button class="blue" id="zoomInNext-button">Zoom In Next</button></td>
+                  <td><button class="blue" id="zoomInBottom-button">Zoom In Bottom</button></td>
+                  <td></td>
+                  <td><button class="blue" id="zoomInAll-button">Zoom In All</button></td>
+                <tr>
+                <tr>
+                  <td colspan=4><button class="blue" id="zoomOut-button">Zoom Out</button></td>
+                </tr>
+                <tr>
+                  <td colspan=2><button class="blue" id="keepOnly-button">Keep Only</button></td>
+                  <td colspan=2><button class="blue" id="removeOnly-button">Remove Only</button></td>
+                </tr>
+                <tr>
+                  <td colspan=2><button class="blue" id="pivot-button">Pivot</button></td>
+                  <td colspan=2><button class="blue" id="pivotToPov-button">Pivot To POV</button></td>
+                </tr>
+                <tr>
+                  <td colspan=2><button class="blue" id="memberSelection-button">Member Selection</button></td>
+                  <td colspan=2><button class="blue" id="changeAlias-button">Change Alias</button></td>
+                </tr>
+              </table>
+            </div>
           </div>
-          </div>
-          
+
           <div class="block" id='logoutBtnDiv'>
             <button class="blue" id="logout-button">Logout</button>
             <button id="cancel-button" onclick="callClose()">Cancel</button></br>
           </div>
-          
+
         </div>
 
       </div>
@@ -204,9 +211,9 @@
         <div id="content">
         </div>
       </div>
-      <input type=hidden id='selCube' name='selCube'/>
+      <input type=hidden id='selCube' name='selCube' />
       <input type=hidden id='metaDataGrid' name='metaDataGrid' />
-     
+
     </form>
   </div>
 
@@ -235,6 +242,9 @@
       $('#zoomInAll-button').click(callZoomInAll);
       $('#zoomOut-button').click(callZoomOut);
       $('#defaultRetrieve-button').click(callDefaultRetrieve);
+      $('#keepOnly-button').click(callKeepOnly);
+      $('#removeOnly-button').click(callRemoveOnly);
+
 
 
 
@@ -294,7 +304,7 @@
             //$('#connectBlock').hide();
             //displayUIAfterConnect();
             //element.disabled = false;
-            var h  = $.parseHTML('</p>');
+            var h = $.parseHTML('</p>');
             $('#content').html(h);
             var jsonObj = JSON.parse(returnSuccess);
             formApplicationTree(jsonObj);
@@ -345,8 +355,8 @@
             var metaGridVal = jsonObj.dataGridMetaData;
             $('input[name="selCube"]:hidden').val(selectedCube);
             $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
-            $('#connectHeading').html("<b>"+selectedCube+"</b>");
-           
+            $('#connectHeading').html("<b>" + selectedCube + "</b>");
+
           })
         .withFailureHandler(
           function (msg, element) {
@@ -390,12 +400,11 @@
       google.script.host.close();
     }
 
-
-    function callZoomOut() {
+    function callKeepOnly() {
       var sCube = $('input[name="selCube"]:hidden').val();
       var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
-      console.log('sMetaDataGrid '+sMetaDataGrid);
-      console.log('callZoomOut...'+sCube);
+      console.log('sMetaDataGrid ' + sMetaDataGrid);
+      console.log('callKeepOnly...' + sCube);
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
@@ -404,7 +413,7 @@
             var metaGridVal = jsonObj.dataGridMetaData;
             $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
 
-           
+
           })
         .withFailureHandler(
           function (msg, element) {
@@ -414,16 +423,70 @@
             $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
-        .makeZoomOutCall(sCube,sMetaDataGrid);
+        .makeKeepOnlyCall(sCube, sMetaDataGrid);
+
+    }
+
+    function callRemoveOnly() {
+      var sCube = $('input[name="selCube"]:hidden').val();
+      var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
+      console.log('sMetaDataGrid ' + sMetaDataGrid);
+      console.log('callRemoveOnly...' + sCube);
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('callZoomOut withsuccess' + returnSuccess);
+            var jsonObj = JSON.parse(returnSuccess);
+            var metaGridVal = jsonObj.dataGridMetaData;
+            $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
+
+
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+            $('input[name="metaDataGrid"]:hidden').val('');
+          })
+        //.withUserObject(this)
+        .makeRemoveOnlyCall(sCube, sMetaDataGrid);
+
+    }     
+
+    function callZoomOut() {
+      var sCube = $('input[name="selCube"]:hidden').val();
+      var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
+      console.log('sMetaDataGrid ' + sMetaDataGrid);
+      console.log('callZoomOut...' + sCube);
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('callZoomOut withsuccess' + returnSuccess);
+            var jsonObj = JSON.parse(returnSuccess);
+            var metaGridVal = jsonObj.dataGridMetaData;
+            $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
+
+
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+            $('input[name="metaDataGrid"]:hidden').val('');
+          })
+        //.withUserObject(this)
+        .makeZoomOutCall(sCube, sMetaDataGrid);
 
     }
 
     function callZoomInAll() {
       var sCube = $('input[name="selCube"]:hidden').val();
       var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
-      console.log('sMetaDataGrid '+sMetaDataGrid);
-      console.log('callZoomInAll...'+sCube);
-      
+      console.log('sMetaDataGrid ' + sMetaDataGrid);
+      console.log('callZoomInAll...' + sCube);
+
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
@@ -432,7 +495,7 @@
             var metaGridVal = jsonObj.dataGridMetaData;
             $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
 
-           
+
           })
         .withFailureHandler(
           function (msg, element) {
@@ -442,15 +505,15 @@
             $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
-        .makeZoomInAllCall(sCube,sMetaDataGrid);
+        .makeZoomInAllCall(sCube, sMetaDataGrid);
 
     }
 
     function callZoomInBottom() {
       var sCube = $('input[name="selCube"]:hidden').val();
       var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
-      console.log('sMetaDataGrid '+sMetaDataGrid);
-      console.log('callZoomInBottom...'+sCube);
+      console.log('sMetaDataGrid ' + sMetaDataGrid);
+      console.log('callZoomInBottom...' + sCube);
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
@@ -459,7 +522,7 @@
             var metaGridVal = jsonObj.dataGridMetaData;
             $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
 
-           
+
           })
         .withFailureHandler(
           function (msg, element) {
@@ -469,15 +532,15 @@
             $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
-        .makeZoomInBottomCall(sCube,sMetaDataGrid);
+        .makeZoomInBottomCall(sCube, sMetaDataGrid);
 
     }
 
     function callDefaultRetrieve() {
       var sCube = $('input[name="selCube"]:hidden').val();
       var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
-      console.log('sMetaDataGrid '+sMetaDataGrid);
-      console.log('callDefaultRetrieve...'+sCube);
+      console.log('sMetaDataGrid ' + sMetaDataGrid);
+      console.log('callDefaultRetrieve...' + sCube);
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
@@ -486,7 +549,7 @@
             var metaGridVal = jsonObj.dataGridMetaData;
             $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
 
-           
+
           })
         .withFailureHandler(
           function (msg, element) {
@@ -503,8 +566,8 @@
     function callZoomInNext() {
       var sCube = $('input[name="selCube"]:hidden').val();
       var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
-      console.log('sMetaDataGrid '+sMetaDataGrid);
-      console.log('callZoomInNext...'+sCube);
+      console.log('sMetaDataGrid ' + sMetaDataGrid);
+      console.log('callZoomInNext...' + sCube);
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
@@ -513,7 +576,7 @@
             var metaGridVal = jsonObj.dataGridMetaData;
             $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
 
-           
+
           })
         .withFailureHandler(
           function (msg, element) {
@@ -523,7 +586,7 @@
             $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
-        .makeZoomInNextCall(sCube,sMetaDataGrid);
+        .makeZoomInNextCall(sCube, sMetaDataGrid);
 
     }
     function onConnect() {
