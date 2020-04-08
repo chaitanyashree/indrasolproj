@@ -164,6 +164,7 @@ public class LoginController {
                                        @PathVariable("startColumn") Integer startColumn) {
         return loginService.getKeepOnlyOperation(applicationName,cubeName,dataGrid,startRow,startColumn);
     }
+    
 
     @PostMapping("/applications/{applicationName}/{cubeName}/removeOnly/{startRow}/{startColumn}")
     public DataGrid getRemoveOnlyOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,

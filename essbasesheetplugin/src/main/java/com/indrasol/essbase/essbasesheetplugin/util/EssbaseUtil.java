@@ -70,9 +70,9 @@ public class EssbaseUtil {
 
 		for(int r=0; r<gridView.length; r++) {
 			for(int c=0; c<gridView[r].length; c++){
-				//if(gridMetaData[r][c] == IEssCell.EEssCellType.MEMBER.intValue()) {
+				if(gridMetaData[r][c] == IEssCell.EEssCellType.MEMBER.intValue()) {
 					grid.setValue(r,c,gridView[r][c]);
-				//}
+				}
 				
 				//System.out.println(gridView[r][c]);
 			}
@@ -81,12 +81,12 @@ public class EssbaseUtil {
 		cv.updatePropertyValues();
 		cv.refreshPropertyValues();
 		
-		// IEssOperation op = null;
+		IEssOperation op = null;
 
-		// op = cv.createIEssOpRetrieve();
+		op = cv.createIEssOpRetrieve();
 
 		// Perform the operation.
-		// cv.performOperation(op);
+		cv.performOperation(op);
 		// Get the result and print the output.
 		int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
 		gridView= new String[cntRows][cntCols];
