@@ -174,10 +174,10 @@
                   <td colspan=4><button class="blue" id="submit-button">Submit</button></td>
                 </tr>
                 <tr>
-                  <td><button class="blue" id="zoomInNext-button">Zoom In Next</button></td>
-                  <td><button class="blue" id="zoomInBottom-button">Zoom In Bottom</button></td>
+                  <td><button class="blue" id="zoomInNext-button">Zoom In Next</button>&nbsp;</td>
+                  <td><button class="blue" id="zoomInBottom-button">Zoom In Bottom</button>&nbsp;</td>
                   <td></td>
-                  <td><button class="blue" id="zoomInAll-button">Zoom In All</button></td>
+                  <td><button class="blue" id="zoomInAll-button">Zoom In All</button>&nbsp;</td>
                 <tr>
                 <tr>
                   <td colspan=4><button class="blue" id="zoomOut-button">Zoom Out</button></td>
@@ -244,6 +244,7 @@
       $('#defaultRetrieve-button').click(callDefaultRetrieve);
       $('#keepOnly-button').click(callKeepOnly);
       $('#removeOnly-button').click(callRemoveOnly);
+      $('#refresh-button').click(callRefresh);
 
 
 
@@ -400,6 +401,8 @@
       google.script.host.close();
     }
 
+    
+
     function callKeepOnly() {
       var sCube = $('input[name="selCube"]:hidden').val();
       var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
@@ -454,6 +457,32 @@
 
     }     
 
+    function callRefresh() {
+      var sCube = $('input[name="selCube"]:hidden').val();
+      var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
+      console.log('sMetaDataGrid ' + sMetaDataGrid);
+      console.log('callRefresh...' + sCube);
+      google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('callZoomOut withsuccess' + returnSuccess);
+            var jsonObj = JSON.parse(returnSuccess);
+            var metaGridVal = jsonObj.dataGridMetaData;
+            $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
+
+
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            alert('withfailure');
+            showError(msg, $('#button-bar'));
+            //element.disabled = false;
+            $('input[name="metaDataGrid"]:hidden').val('');
+          })
+        //.withUserObject(this)
+        .makeRefreshCall(sCube, sMetaDataGrid);
+
+    }
     function callZoomOut() {
       var sCube = $('input[name="selCube"]:hidden').val();
       var sMetaDataGrid = $('input[name="metaDataGrid"]:hidden').val();
