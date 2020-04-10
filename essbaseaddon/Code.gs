@@ -395,8 +395,6 @@ function makeKeepOnlyCall(selectedCube,sMetaDataGrid) {
   var dataGridValues = range.getDisplayValues();
 
 
-
-
   var data = {
     "totalRows": totalRows,
     "totalCols": totalCols,
@@ -409,9 +407,14 @@ function makeKeepOnlyCall(selectedCube,sMetaDataGrid) {
     'contentType': 'application/json',
     'payload': JSON.stringify(data)
   };
-  var selCel = SpreadsheetApp.getActive().getCurrentCell();
-  var selCelRow = selCel.getRow();
-  var selCelCol = selCel.getColumn();
+  //var selRange = SpreadsheetApp.getActive().getCurrentCell();
+  var selRange = SpreadsheetApp.getActive().getSelection().getActiveRangeList().getRanges();
+  var selCelRow = selRange[0].getRow();
+  var selCelCol = selRange[0].getColumn();
+
+  var selCountRow = selRange[0].getHeight();
+  var selCountCol = selRange[0].getWidth();
+
   if(selCelRow>0) {
     selCelRow = selCelRow - 1;
   }
@@ -420,7 +423,7 @@ function makeKeepOnlyCall(selectedCube,sMetaDataGrid) {
   }
   Logger.log('activecell - '+selCelRow+"\t"+selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/keepOnly/'+selCelRow+'/'+selCelCol;
+  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/keepOnly/'+selCelRow+'/'+selCelCol+'/'+selCountRow+'/'+selCountCol;
 
   var response = UrlFetchApp.fetch(zoomUrl,options);
    //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -455,13 +458,6 @@ function makeRemoveOnlyCall(selectedCube,sMetaDataGrid) {
   var totalRows = range.getNumRows();
   var dataGridValues = range.getDisplayValues();
 
-  // var devMetaFinder = SpreadsheetApp.getActive().getActiveSheet().createDeveloperMetadataFinder();
- 
-  // //var developerMetaData = SpreadsheetApp.getActive().getActiveSheet().getDeveloperMetadata();
-  // var developerMetaData =  devMetaFinder.withKey('metaDataGrid').find();
-  // Logger.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
-  // console.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
-
 
   var data = {
     "totalRows": totalRows,
@@ -475,9 +471,14 @@ function makeRemoveOnlyCall(selectedCube,sMetaDataGrid) {
     'contentType': 'application/json',
     'payload': JSON.stringify(data)
   };
-  var selCel = SpreadsheetApp.getActive().getCurrentCell();
-  var selCelRow = selCel.getRow();
-  var selCelCol = selCel.getColumn();
+  //var selCel = SpreadsheetApp.getActive().getCurrentCell();
+  var selRange = SpreadsheetApp.getActive().getSelection().getActiveRangeList().getRanges();
+  var selCelRow = selRange[0].getRow();
+  var selCelCol = selRange[0].getColumn();
+
+  var selCountRow = selRange[0].getHeight();
+  var selCountCol = selRange[0].getWidth();
+
   if(selCelRow>0) {
     selCelRow = selCelRow - 1;
   }
@@ -486,7 +487,7 @@ function makeRemoveOnlyCall(selectedCube,sMetaDataGrid) {
   }
   Logger.log('activecell - '+selCelRow+"\t"+selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/removeOnly/'+selCelRow+'/'+selCelCol;
+  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/removeOnly/'+selCelRow+'/'+selCelCol+'/'+selCountRow+'/'+selCountCol;
 
   var response = UrlFetchApp.fetch(zoomUrl,options);
    //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());

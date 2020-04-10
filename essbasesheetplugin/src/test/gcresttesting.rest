@@ -281,6 +281,200 @@ Content-Type: application/json
   ]
 }
 
+###
+POST http://35.184.51.106:8080/essbase/applications/Sample/Basic/keepOnly/2/0/2/2  HTTP/1.1
+Content-Type: application/json
+
+{
+  "totalRows": 6,
+  "totalCols": 5,
+  "dataGrid": [
+    [
+      "",
+      "Measures",
+      "Product",
+      "Market",
+      "Scenario"
+    ],
+    [
+      "Qtr1",
+      "24703.0",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Qtr2",
+      "27107.0",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Qtr3",
+      "27912.0",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Qtr4",
+      "25800.0",
+      "",
+      "",
+      ""
+    ],
+    [
+      "     Year",
+      "105522.0",
+      "",
+      "",
+      ""
+    ]
+  ],
+  "dataGridMetaData": [
+    [
+      2,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      2
+    ]
+  ]
+}
+
+### 
+POST http://35.184.51.106:8080/essbase/applications/Sample/Basic/removeOnly/2/0/2/2  HTTP/1.1
+Content-Type: application/json
+
+{
+  "totalRows": 6,
+  "totalCols": 5,
+  "dataGrid": [
+    [
+      "",
+      "Measures",
+      "Product",
+      "Market",
+      "Scenario"
+    ],
+    [
+      "Qtr1",
+      "24703.0",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Qtr2",
+      "27107.0",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Qtr3",
+      "27912.0",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Qtr4",
+      "25800.0",
+      "",
+      "",
+      ""
+    ],
+    [
+      "     Year",
+      "105522.0",
+      "",
+      "",
+      ""
+    ]
+  ],
+  "dataGridMetaData": [
+    [
+      2,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      2
+    ],
+    [
+      0,
+      1,
+      2,
+      2,
+      2
+    ]
+  ]
+}
+
 ### 
 POST http://35.184.51.106:8080/essbase/applications/Sample/Basic/removeOnly/1/0  HTTP/1.1
 Content-Type: application/json
