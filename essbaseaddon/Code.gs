@@ -394,12 +394,7 @@ function makeKeepOnlyCall(selectedCube,sMetaDataGrid) {
   var totalRows = range.getNumRows();
   var dataGridValues = range.getDisplayValues();
 
-  // var devMetaFinder = SpreadsheetApp.getActive().getActiveSheet().createDeveloperMetadataFinder();
- 
-  // //var developerMetaData = SpreadsheetApp.getActive().getActiveSheet().getDeveloperMetadata();
-  // var developerMetaData =  devMetaFinder.withKey('metaDataGrid').find();
-  // Logger.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
-  // console.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
+
 
 
   var data = {

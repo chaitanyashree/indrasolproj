@@ -135,12 +135,12 @@ public class LoginService {
     }
 
     public DataGrid getKeepOnlyOperation(String applicationName, String cubeName, DataGrid dataGrid, int startRow,
-            int startColumn) {
+            int startColumn,int countRows, int countColumns) {
         DataGrid grid = new DataGrid();
         try {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
                 grid = EssbaseHelper.getKeepOnlyOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,
-                        dataGrid, startRow, startColumn);
+                        dataGrid, startRow, startColumn, countRows, countColumns);
             }
 
         } catch (EssException e) {
@@ -150,12 +150,12 @@ public class LoginService {
     }  
 
     public DataGrid getRemoveOnlyOperation(String applicationName, String cubeName, DataGrid dataGrid, int startRow,
-            int startColumn) {
+            int startColumn, int countRows, int countColumns) {
         DataGrid grid = new DataGrid();
         try {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
                 grid = EssbaseHelper.getRemoveOnlyOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,
-                        dataGrid, startRow, startColumn);
+                        dataGrid, startRow, startColumn,countRows,countColumns);
             }
 
         } catch (EssException e) {

@@ -242,7 +242,7 @@ public class EssbaseUtil {
 	}
 
 	public static DataGrid performKeepOnlyOperations(IEssCubeView cv,
-													   DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+													   DataGrid dataGrid, int startRow, int startColumn, int countRows, int countColumns) throws EssException {
 		String[][] gridView = new String[][]{};
 		Integer[][] gridMetaData = new Integer[][]{};
 		DataGrid updatedGrid = new DataGrid();
@@ -280,7 +280,9 @@ public class EssbaseUtil {
         //opCzi.setPreference(true, IEssOpZoomIn.EEssZoomInPreference.BOTTOM_LEVEL);
 		//((IEssOpZoomIn)op).addRange(startRow, startColumn,  grid.getCountRows(), grid.getCountColumns());
 		//opCzo.addRange(startRow, startColumn,  1, 1);
-        opKeepOnly.addCell(startRow, startColumn);
+		
+		//opKeepOnly.addCell(startRow, startColumn);
+		opKeepOnly.addRange(startRow, startColumn, countRows, countColumns);
 
 		// Perform the operation.
 		cv.performOperation(opKeepOnly);
@@ -315,7 +317,7 @@ public class EssbaseUtil {
 	}
 
 	public static DataGrid performRemoveOnlyOperations(IEssCubeView cv,
-													   DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+													   DataGrid dataGrid, int startRow, int startColumn, int countRows, int countColumns) throws EssException {
 		String[][] gridView = new String[][]{};
 		Integer[][] gridMetaData = new Integer[][]{};
 		DataGrid updatedGrid = new DataGrid();
@@ -353,7 +355,9 @@ public class EssbaseUtil {
         //opCzi.setPreference(true, IEssOpZoomIn.EEssZoomInPreference.BOTTOM_LEVEL);
 		//((IEssOpZoomIn)op).addRange(startRow, startColumn,  grid.getCountRows(), grid.getCountColumns());
 		//opCzo.addRange(startRow, startColumn,  1, 1);
-        opRemoveOnly.addCell(startRow, startColumn);
+		
+		//opRemoveOnly.addCell(startRow, startColumn);
+		opRemoveOnly.addRange(startRow, startColumn, countRows, countColumns);
 
 		// Perform the operation.
 		cv.performOperation(opRemoveOnly);
