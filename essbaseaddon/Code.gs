@@ -25,6 +25,9 @@ function showSidebar() {
 function makeConnectCall(connecturl, olapServerName, userName, password) {
   // Make a POST request with form data.
   // alert('makeconnectcall');
+try {
+    
+ 
   Logger.log('makeConnectCall...');
   Logger.log("connecturl" + connecturl);
   Logger.log("olapServerName" + olapServerName);
@@ -52,6 +55,10 @@ function makeConnectCall(connecturl, olapServerName, userName, password) {
 
   Logger.log('done with call..');
   return response.getContentText();
+} catch (error) {
+    showErrorDialog(error);
+    throw error;
+}
 }
 
 function makeLoadCall() {
@@ -388,6 +395,9 @@ function makeRefreshCall(selectedCube,sMetaDataGrid) {
 }
 
 function makeKeepOnlyCall(selectedCube,sMetaDataGrid) {
+  try {
+    
+
   Logger.log('makeKeepOnlyCall....');
   var range = SpreadsheetApp.getActive().getDataRange();
   var totalCols = range.getNumColumns();
@@ -448,6 +458,11 @@ function makeKeepOnlyCall(selectedCube,sMetaDataGrid) {
    SpreadsheetApp.getActive().getActiveSheet().getRange(1, 1, totalRowNum, totalColNum).setValues(dataGrid);
   //  SpreadsheetApp.getActive().getActiveSheet().addDeveloperMetadata('metaDataGrid',metaDataGrid);
    return response.getContentText();
+
+  } catch (error) {
+    showErrorDialog(error);
+    throw error;
+  }
 
 }
 
@@ -604,10 +619,19 @@ function makeLogoutCall() {
 }
 
 
-function showError(message) {
+function showErrorDialog(message) {
   //document.getElementById('result').innerHTML = 'Error: ' + message;
   //alert('showerror');
   Logger.log('inside the show error' + message);
+  var ui = SpreadsheetApp.getUi(); // Same variations.
+
+  var result = ui.alert(
+     'Error',
+     message,
+      ui.ButtonSet.OK);
+
+
+
 }
 
 function sayHello() {

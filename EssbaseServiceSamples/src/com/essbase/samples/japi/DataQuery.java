@@ -56,21 +56,21 @@ public class DataQuery {
                 s_cubeName);
 
             // Set couple of cube view properties.
-            cv.setRepeatMemberNames(false);
+            cv.setRepeatMemberNames(true);
             cv.setIncludeSelection(true);
             cv.updatePropertyValues();
 
             // Perform various cube view operations.
 //            performCubeViewOperation(ess, cv, "conditionalRetrieve");
-            performCubeViewOperation(ess, cv, "retrieve");
+            //performCubeViewOperation(ess, cv, "retrieve");
 //            performCubeViewOperation(ess, cv, "zoomIn");
-            performCubeViewOperation(ess, cv, "zoomIn");
-            performCubeViewOperation(ess, cv, "conditionalZoomIn");
-            performCubeViewOperation(ess, cv, "zoomOut");
+            //performCubeViewOperation(ess, cv, "zoomIn");
+           // performCubeViewOperation(ess, cv, "conditionalZoomIn");
+           // performCubeViewOperation(ess, cv, "zoomOut");
 
-            performMemberSelection(ess, cv);
+            //performMemberSelection(ess, cv);
 //
-//            performCubeViewOperation(ess, cv, "keepOnly");
+            performCubeViewOperation(ess, cv, "keepOnly");
 //            performCubeViewOperation(ess, cv, "removeOnly");
 //            performCubeViewOperation(ess, cv, "pivot");
 //            performCubeViewOperation(ess, cv, "report");
@@ -175,8 +175,15 @@ public class DataQuery {
             op = cv.createIEssOpZoomOut();
             ((IEssOpZoomOut)op).addRange(1, 2, 1, 1);
         } else if (opStr.equals("keepOnly")) {
+            op = cv.createIEssOpZoomIn();
+            IEssOpZoomIn z = ((IEssOpZoomIn)op);
+            ((IEssOpZoomIn)op).addRange(0, 3, 1, 1);
+            cv.performOperation(op);
             op = cv.createIEssOpKeepOnly();
-            ((IEssOpKeepOnly)op).addRange(1, 3, 1, 1);
+//            ((IEssOpKeepOnly)op).addRange(1, 4, 1, 1);
+          ((IEssOpKeepOnly)op).addRange(2, 0,2,1); //, 1, 1);
+            ((IEssOpKeepOnly)op).addRange(4, 0,1,1); //, 1, 1);
+           //((IEssOpKeepOnly)op).addRange(4, 0, 1, 1);
         } else if (opStr.equals("removeOnly")) {
             op = cv.createIEssOpRemoveOnly();
             ((IEssOpRemoveOnly)op).addRange(1, 4, 1, 1);

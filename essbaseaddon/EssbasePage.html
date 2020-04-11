@@ -245,7 +245,7 @@
       $('#keepOnly-button').click(callKeepOnly);
       $('#removeOnly-button').click(callRemoveOnly);
       $('#refresh-button').click(callRefresh);
-
+      
 
 
 
@@ -329,8 +329,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
           })
         //.withUserObject(this)
@@ -361,8 +361,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
           })
@@ -387,8 +387,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
             IS_LOGGEDIN = false;
           })
@@ -420,8 +420,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
           })
@@ -447,8 +447,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
           })
@@ -474,8 +474,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
           })
@@ -500,8 +500,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
           })
@@ -528,8 +528,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
           })
@@ -555,8 +555,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
           })
@@ -582,8 +582,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
           })
@@ -609,8 +609,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
           })
@@ -624,7 +624,7 @@
       var olapServerNameStr = $('#olapServerName').val();
       var userNameStr = $('#userName').val();
       var passwordStr = $('#password').val();
-      alert(url);
+      //alert(url);
 
       google.script.run
         .withSuccessHandler(
@@ -637,8 +637,8 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            alert('withfailure');
-            showError(msg, $('#button-bar'));
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
             //element.disabled = false;
 
             IS_LOGGEDIN = false;
@@ -657,6 +657,8 @@
     function showError(msg, element) {
       var div = $('<div id="error" class="error">' + msg + '</div>');
       $(element).after(div);
+      alert('showError: '+msg);
+      google.script.run.showErrorDialog(msg);
     }
 
     function displayUIAfterConnect() {

@@ -289,6 +289,8 @@ public class EssbaseUtil {
 		// Get the result and print the output.
 		int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
 		System.out.println("cntRows="+cntRows+"\tcntCols="+cntCols);
+		byte[][] cellTypeArr = grid.getAllCellContentTypes();
+		
 		gridView= new String[cntRows][cntCols];
 		gridMetaData = new Integer[cntRows][cntCols];
         updatedGrid.setTotalRows(cntRows);

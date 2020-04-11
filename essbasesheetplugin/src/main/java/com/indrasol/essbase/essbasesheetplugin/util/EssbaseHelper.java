@@ -146,7 +146,7 @@ public class EssbaseHelper {
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
 
             // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(false);
+            cubeView.setRepeatMemberNames(true);
             cubeView.setIncludeSelection(true);
             cubeView.updatePropertyValues();
             grid = EssbaseUtil.performCubeViewOperation(cubeView, "retrieve");
@@ -168,7 +168,7 @@ public class EssbaseHelper {
         try {
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(false);
+            cubeView.setRepeatMemberNames(true);
             cubeView.setIncludeSelection(true);
 
             cubeView.setAliasNames(true);
@@ -197,7 +197,7 @@ public class EssbaseHelper {
         try {
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(false);
+            cubeView.setRepeatMemberNames(true);
             cubeView.setIncludeSelection(true);
 
             cubeView.setAliasNames(true);
@@ -226,7 +226,7 @@ public class EssbaseHelper {
         try {
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(false);
+            cubeView.setRepeatMemberNames(true);
             cubeView.setIncludeSelection(true);
 
             cubeView.setAliasNames(true);
@@ -255,7 +255,7 @@ public class EssbaseHelper {
         try {
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(false);
+            cubeView.setRepeatMemberNames(true);
             cubeView.setIncludeSelection(true);
             cubeView.setAliasNames(true);
 
@@ -284,7 +284,7 @@ public class EssbaseHelper {
         try {
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(false);
+            cubeView.setRepeatMemberNames(true);
             cubeView.setIncludeSelection(true);
             cubeView.setAliasNames(true);
 
@@ -313,7 +313,7 @@ public class EssbaseHelper {
         try {
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(false);
+            cubeView.setRepeatMemberNames(true);
             cubeView.setIncludeSelection(true);
             cubeView.setAliasNames(true);
 
@@ -341,7 +341,7 @@ public class EssbaseHelper {
         try {
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(false);
+            cubeView.setRepeatMemberNames(true);
             cubeView.setIncludeSelection(true);
             cubeView.setAliasNames(true);
 
