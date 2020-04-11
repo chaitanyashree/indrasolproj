@@ -249,7 +249,7 @@ public class EssbaseHelper {
 
     }
 
-    public static DataGrid getKeepOnlyOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn,int countRows, int countColumns) throws EssException {
+    public static DataGrid getKeepOnlyOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
@@ -261,7 +261,7 @@ public class EssbaseHelper {
 
             cubeView.updatePropertyValues();
     
-            grid = EssbaseUtil.performKeepOnlyOperations(cubeView, dataGrid,startRow,startColumn,countRows, countColumns);
+            grid = EssbaseUtil.performKeepOnlyOperations(cubeView, dataGrid);
         }catch(EssException ex) {
             ex.printStackTrace();
             throw ex;
@@ -278,7 +278,7 @@ public class EssbaseHelper {
 
     }
 
-    public static DataGrid getRemoveOnlyOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn, int countRows, int countColumns) throws EssException {
+    public static DataGrid getRemoveOnlyOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
@@ -290,7 +290,7 @@ public class EssbaseHelper {
 
             cubeView.updatePropertyValues();
     
-            grid = EssbaseUtil.performRemoveOnlyOperations(cubeView, dataGrid,startRow,startColumn, countRows, countColumns);
+            grid = EssbaseUtil.performRemoveOnlyOperations(cubeView, dataGrid);
         }catch(EssException ex) {
             ex.printStackTrace();
             throw ex;

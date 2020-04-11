@@ -157,40 +157,36 @@ public class LoginController {
         return loginService.getRefreshOperation(applicationName,cubeName,dataGrid);
     }
 
-    @PostMapping("/applications/{applicationName}/{cubeName}/keepOnly/{startRow}/{startColumn}")
+    @PostMapping("/applications/{applicationName}/{cubeName}/keepOnly")
     public DataGrid getKeepOnlyOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
-                                       @PathVariable("cubeName") String cubeName,
-                                       @PathVariable("startRow") Integer startRow,
-                                       @PathVariable("startColumn") Integer startColumn) {
-        return loginService.getKeepOnlyOperation(applicationName,cubeName,dataGrid,startRow,startColumn,1,1);
+                                       @PathVariable("cubeName") String cubeName) {
+        return loginService.getKeepOnlyOperation(applicationName,cubeName,dataGrid);
     }
 
-    @PostMapping("/applications/{applicationName}/{cubeName}/keepOnly/{startRow}/{startColumn}/{countRows}/{countColumns}")
-    public DataGrid getKeepOnlyRangeOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
-                                       @PathVariable("cubeName") String cubeName,
-                                       @PathVariable("startRow") Integer startRow,
-                                       @PathVariable("startColumn") Integer startColumn,
-                                       @PathVariable("countRows") Integer countRows,
-                                       @PathVariable("countColumns") Integer countColumns) {
-        return loginService.getKeepOnlyOperation(applicationName,cubeName,dataGrid,startRow,startColumn,countRows,countColumns);
-    }    
+    // @PostMapping("/applications/{applicationName}/{cubeName}/keepOnly/{startRow}/{startColumn}/{countRows}/{countColumns}")
+    // public DataGrid getKeepOnlyRangeOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
+    //                                    @PathVariable("cubeName") String cubeName,
+    //                                    @PathVariable("startRow") Integer startRow,
+    //                                    @PathVariable("startColumn") Integer startColumn,
+    //                                    @PathVariable("countRows") Integer countRows,
+    //                                    @PathVariable("countColumns") Integer countColumns) {
+    //     return loginService.getKeepOnlyOperation(applicationName,cubeName,dataGrid,startRow,startColumn,countRows,countColumns);
+    // }    
     
 
-    @PostMapping("/applications/{applicationName}/{cubeName}/removeOnly/{startRow}/{startColumn}")
+    @PostMapping("/applications/{applicationName}/{cubeName}/removeOnly")
     public DataGrid getRemoveOnlyOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
-                                       @PathVariable("cubeName") String cubeName,
-                                       @PathVariable("startRow") Integer startRow,
-                                       @PathVariable("startColumn") Integer startColumn) {
-        return loginService.getRemoveOnlyOperation(applicationName,cubeName,dataGrid,startRow,startColumn,1,1);
+                                       @PathVariable("cubeName") String cubeName) {
+        return loginService.getRemoveOnlyOperation(applicationName,cubeName,dataGrid);
     }    
 
-    @PostMapping("/applications/{applicationName}/{cubeName}/removeOnly/{startRow}/{startColumn}/{countRows}/{countColumns}")
-    public DataGrid getRemoveOnlyRangeOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
-                                       @PathVariable("cubeName") String cubeName,
-                                       @PathVariable("startRow") Integer startRow,
-                                       @PathVariable("startColumn") Integer startColumn,
-                                       @PathVariable("countRows") Integer countRows,
-                                       @PathVariable("countColumns") Integer countColumns) {
-        return loginService.getRemoveOnlyOperation(applicationName,cubeName,dataGrid,startRow,startColumn,countRows,countColumns);
-    }     
+    // @PostMapping("/applications/{applicationName}/{cubeName}/removeOnly/{startRow}/{startColumn}/{countRows}/{countColumns}")
+    // public DataGrid getRemoveOnlyRangeOperation(@RequestBody DataGrid dataGrid, @PathVariable("applicationName") String applicationName,
+    //                                    @PathVariable("cubeName") String cubeName,
+    //                                    @PathVariable("startRow") Integer startRow,
+    //                                    @PathVariable("startColumn") Integer startColumn,
+    //                                    @PathVariable("countRows") Integer countRows,
+    //                                    @PathVariable("countColumns") Integer countColumns) {
+    //     return loginService.getRemoveOnlyOperation(applicationName,cubeName,dataGrid,startRow,startColumn,countRows,countColumns);
+    // }     
 }

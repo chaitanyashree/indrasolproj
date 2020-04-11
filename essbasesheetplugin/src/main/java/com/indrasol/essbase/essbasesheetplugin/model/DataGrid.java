@@ -6,9 +6,13 @@ public class DataGrid {
     private String[][] dataGrid;
     private Integer[][] dataGridMetaData;
 
+    private Integer[][] selectedRanges;
+
 
     public DataGrid() {
-
+        this.dataGrid = new String[][]{};
+        this.dataGridMetaData = new Integer[][]{};
+        this.selectedRanges = new Integer[][]{};
     }
 
     public int getTotalRows() {
@@ -42,6 +46,18 @@ public class DataGrid {
     public void setDataGridMetaData(Integer[][] dataGridMetaData) {
         this.dataGridMetaData = dataGridMetaData;
     }
+
+    public Integer[][] getSelectedRanges() {
+        return selectedRanges;
+    }
+
+    public void setSelectedRanges(Integer[][] selectedRanges) {
+        this.selectedRanges = selectedRanges;
+    }
+
+
+
+
 
 
 

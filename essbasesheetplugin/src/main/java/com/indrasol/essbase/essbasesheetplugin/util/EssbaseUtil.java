@@ -242,9 +242,10 @@ public class EssbaseUtil {
 	}
 
 	public static DataGrid performKeepOnlyOperations(IEssCubeView cv,
-													   DataGrid dataGrid, int startRow, int startColumn, int countRows, int countColumns) throws EssException {
+													   DataGrid dataGrid) throws EssException {
 		String[][] gridView = new String[][]{};
 		Integer[][] gridMetaData = new Integer[][]{};
+		Integer[][] selectedRanges = new Integer[][]{};
 		DataGrid updatedGrid = new DataGrid();
 		//int startRow=1,startColumn=0;
 		// Create a grid view with the input for the operation.
@@ -282,14 +283,21 @@ public class EssbaseUtil {
 		//opCzo.addRange(startRow, startColumn,  1, 1);
 		
 		//opKeepOnly.addCell(startRow, startColumn);
-		opKeepOnly.addRange(startRow, startColumn, countRows, countColumns);
+		selectedRanges = dataGrid.getSelectedRanges();
+		if(selectedRanges != null && selectedRanges.length > 0) {
+			for(int l = 0 ; l<selectedRanges.length; l++) {
+				if(selectedRanges[l].length == 4) {
+					opKeepOnly.addRange(selectedRanges[l][0], selectedRanges[l][1], selectedRanges[l][2], selectedRanges[l][3]);
+				}
+			}
+		}
+		
 
 		// Perform the operation.
 		cv.performOperation(opKeepOnly);
 		// Get the result and print the output.
 		int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
 		System.out.println("cntRows="+cntRows+"\tcntCols="+cntCols);
-		byte[][] cellTypeArr = grid.getAllCellContentTypes();
 		
 		gridView= new String[cntRows][cntCols];
 		gridMetaData = new Integer[cntRows][cntCols];
@@ -319,9 +327,10 @@ public class EssbaseUtil {
 	}
 
 	public static DataGrid performRemoveOnlyOperations(IEssCubeView cv,
-													   DataGrid dataGrid, int startRow, int startColumn, int countRows, int countColumns) throws EssException {
+													   DataGrid dataGrid) throws EssException {
 		String[][] gridView = new String[][]{};
 		Integer[][] gridMetaData = new Integer[][]{};
+		Integer[][] selectedRanges = new Integer[][]{};
 		DataGrid updatedGrid = new DataGrid();
 		//int startRow=1,startColumn=0;
 		// Create a grid view with the input for the operation.
@@ -359,7 +368,15 @@ public class EssbaseUtil {
 		//opCzo.addRange(startRow, startColumn,  1, 1);
 		
 		//opRemoveOnly.addCell(startRow, startColumn);
-		opRemoveOnly.addRange(startRow, startColumn, countRows, countColumns);
+		selectedRanges = dataGrid.getSelectedRanges();
+		if(selectedRanges != null && selectedRanges.length > 0) {
+			for(int l = 0 ; l<selectedRanges.length; l++) {
+				if(selectedRanges[l].length == 4) {
+					opRemoveOnly.addRange(selectedRanges[l][0], selectedRanges[l][1], selectedRanges[l][2], selectedRanges[l][3]);
+				}
+			}
+		}		
+		//opRemoveOnly.addRange(startRow, startColumn, countRows, countColumns);
 
 		// Perform the operation.
 		cv.performOperation(opRemoveOnly);
