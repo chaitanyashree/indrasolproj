@@ -362,6 +362,34 @@ public class EssbaseHelper {
     }
 
 
+	public static DataGrid getPivotOperation(IEssOlapServer olapSvr, String applicationName, String cubeName, DataGrid dataGrid,
+    Integer startRow, Integer startColumn) throws EssException {
+        DataGrid grid = new DataGrid();
+        IEssCubeView cubeView = null;
+        try {
+            cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
+            // Set couple of cube view properties.
+            cubeView.setRepeatMemberNames(true);
+            cubeView.setIncludeSelection(true);
+            cubeView.setAliasNames(true);
+
+
+            cubeView.updatePropertyValues();
+    
+            grid = EssbaseUtil.performPivotOperations(cubeView, dataGrid,startRow,startColumn);
+        }catch(EssException ex) {
+            ex.printStackTrace();
+            throw ex;
+
+        } finally {
+            if(cubeView != null) {
+                cubeView.close();
+            }
+        }
+
+        return grid;        
+    }
+
     public static List<Dimension> getAllDimensions(IEssOlapServer olapSvr, String applicationName, String cubeName) throws EssException {
         List<Dimension> listDimension = new ArrayList<Dimension>();
         List<EMembers> listMembers = new ArrayList<EMembers>();
@@ -468,6 +496,7 @@ public class EssbaseHelper {
 
 
     }
+
 
 
 }

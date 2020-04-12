@@ -1317,3 +1317,9 @@ Content-Type: application/json
     ]
 }
 
+###
+
+POST http://localhost:8080/essbase/applications/Sample/Basic/pivot/1/0/ HTTP/1.1
+Content-Type: application/json
+
+{"totalRows":2,"totalCols":5,"dataGrid":[["","Measures","Product","Market","Scenario"],["Year","105522","","",""]],"dataGridMetaData":[[2,0,0,0,0],[0,1,2,2,2]]}

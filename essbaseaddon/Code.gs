@@ -408,6 +408,81 @@ function makeRefreshCall(selectedCube, sMetaDataGrid) {
 
 }
 
+function makePivotCall(selectedCube, sMetaDataGrid) {
+  try {
+  Logger.log('makePivotCall....');
+  var range = SpreadsheetApp.getActive().getDataRange();
+  var totalCols = range.getNumColumns();
+  var totalRows = range.getNumRows();
+  var dataGridValues = range.getDisplayValues();
+
+
+  var data = {
+    "totalRows": totalRows,
+    "totalCols": totalCols,
+    "dataGrid": dataGridValues,
+    "dataGridMetaData": JSON.parse(sMetaDataGrid)
+  };
+
+  Logger.log(JSON.stringify(data));
+  var options = {
+    'method': 'post',
+    'contentType': 'application/json',
+    'payload': JSON.stringify(data)
+  };
+
+  var selCel = SpreadsheetApp.getActive().getCurrentCell();
+  var selCelRow = selCel.getRow();
+  var selCelCol = selCel.getColumn();
+  if (selCelRow > 0) {
+    selCelRow = selCelRow - 1;
+  }
+  if (selCelCol > 0) {
+    selCelCol = selCelCol - 1;
+  }
+  Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
+
+  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/pivot/' + selCelRow + '/' + selCelCol;
+
+  var response = UrlFetchApp.fetch(zoomUrl, options);
+  if(response.getResponseCode() == 500) {
+    var resstr = response.getContentText();
+    var jsonObj = JSON.parse(resstr);
+    showErrorDialog(response.getContentText());
+    //throw new Error('got error');
+  }
+  //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
+  var resstr = response.getContentText();
+  var jsonObj = JSON.parse(resstr);
+  var totalRowNum = 0;
+  var totalColNum = 0;
+  var dataGrid;
+  var metaDataGrid;
+
+  if (jsonObj) {
+    totalRowNum = jsonObj.totalRows;
+    totalColNum = jsonObj.totalCols;
+    dataGrid = jsonObj.dataGrid;
+    metaDataGrid = JSON.stringify(jsonObj.dataGridMetaData);
+  }
+  Logger.log('totalRowNum=' + totalRowNum);
+  Logger.log('totalColNUm=' + totalColNum);
+  Logger.log('metaDataGrid.length=' + metaDataGrid.length);
+  Logger.log('received data =' + JSON.stringify(jsonObj));
+  SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();
+  if(totalRowNum > 0) {
+    SpreadsheetApp.getActive().getActiveSheet().getRange(1, 1, totalRowNum, totalColNum).setValues(dataGrid);
+
+  }
+  
+  //  SpreadsheetApp.getActive().getActiveSheet().addDeveloperMetadata('metaDataGrid',metaDataGrid);
+  return response.getContentText();
+} catch (error) {
+  showErrorDialog(error.message);
+  //throw error;
+}  
+
+}
 function makeKeepOnlyCall(selectedCube, sMetaDataGrid) {
   try {
 
@@ -676,6 +751,8 @@ function makeDefaultRetrieve(selectedCube) {
   return response.getContentText();
 
 }
+
+
 
 function showLoggedInSideBar() {
   Logger.log('showLoggedInSideBar called...');

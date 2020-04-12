@@ -205,4 +205,22 @@ public class LoginService {
         this.essbaseConnection = essbaseConnection;
     }
 
+	public DataGrid getPivotOperation(String applicationName, String cubeName, DataGrid dataGrid, Integer startRow,
+			Integer startColumn)  throws Exception {
+        DataGrid grid = new DataGrid();
+        try {
+            if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+                // IEssCubeView cubeView =
+                // this.essbaseConnection.getOlapSvr().getApplication(applicationName).getCube(cubeName).openCubeView(this.essbaseConnection.getOlapSvr()+"-"+cubeName);
+                grid = EssbaseHelper.getPivotOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,dataGrid, startRow,startColumn);
+                // this.essbaseConnection.setCubeView(cubeView);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return grid;                
+	}
+
 }

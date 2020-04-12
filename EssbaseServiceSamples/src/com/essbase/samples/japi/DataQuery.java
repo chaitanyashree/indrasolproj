@@ -59,10 +59,11 @@ public class DataQuery {
             cv.setRepeatMemberNames(true);
             cv.setIncludeSelection(true);
             cv.updatePropertyValues();
+            cv.
 
             // Perform various cube view operations.
 //            performCubeViewOperation(ess, cv, "conditionalRetrieve");
-            //performCubeViewOperation(ess, cv, "retrieve");
+            performCubeViewOperation(ess, cv, "retrieve");
 //            performCubeViewOperation(ess, cv, "zoomIn");
             //performCubeViewOperation(ess, cv, "zoomIn");
            // performCubeViewOperation(ess, cv, "conditionalZoomIn");
@@ -70,9 +71,9 @@ public class DataQuery {
 
             //performMemberSelection(ess, cv);
 //
-            performCubeViewOperation(ess, cv, "keepOnly");
+//            performCubeViewOperation(ess, cv, "keepOnly");
 //            performCubeViewOperation(ess, cv, "removeOnly");
-//            performCubeViewOperation(ess, cv, "pivot");
+            performCubeViewOperation(ess, cv, "pivot");
 //            performCubeViewOperation(ess, cv, "report");
 //            performCubeViewOperation(ess, cv, "reportFile");
 //            performCubeViewOperation(ess, cv, "report_with_no_parsing");
