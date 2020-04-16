@@ -59,7 +59,7 @@ public class DataQuery {
             cv.setRepeatMemberNames(true);
             cv.setIncludeSelection(true);
             cv.updatePropertyValues();
-            cv.
+
 
             // Perform various cube view operations.
 //            performCubeViewOperation(ess, cv, "conditionalRetrieve");
@@ -198,8 +198,8 @@ public class DataQuery {
         cv.performOperation(op);
 
         // Get the result and print the output.
-        int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
-        System.out.print("Query Results for the Operation: " + opStr + "\n" +
+         int cntRows = grid.getCountRows(), cntCols = grid.getCountColumns();
+        System.out.print("Query Results for the Operation: pov" + opStr + "\n" +
             "-----------------------------------------------------\n");
         for (int i = 0; i < cntRows; i++) {
             for (int j = 0; j < cntCols; j++)
@@ -207,7 +207,25 @@ public class DataQuery {
             System.out.println();
         }
         System.out.println("\n");
+
+
         //System.out.println(cv.getHtmlOutput());
+
+//        String[] pov= new String []{"Market"};
+//        grid.setAdditionalMembersForPivot(pov);
+//        cv.performOperation(op);
+
+        // Get the result and print the output.
+//         cntRows = grid.getCountRows(); cntCols = grid.getCountColumns();
+//        System.out.print("Query Results for the Operation: " + opStr + "\n" +
+//                "-----------------------------------------------------\n");
+//        for (int i = 0; i < cntRows; i++) {
+//            for (int j = 0; j < cntCols; j++)
+//                System.out.print(grid.getValue(i, j) + "\t");
+//            System.out.println();
+//        }
+//        System.out.println("\n");
+
     }
 
     static void performMemberSelection(IEssbase ess, IEssCubeView cv)

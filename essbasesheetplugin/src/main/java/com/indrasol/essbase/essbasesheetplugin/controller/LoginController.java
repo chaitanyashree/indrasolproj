@@ -181,7 +181,19 @@ public class LoginController {
             throw new Exception(e.getMessage());
             
         }
-    }   
+    }
+    
+    @PostMapping("/applications/{applicationName}/{cubeName}/pivotToPov/{startRow}/{startColumn}")
+    public DataGrid getPivotToPovOperation(@RequestBody DataGrid dataGrid,
+            @PathVariable("applicationName") String applicationName, @PathVariable("cubeName") String cubeName,
+            @PathVariable("startRow") Integer startRow, @PathVariable("startColumn") Integer startColumn) throws Exception {
+        try {
+            return loginService.getPivotToPovOperation(applicationName, cubeName, dataGrid, startRow, startColumn);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+            
+        }
+    }     
     
     /**
      * Exception handler if NoSuchElementException is thrown in this Controllerows

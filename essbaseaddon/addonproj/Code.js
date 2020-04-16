@@ -81,7 +81,6 @@ function makeZoomInNextCall(selectedCube, sMetaDataGrid) {
   // var developerMetaData =  devMetaFinder.withKey('metaDataGrid').find();
   // Logger.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
   // console.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
- 
 
   var data = {
     "totalRows": totalRows,

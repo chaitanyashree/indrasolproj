@@ -1,7 +1,9 @@
 /** Essbase Plugin */
 
 var IS_LOGGEDIN = false;
-
+function onInstall(e) {
+  
+}
 function onOpen() {
   SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
     //.createMenu('Essbase Connector')
