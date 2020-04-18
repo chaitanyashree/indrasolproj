@@ -1,0 +1,12 @@
+<h3>Current Sheet contains the content. Please click any one action</h3>
+<input type="button" value="Clear Sheet Content & Pov"  onclick="callClearSheetContent()"/></p>
+<input type="button" value="ReUse Sheet Content Only"  onclick="callClearSheetContent()"/></p>
+<input type="button" value="ReUse Sheet Content & Pov"  onclick="callClearSheetContent()"/></p>
+<input type="button" value="Close" onclick="google.script.host.close()" /></p>
+
+<script>
+    function callClearSheetContent() {
+        google.script.run.clearSheetContent();
+        google.script.host.close();
+    }
+</script>

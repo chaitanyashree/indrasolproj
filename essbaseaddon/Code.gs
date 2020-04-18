@@ -687,6 +687,12 @@ function makeRemoveOnlyCall(selectedCube, sMetaDataGrid) {
 
 function makeloadApplications(selectedCube) {
   Logger.log('makeLoadCall....');
+  var lastDataRangeRow = SpreadsheetApp.getActive().getActiveSheet().getLastRow();
+  var lastDataRangeCol = SpreadsheetApp.getActive().getActiveSheet().getLastColumn();
+  if(lastDataRangeCol > 0 || lastDataRangeRow >0) {
+    showDialog();
+  }
+
   //Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -800,4 +806,33 @@ function sayHello() {
   Logger.log('sayhello..');
 }
 
+function showDialog() {
+  var yesClick=false;
+  var html = HtmlService.createHtmlOutputFromFile('ContentDialog')
+      .setWidth(400)
+      .setHeight(300);
+  //SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
+    //  .showModalDialog(html, 'Clear Content dialog');
+    var ui = SpreadsheetApp.getUi(); // Same variations.
+
+   var result= ui.alert('Please Confirm', 'Clear Sheet Contents and POV',ui.ButtonSet.OK);
+  // Process the user's response.
+  if (result == ui.Button.OK) {
+    // User clicked "Yes".
+    //ui.alert('Confirmation received.');
+    clearSheetContent();
+    yesClick=true;
+  } else {
+    // User clicked "No" or X in the title bar.
+    //ui.alert('Permission denied.');
+    yesClick=false;
+  }
+  return yesClick;
+
+
+}
+
+function clearSheetContent() {
+  SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();
+}
 
