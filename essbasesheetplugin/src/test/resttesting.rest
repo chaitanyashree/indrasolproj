@@ -21,6 +21,9 @@ content-type: application/json
 
 ###
 GET http://localhost:8080/essbase/applications/Sample/Basic/defaultGrid HTTP/1.1
+###
+GET http://localhost:8080/essbase/applications/Sample/Interntl/defaultGrid HTTP/1.1
+
 
 ###
 POST http://localhost:8080/essbase/applications/Sample/Basic/refresh HTTP/1.1
@@ -332,7 +335,6 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/essbase/applications/Sample/Basic/zoomInBottom/1/0 HTTP/1.1
-
 Content-Type: application/json
 
 {
@@ -383,7 +385,6 @@ Content-Type: application/json
 
 ###
 POST http://35.184.51.106:8080/essbase/applications/Sample/Basic/zoomOut/1/0 HTTP/1.1
-
 Content-Type: application/json
 
 {

@@ -78,7 +78,7 @@ public class EssbaseHelper {
             essbaseConnection.setApiVersion(apiVersion);
             essbaseConnection.setApiVersionDetail(apiVerDetail);
 
-            if (loadData) loadData(olapSvr);
+            //if (loadData) loadData(olapSvr);
             //return olapSvr;    
             essbaseConnection.setOlapSvr(olapSvr);
             essbaseConnection.setCredentials(credentials);
@@ -139,10 +139,20 @@ public class EssbaseHelper {
 
     }
 
+    private static void clearActiveCube(IEssOlapServer olapSvr, String applicationName,String cubeName) throws EssException {
+        String [] activeArr = olapSvr.getActive();
+        if(activeArr != null && activeArr.length > 0) {
+            if(!(activeArr[0]!=null && activeArr[0].equalsIgnoreCase(applicationName)) 
+                || !(activeArr[1] !=null && activeArr[1].equalsIgnoreCase(cubeName))) 
+                olapSvr.clearActive();
+        }
+    }
+
     public static DataGrid getDefaultGrid(IEssOlapServer olapSvr, String applicationName,String cubeName) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
+            clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
 
             // Set couple of cube view properties.
@@ -166,6 +176,7 @@ public class EssbaseHelper {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
+            clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
             cubeView.setRepeatMemberNames(true);
@@ -195,6 +206,7 @@ public class EssbaseHelper {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
+            clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
             cubeView.setRepeatMemberNames(true);
@@ -224,6 +236,7 @@ public class EssbaseHelper {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
+            clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
             cubeView.setRepeatMemberNames(true);
@@ -253,6 +266,7 @@ public class EssbaseHelper {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
+            clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
             cubeView.setRepeatMemberNames(true);
@@ -282,6 +296,7 @@ public class EssbaseHelper {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
+            clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
             cubeView.setRepeatMemberNames(true);
@@ -311,6 +326,7 @@ public class EssbaseHelper {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
+            clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
             cubeView.setRepeatMemberNames(true);
@@ -339,6 +355,7 @@ public class EssbaseHelper {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
+            clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
             cubeView.setRepeatMemberNames(true);
@@ -367,6 +384,7 @@ public class EssbaseHelper {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
+            clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
             cubeView.setRepeatMemberNames(true);
@@ -395,6 +413,7 @@ public class EssbaseHelper {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
+            clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
             // Set couple of cube view properties.
             cubeView.setRepeatMemberNames(true);
@@ -423,6 +442,7 @@ public class EssbaseHelper {
         List<EMembers> listMembers = new ArrayList<EMembers>();
         
         //IEssCube cube = olapSvr.getApplication("Sample").getCube("Basic");
+        clearActiveCube(olapSvr, applicationName, cubeName);
         IEssCube cube = olapSvr.getApplication(applicationName).getCube(cubeName);
         IEssCubeOutline otl = cube.openOutline();
         List<IEssDimension> dimensionObjList = EssbaseUtil.getDimensionsAsList(otl);

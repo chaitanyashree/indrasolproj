@@ -1,9 +1,7 @@
 /** Essbase Plugin */
 
 var IS_LOGGEDIN = false;
-function onInstall(e) {
-  
-}
+
 function onOpen() {
   SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
     //.createMenu('Essbase Connector')
@@ -66,7 +64,7 @@ function makeConnectCall(connecturl, olapServerName, userName, password) {
 function makeLoadCall() {
   Logger.log('makeLoadCall....');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications');
-  //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
+  SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   return response.getContentText();
 
 }
@@ -685,7 +683,7 @@ function makeRemoveOnlyCall(selectedCube, sMetaDataGrid) {
 }
 
 
-function makeLoadDimensions(selectedCube) {
+function makeloadApplications(selectedCube) {
   Logger.log('makeLoadCall....');
   //Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
@@ -717,8 +715,8 @@ function makeLoadDimensions(selectedCube) {
 }
 
 function makeDefaultRetrieve(selectedCube) {
-  Logger.log('makeDefaultRetrieve....');
-  //Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
+  Logger.log('makeDefaultRetrieve....'+selectedCube);
+  Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();

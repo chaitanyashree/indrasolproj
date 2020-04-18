@@ -130,7 +130,7 @@
 
 
   <div class="sidebar branding-below">
-    <form>
+    <!--form//-->
       <div id="connectBlock">
         <div class="block form-group">
           <label for="connecturl-text"><b>Connection URL</b></label>
@@ -213,7 +213,7 @@
       <input type=hidden id='selCube' name='selCube' />
       <input type=hidden id='metaDataGrid' name='metaDataGrid' />
 
-    </form>
+    <!--/form-->
   </div>
 
   <div id="msgBlock">
@@ -302,7 +302,7 @@
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
-            console.log('withsuccess' + returnSuccess);
+            console.log('callLoad withsuccess' + returnSuccess);
             //$('#connectBlock').hide();
             //displayUIAfterConnect();
             //element.disabled = false;
@@ -318,9 +318,12 @@
                 var selectedCube = e.target.id;
                 console.log('selectedCube=' + selectedCube);
                 if (selectedCube) {
-                  loadDimension(selectedCube);
+                  loadApplication(selectedCube);
                   //google.screipt.host.close();
-                }
+                } else {
+                    alert('selectedCube not found..'+selectedCube);
+                    console.log('selectedCube not found..'+selectedCube);
+                }                     
 
               } else {
                 $(this).addClass("close");
@@ -330,7 +333,7 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            //alert('withfailure');
+            alert('callLoad withfailure'+msg);
             showError(msg, $('#msgBlock'));
             //element.disabled = false;
           })
@@ -338,8 +341,36 @@
         .makeLoadCall();
 
     }
-    function loadDimension(selectedCube) {
-      console.log('inside loadDimensions');
+    function clearSelectedCube() {
+        console.log('insideclear SelectedCube...');
+        $('#connectBlock').hide();
+        displayUIAfterConnect();
+        //callLoad();
+        $('#content').show();
+       /* $("#treeview .parent").click(function (e) {
+              e.stopPropagation();
+              $(this).find(">ul").toggle("slow");
+              if ($(this).hasClass("close")) {
+                $(this).removeClass("close");
+                var selectedCube = e.target.id;
+                console.log('selectedCube=' + selectedCube);
+                if (selectedCube) {
+                  loadApplication(selectedCube);
+                  //google.screipt.host.close();
+                } else {
+                    var selectedCube = e.target.id;
+                    alert('selectedCube not found..'+selectedCube);
+                    console.log('selectedCube not found..'+selectedCube);
+                }                     
+
+              } else {
+                $(this).addClass("close");
+              }
+            });*/
+        IS_LOGGEDIN = true;        
+    }
+    function loadApplication(selectedCube) {
+      console.log('inside loadApplications');
       console.log('selectedCube' + selectedCube);
       google.script.run
         .withSuccessHandler(
@@ -357,7 +388,7 @@
             var metaGridVal = jsonObj.dataGridMetaData;
             $('input[name="selCube"]:hidden').val(selectedCube);
             $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
-            $('#connectHeading').html("<b>" + selectedCube + "</b>");
+            $('#connectHeading').html("<b><a href='#' onClick='clearSelectedCube();'>" + selectedCube + "</a></b>");
 
           })
         .withFailureHandler(
@@ -368,7 +399,7 @@
             $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
-        .makeLoadDimensions(selectedCube);
+        .makeloadApplications(selectedCube);
     }
     function callLogout() {
       console.log('inside callLogout.');
@@ -583,7 +614,7 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            //alert('withfailure');
+            alert('withfailure'+msg);
             showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
@@ -660,6 +691,7 @@
             console.log('withsuccess' + returnSuccess);
             $('#connectBlock').hide();
             displayUIAfterConnect();
+            callLoad();
             //element.disabled = false;
             IS_LOGGEDIN = true;
           })
@@ -690,7 +722,8 @@
     }
 
     function displayUIAfterConnect() {
-      $('#loadBtnDiv').show();
+      //$('#loadBtnDiv').show();
+      $('#loadBtnDiv').hide();
       $('#zoomInBtnDiv').hide();
       //$('#zoomOutBtnDiv').hide();
       $('#logoutBtnDiv').show();
