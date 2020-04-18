@@ -1,8 +1,10 @@
 /** Essbase Plugin */
 
 var IS_LOGGEDIN = false;
-
-function onOpen() {
+function onInstall(e) {
+  onOpen(e);
+}
+function onOpen(e) {
   SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
     //.createMenu('Essbase Connector')
     .createAddonMenu()
@@ -64,7 +66,7 @@ function makeConnectCall(connecturl, olapServerName, userName, password) {
 function makeLoadCall() {
   Logger.log('makeLoadCall....');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications');
-  SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
+  //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   return response.getContentText();
 
 }
