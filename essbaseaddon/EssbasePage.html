@@ -5,7 +5,44 @@
   <base target="_top">
   <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
   <!-- The CSS package above applies Google styling to buttons and other elements. -->
-
+  <style>
+    .accordion {
+      background-color: #0184e3;
+      color: #FFF;
+      cursor: pointer;
+      width: 100%;
+      border: none;
+      text-align: center;
+      outline: none;
+      font-size: 15px;
+      transition: 0.4s;
+    }
+    
+    .active, .accordion:hover {
+      background-color: #0184e3;
+    }
+    
+    .accordion:after {
+      content: '\002B';
+      color: #4CAF50;
+      font-weight: bold;
+      float: right;
+      margin-left: 2px;
+    }
+    
+    .active:after {
+      content: "\2212";
+    }
+    
+    .panel {
+      padding: 0 2px;
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+    }
+    </style>
+    
   <style>
     .branding-below {
       bottom: 56px;
@@ -155,7 +192,9 @@
           <button id="cancel-button" onclick="callClose()">Cancel</button>
         </div>
       </div>
-      <div id="pluginUI" hidden>
+  <button id="operationsAccord" class="accordion green" hidden>Features:</button>
+  <div id="pluginUI" class="panel" hidden>
+      
         <label id="connectHeading" for="connecturl-text"><b>Connected Succesfully!</b></label></br></p>
         <div class="block" id="button-bar" hidden>
           <div class="block" id='loadBtnDiv'><button class="blue" id="load-button">Load</button></br></div>
@@ -177,7 +216,7 @@
                   <td><button class="blue" id="zoomInBottom-button">Zoom In Bottom</button></td>
                   <td></td>
                   <td><button class="blue" id="zoomInAll-button">Zoom In All</button></td>
-                <tr>
+                </tr>
                 <tr>
                   <td colspan=4><button class="blue" id="zoomOut-button">Zoom Out</button></td>
                 </tr>
@@ -197,24 +236,81 @@
             </div>
           </div>
 
-          <div class="block" id='logoutBtnDiv'>
+          <div class="inline" id='logoutBtnDiv'>
             <button class="blue" id="logout-button">Logout</button>
             <button id="cancel-button" onclick="callClose()">Cancel</button></br>
           </div>
 
         </div>
 
-      </div>
-
+      
+    </div>
+      
       <div class="container block">
-        <div id="content">
+      </p>
+        <div id="content" class="block">
         </div>
       </div>
       <input type=hidden id='selCube' name='selCube' />
-      <input type=hidden id='metaDataGrid' name='metaDataGrid' />
+      <input type=hidden id='metaDataGrid' name='metaDataGrid' /></p>
+      <button id="prefAccord" class="accordion green" hidden>Options:</button>
+      <div id="prefAccordPanel" class="panel" hidden>
+        <div class="block form-group">
+          <div>
+            <input type="checkbox" id="repeatLabels">
+            <label for="repeatLabels">Repeat Labels</label>
+          </div>
+	
+          <div>
+            <input type="radio" name="indentationGroup" id="subItemRadio" checked>
+            <label for="subItemRadio">Sub Items</label>
+          </div>
+          <div>
+            <input type="radio" name="indentationGroup" id="totalRadio">
+            <label for="totalRadio">Total</label>
+          </div>
 
+          <div>
+            <input type="checkbox" id="suppressMissingRows">
+            <label for="suppressMissingRows">Supress Missing Rows</label>
+          </div>
+          <div>
+            <input type="checkbox" id="suppressZeroRows">
+            <label for="suppressZeroRows">Supress Zero Rows</label>
+          </div>
+          <div>
+            <input type="checkbox" id="suppressMissingColumns">
+            <label for="suppressMissingColumns">Supress Missing Columns</label>
+          </div>
+          <div>
+            <input type="checkbox" id="suppressZeroColumns">
+            <label for="suppressZeroColumns">Supress Zero Columns</label>
+          </div>
+          <div>
+            <label for="noDataMissingInput">#NoData/Mising Label</label>
+            <input type="input" id="noDataMissingInput">
+          </div>
+          <div>
+            <label for="noAccessInput">#NoAccess Label:</label>
+            <input type="input" id="noAccessInput">
+          </div>
+          <div>
+            <input type="checkbox" id="preseveFormatting">
+            <label for="preseveFormatting">Preserve Formatting</label>
+          </div>
+          <div>
+            <input type="checkbox" id="adjustColumnWidth">
+            <label for="adjustColumnWidth">Adjust Column Width</label>
+          </div> 
+          <div>
+            <label for="undoRedoCountInput">Undo Redo Count</label>
+            <input type="input" id="undoRedoCountInput">
+          </div>                                                                                       
+        </div>
+      </div> 
     <!--/form-->
   </div>
+ 
 
   <div id="msgBlock">
   </div>
@@ -226,6 +322,23 @@
   </div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      });
+    }
+    </script>
+    
   <script>
     /**
      * On document load, assign click handlers to each button and try to load the
@@ -408,6 +521,9 @@
         .withSuccessHandler(
           function (returnSuccess, element) {
             console.log('withsuccess' + returnSuccess);
+            $('#prefAccordPanel').hide();
+            $('#prefAccord').hide();
+            $('#operationsAccord').hide();
             $('#pluginUI').hide();
             $('#operationUI').hide();
             $('#connectBlock').show();
@@ -728,7 +844,11 @@
       //$('#zoomOutBtnDiv').hide();
       $('#logoutBtnDiv').show();
       //$('#cancelBtnDiv').show();
+      $('#prefAccordPanel').hide();
+      $('#prefAccord').hide();
+      $('#operationsAccord').show();
       $('#pluginUI').show();
+      
     }
     function displayUIAfterLoad() {
       $('#loadBtnDiv').hide();
@@ -736,6 +856,9 @@
       //$('#zoomOutBtnDiv').show();
       $('#logoutBtnDiv').show();
       //$('#cancelBtnDiv').show();
+      $('#prefAccordPanel').show();
+      $('#prefAccord').show();
+      $('#operationsAccord').show();
       $('#pluginUI').show();
     }
 
