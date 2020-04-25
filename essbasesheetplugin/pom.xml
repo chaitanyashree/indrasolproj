@@ -97,9 +97,9 @@
                 <artifactId>jib-maven-plugin</artifactId>
 				<version>0.9.10</version>
 				<configuration>
-					<!--from>                           
+					<from>                           
 						<image>openjdk:alpine</image>
-					</from//-->
+					</from>
 					<container>
 						<mainClass>com.indrasol.essbase.essbasesheetplugin.EssbaseUtilityPluginApplication</mainClass>
 					</container>

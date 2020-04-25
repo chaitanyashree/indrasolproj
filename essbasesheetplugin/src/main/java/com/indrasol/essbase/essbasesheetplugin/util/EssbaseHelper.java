@@ -45,15 +45,23 @@ public class EssbaseHelper {
         essbaseConnection.setCredentials(credentials);
         try {
             // Create JAPI instance.
+            System.out.println("inside connect...");
             ess = IEssbase.Home.create(IEssbase.JAPI_VERSION);
+            System.out.println("ess created...");
             essbaseConnection.setEss(ess);
             
             // uncomment below to set OAM credentials in fusion mode
 //            ess.setOAMParams("oemUser", "oemPassword", "en-US"); 
             // Sign On to the Provider
+            System.out.println("credentials.getUserName()="+credentials.getUserName());
+            System.out.println("credentials.getPassword()="+credentials.getPassword());
+            System.out.println("credentials.getUrl()="+credentials.getUrl());
+            System.out.println("credentials.getUserName()="+credentials.getUserName());
+
+
             IEssDomain dom 
                 = ess.signOn(credentials.getUserName(), credentials.getPassword(), false, null, credentials.getUrl());
-
+            System.out.println("dom="+dom);
             /*
              * Following line demonstrates the JAPI usage in a Active/Passive
              * Essbase Cluster Scenario. In case of Active/Passive Essbase Cluster
@@ -66,6 +74,7 @@ public class EssbaseHelper {
 //            IEssOlapServer olapSvr = dom.getOlapServer("http://localhost:13080/aps/Essbase?ClusterName=CLUSTER1&SecureMode=yes");
             
             olapSvr = dom.getOlapServer(credentials.getOlapServerName());
+            System.out.println("olapSvr="+olapSvr);
             olapSvr.connect();
             System.out.println("Connection to Analytic server '" +olapSvr.getName()+ "' was successful.");
             String apiVersion = ess.getApiVersion();
@@ -82,10 +91,12 @@ public class EssbaseHelper {
             //return olapSvr;    
             essbaseConnection.setOlapSvr(olapSvr);
             essbaseConnection.setCredentials(credentials);
+            
             return essbaseConnection;
 		} catch (EssException x) {
-            System.err.println("Error: " + x.getMessage());
+            System.out.println("Error: " + x.getMessage());
             statusCode = FAILURE_CODE;
+            x.printStackTrace();
         } finally {
             ;
         }

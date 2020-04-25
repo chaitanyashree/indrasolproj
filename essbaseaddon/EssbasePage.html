@@ -260,7 +260,7 @@
             <input type="checkbox" id="repeatLabels">
             <label for="repeatLabels">Repeat Labels</label>
           </div>
-	
+          <div><label>Indentations</label></div>
           <div>
             <input type="radio" name="indentationGroup" id="subItemRadio" checked>
             <label for="subItemRadio">Sub Items</label>
@@ -295,7 +295,7 @@
             <input type="input" id="noAccessInput">
           </div>
           <div>
-            <input type="checkbox" id="preseveFormatting">
+            <input type="checkbox" id="preseveFormatting" value=5 width=5>
             <label for="preseveFormatting">Preserve Formatting</label>
           </div>
           <div>
@@ -530,6 +530,7 @@
 
             //displayUIAfterConnect();
             //element.disabled = false;
+           // localStorage.clear();
 
             IS_LOGGEDIN = false;
           })
@@ -793,6 +794,18 @@
         .makePivotCall(sCube, sMetaDataGrid);
 
     }    
+
+    function setCredentials(url, olapServerNameStr, userNameStr, passwordStr) {
+      if (typeof(Storage) !== "undefined") {
+        localStorage.setItem('url',url);
+        localStorage.setItem('olapServerNameStr',olapServerNameStr);
+        localStorage.setItem('userNameStr',userNameStr);
+        localStorage.setItem('passwordStr',passwordStr);
+      } else {
+        alert('Incompatible browser...');
+       // localStorage.clear();
+      }
+    }
     function onConnect() {
       //alert('hi');
       var url = $('#connecturl-text').val();
@@ -800,6 +813,7 @@
       var userNameStr = $('#userName').val();
       var passwordStr = $('#password').val();
       //alert(url);
+      setCredentials(url, olapServerNameStr, userNameStr, passwordStr);
 
       google.script.run
         .withSuccessHandler(

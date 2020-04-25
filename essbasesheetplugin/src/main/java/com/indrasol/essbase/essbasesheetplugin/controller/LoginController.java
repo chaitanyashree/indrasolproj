@@ -51,18 +51,20 @@ public class LoginController {
     @GetMapping("/testlogin")
     public Credentials testLogin() {
 
-        // String s_userName = "admin";
-        // String s_password = "admin123";
+        String s_userName = "admin";
+        String s_password = "admin123";
         // String s_olapSvrName = "ec2-13-127-165-106.ap-south-1.compute.amazonaws.com";
         // String s_provider =
         // "http://ec2-13-127-165-106.ap-south-1.compute.amazonaws.com:28080/aps/JAPI";
 
-        // String s_olapSvrName = "ec2-3-7-12-73.ap-south-1.compute.amazonaws.com";
-        // String s_provider =
-        // "http://ec2-3-7-12-73.ap-south-1.compute.amazonaws.com:28080/aps/JAPI";
+        String s_olapSvrName = "ec2-3-7-12-73.ap-south-1.compute.amazonaws.com";
+        String s_provider = "http://ec2-3-7-12-73.ap-south-1.compute.amazonaws.com:28080/aps/JAPI";
 
-        Credentials credentials = new Credentials(this.s_userName, this.s_password, this.s_olapSvrName,
-                this.s_provider);
+        Credentials credentials = new Credentials(s_userName, s_password, s_olapSvrName,
+                s_provider);
+        // Credentials credentials = new Credentials(this.s_userName, this.s_password, this.s_olapSvrName,
+        //         this.s_provider);
+
         loginService.login(credentials);
         System.out.println("login sucessfully...");
         // loginService.loadData();
