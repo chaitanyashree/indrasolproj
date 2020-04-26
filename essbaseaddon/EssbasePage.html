@@ -262,11 +262,11 @@
           </div>
           <div><label>Indentations</label></div>
           <div>
-            <input type="radio" name="indentationGroup" id="subItemRadio" checked>
+            <input type="radio" name="indentationGroup" id="subItemRadio" value="subItems">
             <label for="subItemRadio">Sub Items</label>
           </div>
           <div>
-            <input type="radio" name="indentationGroup" id="totalRadio">
+            <input type="radio" name="indentationGroup" id="totalRadio" value="total">
             <label for="totalRadio">Total</label>
           </div>
 
@@ -305,7 +305,9 @@
           <div>
             <label for="undoRedoCountInput">Undo Redo Count</label>
             <input type="input" id="undoRedoCountInput">
-          </div>                                                                                       
+          </div>
+          <div>
+          </p><button class="blue" id="save-options">Save Options</button>                                                                                   
         </div>
       </div> 
     <!--/form-->
@@ -359,6 +361,8 @@
       $('#removeOnly-button').click(callRemoveOnly);
       $('#refresh-button').click(callRefresh);
       $('#pivot-button').click(callPivot);
+
+      $('#save-options').click(callSaveOptions);
       
 
 
@@ -380,6 +384,18 @@
       //   callLoad();
 
       // }
+      /*
+      google.script.run
+        .withSuccessHandler(function (returnSuccess, element) {
+          alert('success--'+returnSuccess);
+          if(returnSuccess){
+            $('#connectBlock').hide();
+            displayUIAfterLoad();
+          }
+        }).withFailureHandler(function (returnSuccess, element) {
+          alert('failure-'+returnSuccess);
+          
+        }).isLoggedIn();*/
 
     });
 
@@ -813,7 +829,7 @@
       var userNameStr = $('#userName').val();
       var passwordStr = $('#password').val();
       //alert(url);
-      setCredentials(url, olapServerNameStr, userNameStr, passwordStr);
+      //setCredentials(url, olapServerNameStr, userNameStr, passwordStr);
 
       google.script.run
         .withSuccessHandler(
@@ -838,6 +854,139 @@
       //google.script.run.makeConnectCall(url,olapServerNameStr,userNameStr,passwordStr);
       //google.script.run.sayHello();
     }
+
+    function callSaveOptions() {
+      console.log('inside call SaveOptions ...');
+      //get form preferences
+      var isRepeatLabel = $('#repeatLabels').is(':checked');
+      var issuppressMissingRows = $('#suppressMissingRows').is(':checked');
+      var isSuppressZeroRows = $('#suppressZeroRows').is(':checked');
+      var isSuppressMissingColumns = $('#suppressMissingColumns').is(':checked');
+      var isSuppressZeroColumns = $('#suppressZeroColumns').is(':checked');
+      var isPreseveFormatting = $('#preseveFormatting').is(':checked');
+      var isAdjustColumnWidth = $('#adjustColumnWidth').is(':checked');
+
+      var indentationGroupVal = $('input[name=indentationGroup]:checked').val();
+      var noDataMissingInputVal = $('#noDataMissingInput').val();
+      var noAccessInputVal = $('#noAccessInput').val();
+      var undoRedoCountInputVal = $('#undoRedoCountInput').val();
+
+      console.log('isRepeatLabel='+isRepeatLabel);
+      console.log('issuppressMissingRows='+issuppressMissingRows);
+      console.log('isSuppressZeroRows='+isSuppressZeroRows);
+      console.log('isSuppressMissingColumns='+isSuppressMissingColumns);
+      console.log('isSuppressZeroColumns='+isSuppressZeroColumns);
+      console.log('isPreseveFormatting='+isPreseveFormatting);
+      console.log('isAdjustColumnWidth='+isAdjustColumnWidth);
+      console.log('indentationGroupVal='+indentationGroupVal);
+      console.log('noDataMissingInputVal='+noDataMissingInputVal);
+      console.log('noAccessInputVal='+noAccessInputVal);
+      console.log('undoRedoCountInputVal='+undoRedoCountInputVal);
+      
+      if (typeof(Storage) !== "undefined") {
+        localStorage.setItem('isRepeatLabel',isRepeatLabel);
+        localStorage.setItem('issuppressMissingRows',issuppressMissingRows);
+        localStorage.setItem('isSuppressZeroRows',isSuppressZeroRows);
+        localStorage.setItem('isSuppressMissingColumns',isSuppressMissingColumns);
+        localStorage.setItem('isSuppressZeroColumns',isSuppressZeroColumns);
+        localStorage.setItem('isPreseveFormatting',isPreseveFormatting);
+        localStorage.setItem('isAdjustColumnWidth',isAdjustColumnWidth);
+        localStorage.setItem('indentationGroupVal',indentationGroupVal);
+        localStorage.setItem('noDataMissingInputVal',noDataMissingInputVal);
+        localStorage.setItem('noAccessInputVal',noAccessInputVal);
+        localStorage.setItem('undoRedoCountInputVal',undoRedoCountInputVal);
+
+        var optionsObj = {
+          'isRepeatLabel':isRepeatLabel,
+          'issuppressMissingRows': issuppressMissingRows,
+          'isSuppressZeroRows': isSuppressZeroRows,
+          'isSuppressMissingColumns': isSuppressMissingColumns,
+          'isSuppressZeroColumns': isSuppressZeroColumns,
+          'isPreseveFormatting': isPreseveFormatting,
+          'isAdjustColumnWidth': isAdjustColumnWidth,
+          'indentationGroupVal': indentationGroupVal,
+          'noDataMissingInputVal': noDataMissingInputVal,
+          'noAccessInputVal': noAccessInputVal,
+          'undoRedoCountInputVal': undoRedoCountInputVal
+        };
+
+        google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('withsuccess' + returnSuccess);
+
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
+
+          })
+        .makeSaveOptions(optionsObj);
+      }
+
+    }
+
+    function callLoadOptions() {
+      console.log('inside call callLoadOptions ...');
+      var isRepeatLabel = $('#repeatLabels').is(':checked');
+      var issuppressMissingRows = $('#suppressMissingRows').is(':checked');
+      var isSuppressZeroRows = $('#suppressZeroRows').is(':checked');
+      var isSuppressMissingColumns = $('#suppressMissingColumns').is(':checked');
+      var isSuppressZeroColumns = $('#suppressZeroColumns').is(':checked');
+      var isPreseveFormatting = $('#preseveFormatting').is(':checked');
+      var isAdjustColumnWidth = $('#adjustColumnWidth').is(':checked');
+
+      var indentationGroupVal = $('input[name=indentationGroup]:checked').val();
+      var noDataMissingInputVal = $('#noDataMissingInput').val();
+      var noAccessInputVal = $('#noAccessInput').val();
+      var undoRedoCountInputVal = $('#undoRedoCountInput').val();      
+
+      if (typeof(Storage) !== "undefined") {
+        isRepeatLabel = localStorage.getItem('isRepeatLabel');
+        issuppressMissingRows = localStorage.getItem('issuppressMissingRows');
+        isSuppressZeroRows = localStorage.getItem('isSuppressZeroRows');
+        isSuppressMissingColumns = localStorage.getItem('isSuppressMissingColumns');
+        isSuppressZeroColumns = localStorage.getItem('isSuppressZeroColumns');
+        isPreseveFormatting = localStorage.getItem('isPreseveFormatting');
+        isAdjustColumnWidth = localStorage.getItem('isAdjustColumnWidth');
+        indentationGroupVal = localStorage.getItem('indentationGroupVal');
+        noDataMissingInputVal = localStorage.getItem('noDataMissingInputVal');
+        noAccessInputVal = localStorage.getItem('noAccessInputVal');
+        undoRedoCountInputVal = localStorage.getItem('undoRedoCountInputVal');
+      }
+
+      console.log('isRepeatLabel='+isRepeatLabel);
+      console.log('issuppressMissingRows='+issuppressMissingRows);
+      console.log('isSuppressZeroRows='+isSuppressZeroRows);
+      console.log('isSuppressMissingColumns='+isSuppressMissingColumns);
+      console.log('isSuppressZeroColumns='+isSuppressZeroColumns);
+      console.log('isPreseveFormatting='+isPreseveFormatting);
+      console.log('isAdjustColumnWidth='+isAdjustColumnWidth);
+      console.log('indentationGroupVal='+indentationGroupVal);
+      console.log('noDataMissingInputVal='+noDataMissingInputVal);
+      console.log('noAccessInputVal='+noAccessInputVal);
+      console.log('undoRedoCountInputVal='+undoRedoCountInputVal);      
+
+      //set form preferences
+      $('#repeatLabels').prop('checked',(isRepeatLabel === 'true'));
+      $('#suppressMissingRows').prop('checked', (issuppressMissingRows === 'true'));
+      $('#suppressZeroRows').prop('checked', (isSuppressZeroRows === 'true'));
+      $('#suppressMissingColumns').prop('checked', (isSuppressMissingColumns === 'true'));
+      $('#suppressZeroColumns').prop('checked', (isSuppressZeroColumns === 'true'));
+      $('#preseveFormatting').prop('checked', (isPreseveFormatting === 'true'));
+      $('#adjustColumnWidth').prop('checked', (isAdjustColumnWidth === 'true'));
+      if(indentationGroupVal === 'subItems'){
+        $('#subItemRadio').prop('checked',true);  
+      }
+      if(indentationGroupVal === 'total') {
+        $('#totalRadio').prop('checked',true);    
+      }
+      $('#noDataMissingInput').val(noDataMissingInputVal);
+      $('#noAccessInput').val(noAccessInputVal);
+      $('#undoRedoCountInput').val(undoRedoCountInputVal);
+
+    }    
     /**
      * Inserts a div that contains an error message after a given element.
      *
@@ -874,6 +1023,7 @@
       $('#prefAccord').show();
       $('#operationsAccord').show();
       $('#pluginUI').show();
+      callLoadOptions();
     }
 
   </script>

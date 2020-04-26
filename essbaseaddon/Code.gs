@@ -1,16 +1,36 @@
 /** Essbase Plugin */
 
 var IS_LOGGEDIN = false;
+// Set a property in each of the three property stores.
+var scriptProperties = PropertiesService.getScriptProperties();
+var userProperties = PropertiesService.getUserProperties();
+var documentProperties = PropertiesService.getDocumentProperties();
+
+
+
 function onInstall(e) {
   onOpen(e);
 }
 function onOpen(e) {
-  SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
+
+    Logger.log('onOpen');
+    SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
     //.createMenu('Essbase Connector')
     .createAddonMenu()
     .addItem('Essbase Setup', 'showSidebar')
     .addToUi();
-  Logger.log('inside onopen');
+  Logger.log('inside onopen showSidebar');
+
+
+}
+
+function isLoggedIn() {
+  var isLoggedIn = documentProperties.getProperty('isLoggedIn');
+  if(isLoggedIn == 'TRUE') {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function showSidebar() {
@@ -54,8 +74,11 @@ function makeConnectCall(connecturl, olapServerName, userName, password) {
     // Logger.log(response.getContentText());
     Logger.log(response);
 
-
+    documentProperties.setProperties(data);
+    documentProperties.setProperty('isLoggedIn', 'TRUE');
+    
     Logger.log('done with call..');
+    
     return response.getContentText();
   } catch (error) {
     showErrorDialog(error);
@@ -778,6 +801,7 @@ function showLoggedInSideBar() {
 function makeLogoutCall() {
   Logger.log('inside makeLogoutCall...');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/logout');
+  documentProperties.deleteAllProperties();
   SpreadsheetApp.getUi()
     .createAddonMenu()
     .addItem('Essbase Setup', 'showSidebar')
@@ -836,3 +860,12 @@ function clearSheetContent() {
   SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();
 }
 
+function makeSaveOptions(optionsObj) {
+  userProperties.getProperty('')
+  Logger.log('isRepeatLabel=' + optionsObj.isRepeatLabel);
+  userProperties.setProperties(optionsObj);
+}
+
+function getOptions() {
+  return userProperties.getProperties();
+}
