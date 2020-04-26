@@ -195,7 +195,18 @@ public class LoginController {
             throw new Exception(e.getMessage());
             
         }
-    }     
+    } 
+    
+    @PostMapping("/essbaseUserOptions") 
+    public UserEssBaseOptions setEssbaseOptions(@RequestBody UserEssBaseOptions userEssBaseOptions) throws Exception {
+        try {
+            loginService.setEssbaseOptions(userEssBaseOptions);
+            return loginService.getEssbaseConnection().getUserEssBaseOptions();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+            
+        }
+    }
     
     /**
      * Exception handler if NoSuchElementException is thrown in this Controllerows

@@ -17,6 +17,9 @@ public class EssbaseConnection {
     private String apiVersion;
     private String apiVersionDetail;
 
+    @Autowired
+    private UserEssBaseOptions userEssBaseOptions;
+
 
     @Autowired
     private Credentials credentials;
@@ -69,4 +72,16 @@ public class EssbaseConnection {
     public void setCubeView(IEssCubeView cubeView) {
         this.cubeView = cubeView;
     }
+
+    public UserEssBaseOptions getUserEssBaseOptions() {
+        return userEssBaseOptions;
+    }
+
+    public void setUserEssBaseOptions(UserEssBaseOptions userEssBaseOptions) {
+        this.userEssBaseOptions = userEssBaseOptions;
+    }
+
+
+
+    
 }

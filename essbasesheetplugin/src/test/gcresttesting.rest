@@ -1549,3 +1549,9 @@ Content-Type: application/json
         ]
     ]
 }
+
+###
+POST http://35.184.51.106:8080/essbase/essbaseUserOptions HTTP/1.1
+Content-Type: application/json
+
+{"repeatLabel":false,"suppressMissingRows":false,"suppressZeroRows":false,"suppressMissingColumns":false,"suppressZeroColumns":false,"preseveFormatting":false,"adjustColumnWidth":false,"indentationGroupVal":"subItems","noDataMissingInputVal":"#Missing","noAccessInputVal":"","undoRedoCountInputVal":"5","userId":"chaitanyashree786@gmail.com"}

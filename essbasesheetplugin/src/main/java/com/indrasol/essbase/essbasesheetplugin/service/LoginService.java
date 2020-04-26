@@ -239,6 +239,20 @@ public class LoginService {
             throw e;
         }
         return grid;                
-	}    
+	}
+
+	public void setEssbaseOptions(UserEssBaseOptions userEssBaseOptions) throws Exception {
+
+        if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+            this.essbaseConnection.setUserEssBaseOptions(userEssBaseOptions);
+        }
+    }
+    
+    public UserEssBaseOptions getEssbaseOptions() throws Exception {
+        if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
+            this.essbaseConnection.getUserEssBaseOptions();
+        }
+        return null;
+    }
 
 }

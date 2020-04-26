@@ -859,7 +859,7 @@
       console.log('inside call SaveOptions ...');
       //get form preferences
       var isRepeatLabel = $('#repeatLabels').is(':checked');
-      var issuppressMissingRows = $('#suppressMissingRows').is(':checked');
+      var isSuppressMissingRows = $('#suppressMissingRows').is(':checked');
       var isSuppressZeroRows = $('#suppressZeroRows').is(':checked');
       var isSuppressMissingColumns = $('#suppressMissingColumns').is(':checked');
       var isSuppressZeroColumns = $('#suppressZeroColumns').is(':checked');
@@ -872,7 +872,7 @@
       var undoRedoCountInputVal = $('#undoRedoCountInput').val();
 
       console.log('isRepeatLabel='+isRepeatLabel);
-      console.log('issuppressMissingRows='+issuppressMissingRows);
+      console.log('isSuppressMissingRows='+isSuppressMissingRows);
       console.log('isSuppressZeroRows='+isSuppressZeroRows);
       console.log('isSuppressMissingColumns='+isSuppressMissingColumns);
       console.log('isSuppressZeroColumns='+isSuppressZeroColumns);
@@ -885,7 +885,7 @@
       
       if (typeof(Storage) !== "undefined") {
         localStorage.setItem('isRepeatLabel',isRepeatLabel);
-        localStorage.setItem('issuppressMissingRows',issuppressMissingRows);
+        localStorage.setItem('isSuppressMissingRows',isSuppressMissingRows);
         localStorage.setItem('isSuppressZeroRows',isSuppressZeroRows);
         localStorage.setItem('isSuppressMissingColumns',isSuppressMissingColumns);
         localStorage.setItem('isSuppressZeroColumns',isSuppressZeroColumns);
@@ -898,7 +898,7 @@
 
         var optionsObj = {
           'isRepeatLabel':isRepeatLabel,
-          'issuppressMissingRows': issuppressMissingRows,
+          'isSuppressMissingRows': isSuppressMissingRows,
           'isSuppressZeroRows': isSuppressZeroRows,
           'isSuppressMissingColumns': isSuppressMissingColumns,
           'isSuppressZeroColumns': isSuppressZeroColumns,
@@ -930,7 +930,7 @@
     function callLoadOptions() {
       console.log('inside call callLoadOptions ...');
       var isRepeatLabel = $('#repeatLabels').is(':checked');
-      var issuppressMissingRows = $('#suppressMissingRows').is(':checked');
+      var isSuppressMissingRows = $('#suppressMissingRows').is(':checked');
       var isSuppressZeroRows = $('#suppressZeroRows').is(':checked');
       var isSuppressMissingColumns = $('#suppressMissingColumns').is(':checked');
       var isSuppressZeroColumns = $('#suppressZeroColumns').is(':checked');
@@ -944,7 +944,7 @@
 
       if (typeof(Storage) !== "undefined") {
         isRepeatLabel = localStorage.getItem('isRepeatLabel');
-        issuppressMissingRows = localStorage.getItem('issuppressMissingRows');
+        isSuppressMissingRows = localStorage.getItem('isSuppressMissingRows');
         isSuppressZeroRows = localStorage.getItem('isSuppressZeroRows');
         isSuppressMissingColumns = localStorage.getItem('isSuppressMissingColumns');
         isSuppressZeroColumns = localStorage.getItem('isSuppressZeroColumns');
@@ -957,7 +957,7 @@
       }
 
       console.log('isRepeatLabel='+isRepeatLabel);
-      console.log('issuppressMissingRows='+issuppressMissingRows);
+      console.log('isSuppressMissingRows='+isSuppressMissingRows);
       console.log('isSuppressZeroRows='+isSuppressZeroRows);
       console.log('isSuppressMissingColumns='+isSuppressMissingColumns);
       console.log('isSuppressZeroColumns='+isSuppressZeroColumns);
@@ -970,7 +970,7 @@
 
       //set form preferences
       $('#repeatLabels').prop('checked',(isRepeatLabel === 'true'));
-      $('#suppressMissingRows').prop('checked', (issuppressMissingRows === 'true'));
+      $('#suppressMissingRows').prop('checked', (isSuppressMissingRows === 'true'));
       $('#suppressZeroRows').prop('checked', (isSuppressZeroRows === 'true'));
       $('#suppressMissingColumns').prop('checked', (isSuppressMissingColumns === 'true'));
       $('#suppressZeroColumns').prop('checked', (isSuppressZeroColumns === 'true'));

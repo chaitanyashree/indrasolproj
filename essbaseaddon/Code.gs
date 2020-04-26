@@ -861,9 +861,35 @@ function clearSheetContent() {
 }
 
 function makeSaveOptions(optionsObj) {
-  userProperties.getProperty('')
+  
   Logger.log('isRepeatLabel=' + optionsObj.isRepeatLabel);
   userProperties.setProperties(optionsObj);
+
+  var data = {
+    'repeatLabel': (optionsObj.isRepeatLabel === 'true'),
+    'suppressMissingRows': (optionsObj.isSuppressMissingRows === 'true'),
+    'suppressZeroRows': (optionsObj.isSuppressZeroRows === 'true'),
+    'suppressMissingColumns': (optionsObj.isSuppressMissingColumns === 'true'),
+    'suppressZeroColumns': (optionsObj.isSuppressZeroColumns === 'true'),
+    'preseveFormatting': (optionsObj.isPreseveFormatting === 'true'),
+    'adjustColumnWidth': (optionsObj.isAdjustColumnWidth === 'true'),
+    'indentationGroupVal': optionsObj.indentationGroupVal,
+    'noDataMissingInputVal': optionsObj.noDataMissingInputVal,
+    'noAccessInputVal': optionsObj.noAccessInputVal,
+    'undoRedoCountInputVal': optionsObj.undoRedoCountInputVal,
+    'userId': Session.getActiveUser().getEmail()
+  };
+
+  Logger.log('data=='+JSON.stringify(data));
+  var options = {
+    'method': 'post',
+    'contentType': 'application/json',
+    'payload': JSON.stringify(data)
+  };
+  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/essbaseUserOptions', options);
+  Logger.log('done with call..');
+  return response.getContentText();
+
 }
 
 function getOptions() {
