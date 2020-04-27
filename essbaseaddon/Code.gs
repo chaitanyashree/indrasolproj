@@ -865,14 +865,28 @@ function makeSaveOptions(optionsObj) {
   Logger.log('isRepeatLabel=' + optionsObj.isRepeatLabel);
   userProperties.setProperties(optionsObj);
 
+  // var data = {
+  //   'repeatLabel': (optionsObj.isRepeatLabel === 'true'),
+  //   'suppressMissingRows': (optionsObj.isSuppressMissingRows === 'true'),
+  //   'suppressZeroRows': (optionsObj.isSuppressZeroRows === 'true'),
+  //   'suppressMissingColumns': (optionsObj.isSuppressMissingColumns === 'true'),
+  //   'suppressZeroColumns': (optionsObj.isSuppressZeroColumns === 'true'),
+  //   'preseveFormatting': (optionsObj.isPreseveFormatting === 'true'),
+  //   'adjustColumnWidth': (optionsObj.isAdjustColumnWidth === 'true'),
+  //   'indentationGroupVal': optionsObj.indentationGroupVal,
+  //   'noDataMissingInputVal': optionsObj.noDataMissingInputVal,
+  //   'noAccessInputVal': optionsObj.noAccessInputVal,
+  //   'undoRedoCountInputVal': optionsObj.undoRedoCountInputVal,
+  //   'userId': Session.getActiveUser().getEmail()
+  // };
   var data = {
-    'repeatLabel': (optionsObj.isRepeatLabel === 'true'),
-    'suppressMissingRows': (optionsObj.isSuppressMissingRows === 'true'),
-    'suppressZeroRows': (optionsObj.isSuppressZeroRows === 'true'),
-    'suppressMissingColumns': (optionsObj.isSuppressMissingColumns === 'true'),
-    'suppressZeroColumns': (optionsObj.isSuppressZeroColumns === 'true'),
-    'preseveFormatting': (optionsObj.isPreseveFormatting === 'true'),
-    'adjustColumnWidth': (optionsObj.isAdjustColumnWidth === 'true'),
+    'repeatLabel': (optionsObj.isRepeatLabel),
+    'suppressMissingRows': (optionsObj.isSuppressMissingRows),
+    'suppressZeroRows': (optionsObj.isSuppressZeroRows),
+    'suppressMissingColumns': (optionsObj.isSuppressMissingColumns),
+    'suppressZeroColumns': (optionsObj.isSuppressZeroColumns),
+    'preseveFormatting': (optionsObj.isPreseveFormatting),
+    'adjustColumnWidth': (optionsObj.isAdjustColumnWidth),
     'indentationGroupVal': optionsObj.indentationGroupVal,
     'noDataMissingInputVal': optionsObj.noDataMissingInputVal,
     'noAccessInputVal': optionsObj.noAccessInputVal,
@@ -893,5 +907,23 @@ function makeSaveOptions(optionsObj) {
 }
 
 function getOptions() {
+  //  userProperties.getProperties();
+  // var data = {
+  //   'repeatLabel': (userProperties.getProperty('repeatLabel') === 'true'),
+  //   'suppressMissingRows': (userProperties.getProperty('suppressMissingRows') === 'true'),
+  //   'suppressZeroRows': (userProperties.getProperty('suppressZeroRows') === 'true'),
+  //   'suppressMissingColumns': (userProperties.getProperty('suppressMissingColumns') === 'true'),
+  //   'suppressZeroColumns': (userProperties.getProperty('suppressZeroColumns') === 'true'),
+  //   'preseveFormatting': (userProperties.getProperty('preseveFormatting') === 'true'),
+  //   'adjustColumnWidth': (userProperties.getProperty('adjustColumnWidth') === 'true'),
+  //   'indentationGroupVal': userProperties.getProperty('indentationGroupVal'),
+  //   'noDataMissingInputVal': userProperties.getProperty('noDataMissingInputVal'),
+  //   'noAccessInputVal': userProperties.getProperty('noAccessInputVal'),
+  //   'undoRedoCountInputVal': userProperties.getProperty('undoRedoCountInputVal'),
+  //   'userId': userProperties.getProperty('userId')
+  // };
+
+
+  // return data;
   return userProperties.getProperties();
 }

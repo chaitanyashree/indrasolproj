@@ -207,6 +207,16 @@ public class LoginController {
             
         }
     }
+
+    @GetMapping("/essbaseUserOptions") 
+    public UserEssBaseOptions getEssbaseOptions() throws Exception {
+        try {
+            return loginService.getEssbaseConnection().getUserEssBaseOptions();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+            
+        }
+    }
     
     /**
      * Exception handler if NoSuchElementException is thrown in this Controllerows

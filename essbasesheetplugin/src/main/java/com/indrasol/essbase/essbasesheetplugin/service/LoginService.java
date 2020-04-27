@@ -82,7 +82,7 @@ public class LoginService {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
                 // IEssCubeView cubeView =
                 // this.essbaseConnection.getOlapSvr().getApplication(applicationName).getCube(cubeName).openCubeView(this.essbaseConnection.getOlapSvr()+"-"+cubeName);
-                grid = EssbaseHelper.getDefaultGrid(this.essbaseConnection.getOlapSvr(), applicationName, cubeName);
+                grid = EssbaseHelper.getDefaultGrid(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, this.essbaseConnection.getUserEssBaseOptions());
                 // this.essbaseConnection.setCubeView(cubeView);
             }
 
@@ -98,16 +98,16 @@ public class LoginService {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
                 switch(zoomLevel) {
                     case NEXT_LEVEL:
-                        grid = EssbaseHelper.getZoomInOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn);
+                        grid = EssbaseHelper.getZoomInOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn,this.essbaseConnection.getUserEssBaseOptions());
                         break;
                     case BOTTOM_LEVEL:
-                        grid = EssbaseHelper.getZoomInOperationBottomLevel(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn);
+                        grid = EssbaseHelper.getZoomInOperationBottomLevel(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn,this.essbaseConnection.getUserEssBaseOptions());
                         break;
                     case ALL_LEVEL:
-                        grid = EssbaseHelper.getZoomInOperationAllLevel(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn);
+                        grid = EssbaseHelper.getZoomInOperationAllLevel(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn,this.essbaseConnection.getUserEssBaseOptions());
                         break;
                     default:
-                        grid = EssbaseHelper.getZoomInOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn);
+                        grid = EssbaseHelper.getZoomInOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName, dataGrid, startRow, startColumn,this.essbaseConnection.getUserEssBaseOptions());
 
                 }
                 
@@ -125,7 +125,7 @@ public class LoginService {
         try {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
                 grid = EssbaseHelper.getZoomOutOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,
-                        dataGrid, startRow, startColumn);
+                        dataGrid, startRow, startColumn, this.essbaseConnection.getUserEssBaseOptions());
             }
 
         } catch (EssException e) {
@@ -139,7 +139,7 @@ public class LoginService {
         try {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
                 grid = EssbaseHelper.getKeepOnlyOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,
-                        dataGrid);
+                        dataGrid,this.essbaseConnection.getUserEssBaseOptions());
             }
 
         } catch (EssException e) {
@@ -153,7 +153,7 @@ public class LoginService {
         try {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
                 grid = EssbaseHelper.getRemoveOnlyOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,
-                        dataGrid);
+                        dataGrid, this.essbaseConnection.getUserEssBaseOptions());
             }
 
         } catch (EssException e) {
@@ -166,8 +166,7 @@ public class LoginService {
         DataGrid grid = new DataGrid();
         try {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
-                grid = EssbaseHelper.getRefreshOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,
-                        dataGrid);
+                grid = EssbaseHelper.getRefreshOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,dataGrid,this.essbaseConnection.getUserEssBaseOptions());
             }
 
         } catch (EssException e) {
@@ -212,7 +211,7 @@ public class LoginService {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
                 // IEssCubeView cubeView =
                 // this.essbaseConnection.getOlapSvr().getApplication(applicationName).getCube(cubeName).openCubeView(this.essbaseConnection.getOlapSvr()+"-"+cubeName);
-                grid = EssbaseHelper.getPivotOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,dataGrid, startRow,startColumn);
+                grid = EssbaseHelper.getPivotOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,dataGrid, startRow,startColumn,this.essbaseConnection.getUserEssBaseOptions());
                 // this.essbaseConnection.setCubeView(cubeView);
             }
 
@@ -230,7 +229,7 @@ public class LoginService {
             if (this.essbaseConnection != null && this.essbaseConnection.getOlapSvr() != null) {
                 // IEssCubeView cubeView =
                 // this.essbaseConnection.getOlapSvr().getApplication(applicationName).getCube(cubeName).openCubeView(this.essbaseConnection.getOlapSvr()+"-"+cubeName);
-                grid = EssbaseHelper.getPivotToPovOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,dataGrid, startRow,startColumn);
+                grid = EssbaseHelper.getPivotToPovOperation(this.essbaseConnection.getOlapSvr(), applicationName, cubeName,dataGrid, startRow,startColumn, this.essbaseConnection.getUserEssBaseOptions());
                 // this.essbaseConnection.setCubeView(cubeView);
             }
 

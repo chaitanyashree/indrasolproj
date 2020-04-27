@@ -115,6 +115,18 @@ public class UserEssBaseOptions {
         this.userId = userId;
     }
 
+    @Override
+    public String toString() {
+        return "UserEssBaseOptions [adjustColumnWidth=" + adjustColumnWidth + ", indentationGroupVal="
+                + indentationGroupVal + ", noAccessInputVal=" + noAccessInputVal + ", noDataMissingInputVal="
+                + noDataMissingInputVal + ", preseveFormatting=" + preseveFormatting + ", repeatLabel=" + repeatLabel
+                + ", suppressMissingColumns=" + suppressMissingColumns + ", suppressMissingRows=" + suppressMissingRows
+                + ", suppressZeroColumns=" + suppressZeroColumns + ", suppressZeroRows=" + suppressZeroRows
+                + ", undoRedoCountInputVal=" + undoRedoCountInputVal + ", userId=" + userId + "]";
+    }
+
+
+
     
 
 }

@@ -1,14 +1,36 @@
 /** Essbase Plugin */
 
 var IS_LOGGEDIN = false;
+// Set a property in each of the three property stores.
+var scriptProperties = PropertiesService.getScriptProperties();
+var userProperties = PropertiesService.getUserProperties();
+var documentProperties = PropertiesService.getDocumentProperties();
 
-function onOpen() {
-  SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
+
+
+function onInstall(e) {
+  onOpen(e);
+}
+function onOpen(e) {
+
+    Logger.log('onOpen');
+    SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
     //.createMenu('Essbase Connector')
     .createAddonMenu()
     .addItem('Essbase Setup', 'showSidebar')
     .addToUi();
-  Logger.log('inside onopen');
+  Logger.log('inside onopen showSidebar');
+
+
+}
+
+function isLoggedIn() {
+  var isLoggedIn = documentProperties.getProperty('isLoggedIn');
+  if(isLoggedIn == 'TRUE') {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function showSidebar() {
@@ -52,8 +74,11 @@ function makeConnectCall(connecturl, olapServerName, userName, password) {
     // Logger.log(response.getContentText());
     Logger.log(response);
 
-
+    documentProperties.setProperties(data);
+    documentProperties.setProperty('isLoggedIn', 'TRUE');
+    
     Logger.log('done with call..');
+    
     return response.getContentText();
   } catch (error) {
     showErrorDialog(error);
@@ -81,7 +106,6 @@ function makeZoomInNextCall(selectedCube, sMetaDataGrid) {
   // var developerMetaData =  devMetaFinder.withKey('metaDataGrid').find();
   // Logger.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
   // console.log(developerMetaData[0].getKey()+'range=>'+developerMetaData[0].getValue());
- 
 
   var data = {
     "totalRows": totalRows,
@@ -684,8 +708,14 @@ function makeRemoveOnlyCall(selectedCube, sMetaDataGrid) {
 }
 
 
-function makeLoadDimensions(selectedCube) {
+function makeloadApplications(selectedCube) {
   Logger.log('makeLoadCall....');
+  var lastDataRangeRow = SpreadsheetApp.getActive().getActiveSheet().getLastRow();
+  var lastDataRangeCol = SpreadsheetApp.getActive().getActiveSheet().getLastColumn();
+  if(lastDataRangeCol > 0 || lastDataRangeRow >0) {
+    showDialog();
+  }
+
   //Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -716,8 +746,8 @@ function makeLoadDimensions(selectedCube) {
 }
 
 function makeDefaultRetrieve(selectedCube) {
-  Logger.log('makeDefaultRetrieve....');
-  //Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
+  Logger.log('makeDefaultRetrieve....'+selectedCube);
+  Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();
@@ -771,6 +801,7 @@ function showLoggedInSideBar() {
 function makeLogoutCall() {
   Logger.log('inside makeLogoutCall...');
   var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/logout');
+  documentProperties.deleteAllProperties();
   SpreadsheetApp.getUi()
     .createAddonMenu()
     .addItem('Essbase Setup', 'showSidebar')
@@ -799,4 +830,68 @@ function sayHello() {
   Logger.log('sayhello..');
 }
 
+function showDialog() {
+  var yesClick=false;
+  var html = HtmlService.createHtmlOutputFromFile('ContentDialog')
+      .setWidth(400)
+      .setHeight(300);
+  //SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
+    //  .showModalDialog(html, 'Clear Content dialog');
+    var ui = SpreadsheetApp.getUi(); // Same variations.
 
+   var result= ui.alert('Please Confirm', 'Clear Sheet Contents and POV',ui.ButtonSet.OK);
+  // Process the user's response.
+  if (result == ui.Button.OK) {
+    // User clicked "Yes".
+    //ui.alert('Confirmation received.');
+    clearSheetContent();
+    yesClick=true;
+  } else {
+    // User clicked "No" or X in the title bar.
+    //ui.alert('Permission denied.');
+    yesClick=false;
+  }
+  return yesClick;
+
+
+}
+
+function clearSheetContent() {
+  SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();
+}
+
+function makeSaveOptions(optionsObj) {
+  
+  Logger.log('isRepeatLabel=' + optionsObj.isRepeatLabel);
+  userProperties.setProperties(optionsObj);
+
+  var data = {
+    'repeatLabel': (optionsObj.isRepeatLabel === 'true'),
+    'suppressMissingRows': (optionsObj.isSuppressMissingRows === 'true'),
+    'suppressZeroRows': (optionsObj.isSuppressZeroRows === 'true'),
+    'suppressMissingColumns': (optionsObj.isSuppressMissingColumns === 'true'),
+    'suppressZeroColumns': (optionsObj.isSuppressZeroColumns === 'true'),
+    'preseveFormatting': (optionsObj.isPreseveFormatting === 'true'),
+    'adjustColumnWidth': (optionsObj.isAdjustColumnWidth === 'true'),
+    'indentationGroupVal': optionsObj.indentationGroupVal,
+    'noDataMissingInputVal': optionsObj.noDataMissingInputVal,
+    'noAccessInputVal': optionsObj.noAccessInputVal,
+    'undoRedoCountInputVal': optionsObj.undoRedoCountInputVal,
+    'userId': Session.getActiveUser().getEmail()
+  };
+
+  Logger.log('data=='+JSON.stringify(data));
+  var options = {
+    'method': 'post',
+    'contentType': 'application/json',
+    'payload': JSON.stringify(data)
+  };
+  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/essbaseUserOptions', options);
+  Logger.log('done with call..');
+  return response.getContentText();
+
+}
+
+function getOptions() {
+  return userProperties.getProperties();
+}

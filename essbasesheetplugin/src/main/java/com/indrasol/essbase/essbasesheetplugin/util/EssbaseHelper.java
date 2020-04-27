@@ -159,16 +159,21 @@ public class EssbaseHelper {
         }
     }
 
-    public static DataGrid getDefaultGrid(IEssOlapServer olapSvr, String applicationName,String cubeName) throws EssException {
+    public static DataGrid getDefaultGrid(IEssOlapServer olapSvr, String applicationName,String cubeName, UserEssBaseOptions userEssBaseOptions) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
             clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
 
-            // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(true);
-            cubeView.setIncludeSelection(true);
+            if(userEssBaseOptions == null) {
+                // Set couple of cube view properties.
+                cubeView.setRepeatMemberNames(true);
+                cubeView.setIncludeSelection(true);
+            } else {
+                setUserEssBaseOptions(cubeView, userEssBaseOptions);
+            }
+
             cubeView.updatePropertyValues();
             grid = EssbaseUtil.performCubeViewOperation(cubeView, "retrieve");
         }catch(EssException ex) {
@@ -183,17 +188,25 @@ public class EssbaseHelper {
         return grid;
     }
 
-    public static DataGrid getZoomInOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+
+
+    public static DataGrid getZoomInOperation(IEssOlapServer olapSvr, String applicationName, String cubeName,
+            DataGrid dataGrid, int startRow, int startColumn, UserEssBaseOptions userEssBaseOptions) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
             clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
-            // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(true);
-            cubeView.setIncludeSelection(true);
+            if(userEssBaseOptions == null) {
+                // Set couple of cube view properties.
+                cubeView.setRepeatMemberNames(true);
+                cubeView.setIncludeSelection(true);
 
-            cubeView.setAliasNames(true);
+                cubeView.setAliasNames(true);
+            } else {
+                setUserEssBaseOptions(cubeView, userEssBaseOptions);
+            }
+
             cubeView.setDrillLevel(IEssOpZoomIn.EEssZoomInPreference.NEXT_LEVEL);
             cubeView.updatePropertyValues();
     
@@ -213,17 +226,21 @@ public class EssbaseHelper {
 
     }
 
-    public static DataGrid getZoomInOperationBottomLevel(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+    public static DataGrid getZoomInOperationBottomLevel(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn, UserEssBaseOptions userEssBaseOptions) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
             clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
-            // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(true);
-            cubeView.setIncludeSelection(true);
+            if(userEssBaseOptions == null) {
+                // Set couple of cube view properties.
+                cubeView.setRepeatMemberNames(true);
+                cubeView.setIncludeSelection(true);
 
-            cubeView.setAliasNames(true);
+                cubeView.setAliasNames(true);
+            } else {
+                setUserEssBaseOptions(cubeView, userEssBaseOptions);
+            }
             cubeView.setDrillLevel(IEssOpZoomIn.EEssZoomInPreference.BOTTOM_LEVEL);
             cubeView.updatePropertyValues();
     
@@ -243,17 +260,21 @@ public class EssbaseHelper {
 
     }
 
-    public static DataGrid getZoomInOperationAllLevel(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+    public static DataGrid getZoomInOperationAllLevel(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn, UserEssBaseOptions userEssBaseOptions) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
             clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
-            // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(true);
-            cubeView.setIncludeSelection(true);
+            if(userEssBaseOptions == null) {
+                // Set couple of cube view properties.
+                cubeView.setRepeatMemberNames(true);
+                cubeView.setIncludeSelection(true);
 
-            cubeView.setAliasNames(true);
+                cubeView.setAliasNames(true);
+            } else {
+                setUserEssBaseOptions(cubeView, userEssBaseOptions);
+            }
             cubeView.setDrillLevel(IEssOpZoomIn.EEssZoomInPreference.ALL_LEVELS);
             cubeView.updatePropertyValues();
     
@@ -273,17 +294,20 @@ public class EssbaseHelper {
 
     }
 
-    public static DataGrid getKeepOnlyOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid) throws EssException {
+    public static DataGrid getKeepOnlyOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, UserEssBaseOptions userEssBaseOptions) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
             clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
-            // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(true);
-            cubeView.setIncludeSelection(true);
-            cubeView.setAliasNames(true);
-
+            if(userEssBaseOptions == null) {
+                // Set couple of cube view properties.
+                cubeView.setRepeatMemberNames(true);
+                cubeView.setIncludeSelection(true);
+                cubeView.setAliasNames(true);
+            } else {
+                setUserEssBaseOptions(cubeView, userEssBaseOptions);
+            }
             cubeView.updatePropertyValues();
     
             grid = EssbaseUtil.performKeepOnlyOperations(cubeView, dataGrid);
@@ -303,16 +327,20 @@ public class EssbaseHelper {
 
     }
 
-    public static DataGrid getRemoveOnlyOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid) throws EssException {
+    public static DataGrid getRemoveOnlyOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, UserEssBaseOptions userEssBaseOptions) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
             clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
-            // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(true);
-            cubeView.setIncludeSelection(true);
-            cubeView.setAliasNames(true);
+            if(userEssBaseOptions == null) {
+                // Set couple of cube view properties.
+                cubeView.setRepeatMemberNames(true);
+                cubeView.setIncludeSelection(true);
+                cubeView.setAliasNames(true);
+            } else {
+                setUserEssBaseOptions(cubeView, userEssBaseOptions);
+            }
 
             cubeView.updatePropertyValues();
     
@@ -333,16 +361,20 @@ public class EssbaseHelper {
 
     }
 
-    public static DataGrid getZoomOutOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn) throws EssException {
+    public static DataGrid getZoomOutOperation(IEssOlapServer olapSvr, String applicationName,String cubeName, DataGrid dataGrid, int startRow, int startColumn, UserEssBaseOptions userEssBaseOptions) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
             clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
-            // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(true);
-            cubeView.setIncludeSelection(true);
-            cubeView.setAliasNames(true);
+            if(userEssBaseOptions == null) {
+                // Set couple of cube view properties.
+                cubeView.setRepeatMemberNames(true);
+                cubeView.setIncludeSelection(true);
+                cubeView.setAliasNames(true);
+            } else {
+                setUserEssBaseOptions(cubeView, userEssBaseOptions);    
+            }
 
             cubeView.updatePropertyValues();
     
@@ -361,17 +393,22 @@ public class EssbaseHelper {
     }
 
 
-    public static DataGrid getRefreshOperation(IEssOlapServer olapSvr, String applicationName, String cubeName, DataGrid dataGrid) throws EssException {
+    public static DataGrid getRefreshOperation(IEssOlapServer olapSvr, String applicationName, String cubeName, DataGrid dataGrid, UserEssBaseOptions userEssBaseOptions) throws EssException {
 
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
             clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
-            // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(true);
-            cubeView.setIncludeSelection(true);
-            cubeView.setAliasNames(true);
+            if(userEssBaseOptions == null) {
+                // Set couple of cube view properties.
+                cubeView.setRepeatMemberNames(true);
+                cubeView.setIncludeSelection(true);
+                cubeView.setAliasNames(true);
+            } else {
+                setUserEssBaseOptions(cubeView, userEssBaseOptions);
+            }
+
 
             cubeView.updatePropertyValues();
     
@@ -391,16 +428,20 @@ public class EssbaseHelper {
 
 
 	public static DataGrid getPivotOperation(IEssOlapServer olapSvr, String applicationName, String cubeName, DataGrid dataGrid,
-    Integer startRow, Integer startColumn) throws EssException {
+    Integer startRow, Integer startColumn, UserEssBaseOptions userEssBaseOptions) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
             clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
-            // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(true);
-            cubeView.setIncludeSelection(true);
-            cubeView.setAliasNames(true);
+            if(userEssBaseOptions == null) {
+                // Set couple of cube view properties.
+                cubeView.setRepeatMemberNames(true);
+                cubeView.setIncludeSelection(true);
+                cubeView.setAliasNames(true);
+            } else {
+                setUserEssBaseOptions(cubeView, userEssBaseOptions);
+            }
 
 
             cubeView.updatePropertyValues();
@@ -420,16 +461,20 @@ public class EssbaseHelper {
     }
 
 	public static DataGrid getPivotToPovOperation(IEssOlapServer olapSvr, String applicationName, String cubeName, DataGrid dataGrid,
-    Integer startRow, Integer startColumn) throws EssException {
+    Integer startRow, Integer startColumn, UserEssBaseOptions userEssBaseOptions) throws EssException {
         DataGrid grid = new DataGrid();
         IEssCubeView cubeView = null;
         try {
             clearActiveCube(olapSvr, applicationName, cubeName);
             cubeView = olapSvr.getApplication(applicationName).getCube(cubeName).openCubeView(olapSvr+"-"+ cubeName);
-            // Set couple of cube view properties.
-            cubeView.setRepeatMemberNames(true);
-            cubeView.setIncludeSelection(true);
-            cubeView.setAliasNames(true);
+            if(userEssBaseOptions == null) {
+                // Set couple of cube view properties.
+                cubeView.setRepeatMemberNames(true);
+                cubeView.setIncludeSelection(true);
+                cubeView.setAliasNames(true);
+            } else {
+                setUserEssBaseOptions(cubeView, userEssBaseOptions);
+            }
 
 
             cubeView.updatePropertyValues();
@@ -534,6 +579,27 @@ public class EssbaseHelper {
             System.err.println("Error: " + x.getMessage());
         }
     }
+
+    private static void setUserEssBaseOptions(IEssCubeView cubeView, UserEssBaseOptions userEssBaseOptions)  throws EssException{
+        // Set couple of cube view properties
+        System.out.println("Preferences are: "+userEssBaseOptions.toString());
+        cubeView.setRepeatMemberNames(userEssBaseOptions.isRepeatLabel());
+        cubeView.setIncludeSelection(true);
+        cubeView.setAliasNames(true);
+
+        // set indent style
+        if(userEssBaseOptions.getIndentationGroupVal().equalsIgnoreCase("subItems")) {
+            cubeView.setIndentStyle(IEssCubeView.EEssIndentStyle.SUB_ITEMS);
+        } else {
+            cubeView.setIndentStyle(IEssCubeView.EEssIndentStyle.TOTALS);
+        }
+
+        cubeView.setSuppressMissing(userEssBaseOptions.isSuppressMissingRows());
+        cubeView.setSuppressZero(userEssBaseOptions.isSuppressZeroRows());
+
+        
+        
+    }    
 
     public static void main(String args[]) throws Exception {
         Credentials credentials = new Credentials();

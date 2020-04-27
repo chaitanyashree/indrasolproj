@@ -940,7 +940,38 @@
       var indentationGroupVal = $('input[name=indentationGroup]:checked').val();
       var noDataMissingInputVal = $('#noDataMissingInput').val();
       var noAccessInputVal = $('#noAccessInput').val();
-      var undoRedoCountInputVal = $('#undoRedoCountInput').val();      
+      var undoRedoCountInputVal = $('#undoRedoCountInput').val();
+
+
+     
+      // // get from google scripts 
+      // google.script.run
+      //   .withSuccessHandler(
+      //     function (returnSuccess, element) {
+      //       console.log('callLoadOptions withsuccess' + returnSuccess);
+
+      //       if (typeof(Storage) !== "undefined") {
+      //         localStorage.setItem('isRepeatLabel', returnSuccess.repeatLabel);
+      //         localStorage.setItem('isSuppressMissingRows', returnSuccess.suppressMissingRows);
+      //         localStorage.setItem('isSuppressZeroRows',returnSuccess.suppressZeroRows);
+      //         localStorage.setItem('isSuppressMissingColumns',returnSuccess.suppressMissingColumns);
+      //         localStorage.setItem('isSuppressZeroColumns',returnSuccess.suppressZeroColumns);
+      //         localStorage.setItem('isPreseveFormatting',returnSuccess.preseveFormatting);
+      //         localStorage.setItem('isAdjustColumnWidth',returnSuccess.adjustColumnWidth);
+      //         localStorage.setItem('indentationGroupVal',returnSuccess.indentationGroupVal);
+      //         localStorage.setItem('noDataMissingInputVal',returnSuccess.noDataMissingInputVal);
+      //         localStorage.setItem('noAccessInputVal',returnSuccess.noAccessInputVal);
+      //         localStorage.setItem('undoRedoCountInputVal',returnSuccess.userId);
+      //       }
+
+      //     })
+      //   .withFailureHandler(
+      //     function (msg, element) {
+      //       //alert('withfailure');
+      //       showError(msg, $('#msgBlock'));
+
+      //     })
+      //   .getOptions();      
 
       if (typeof(Storage) !== "undefined") {
         isRepeatLabel = localStorage.getItem('isRepeatLabel');
@@ -956,6 +987,9 @@
         undoRedoCountInputVal = localStorage.getItem('undoRedoCountInputVal');
       }
 
+
+      console.log("callLoadOptions-->");
+      console.log("---------");
       console.log('isRepeatLabel='+isRepeatLabel);
       console.log('isSuppressMissingRows='+isSuppressMissingRows);
       console.log('isSuppressZeroRows='+isSuppressZeroRows);
