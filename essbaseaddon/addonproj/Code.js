@@ -1,15 +1,49 @@
 /** Essbase Plugin */
 
 var IS_LOGGEDIN = false;
+// Set a property in each of the three property stores.
+var scriptProperties = PropertiesService.getScriptProperties();
+var userProperties = PropertiesService.getUserProperties();
+var documentProperties = PropertiesService.getDocumentProperties();
+var SERVICE_BASE_URL='http://35.184.51.106:8080/essbase/';
+scriptProperties.setProperty('SERVICE_BASE_URL', SERVICE_BASE_URL);
 
-function onOpen() {
-  SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
+
+function onInstall(e) {
+  onOpen(e);
+}
+function onOpen(e) {
+
+    Logger.log('onOpen ');
+    SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
     //.createMenu('Essbase Connector')
     .createAddonMenu()
     .addItem('Essbase Setup', 'showSidebar')
     .addToUi();
-  Logger.log('inside onopen');
+  Logger.log('inside onopen showSidebar');
+
+
 }
+
+function isLoggedIn() {
+  // store in the session storage  selected db and sheetid
+  var currentSpreadSheetId = SpreadsheetApp.getActiveSpreadsheet().getId();
+  var currentSheetId = SpreadsheetApp.getActive().getActiveSheet().getSheetId();
+  var returnData = {
+    "currentSpreadSheetId" : currentSpreadSheetId,
+    "currentSheetId": currentSheetId
+  };
+
+  var isLoggedIn = documentProperties.getProperty('isLoggedIn');
+  if(isLoggedIn == 'TRUE') {
+    returnData.isLoggedIn = true;
+    return returnData;
+  } else {
+    returnData.isLoggedIn = false;
+    return returnData;
+  }
+}
+
 
 function showSidebar() {
   var html = HtmlService.createHtmlOutputFromFile('EssbasePage')
@@ -20,7 +54,7 @@ function showSidebar() {
   Logger.log('showsidebar...');
 }
 
-//var SERVICE_BASE_URL = 'http://35.184.51.106:8080/essbase/hello';
+//var SERVICE_BASE_URL = SERVICE_BASE_URL+'hello';
 
 function makeConnectCall(connecturl, olapServerName, userName, password) {
   // Make a POST request with form data.
@@ -48,12 +82,16 @@ function makeConnectCall(connecturl, olapServerName, userName, password) {
       'contentType': 'application/json',
       'payload': JSON.stringify(data)
     };
-    var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/login', options);
+    //var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'login', options);
+    var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'login', options);
     // Logger.log(response.getContentText());
     Logger.log(response);
 
-
+    documentProperties.setProperties(data);
+    documentProperties.setProperty('isLoggedIn', 'TRUE');
+    
     Logger.log('done with call..');
+    
     return response.getContentText();
   } catch (error) {
     showErrorDialog(error);
@@ -63,7 +101,8 @@ function makeConnectCall(connecturl, olapServerName, userName, password) {
 
 function makeLoadCall() {
   Logger.log('makeLoadCall....');
-  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications');
+  //var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'applications');
+  var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'applications');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   return response.getContentText();
 
@@ -105,7 +144,7 @@ function makeZoomInNextCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/zoomIn/' + selCelRow + '/' + selCelCol;
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/zoomIn/' + selCelRow + '/' + selCelCol;
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -172,7 +211,7 @@ function makeZoomInBottomCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/zoomInBottom/' + selCelRow + '/' + selCelCol;
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/zoomInBottom/' + selCelRow + '/' + selCelCol;
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -237,7 +276,7 @@ function makeZoomInAllCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/zoomInAll/' + selCelRow + '/' + selCelCol;
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/zoomInAll/' + selCelRow + '/' + selCelCol;
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -305,7 +344,7 @@ function makeZoomOutCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/zoomOut/' + selCelRow + '/' + selCelCol;
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/zoomOut/' + selCelRow + '/' + selCelCol;
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -376,7 +415,7 @@ function makeRefreshCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/refresh';
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/refresh';
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -442,7 +481,7 @@ function makePivotCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/pivot/' + selCelRow + '/' + selCelCol;
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/pivot/' + selCelRow + '/' + selCelCol;
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   if(response.getResponseCode() == 500) {
@@ -550,7 +589,7 @@ function makeKeepOnlyCall(selectedCube, sMetaDataGrid) {
     };
 
 
-    var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/keepOnly';
+    var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/keepOnly';
 
     var response = UrlFetchApp.fetch(zoomUrl, options);
     //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -647,7 +686,7 @@ function makeRemoveOnlyCall(selectedCube, sMetaDataGrid) {
       'payload': JSON.stringify(data)
     };
 
-    var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/removeOnly';
+    var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/removeOnly';
 
     var response = UrlFetchApp.fetch(zoomUrl, options);
     //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -683,10 +722,16 @@ function makeRemoveOnlyCall(selectedCube, sMetaDataGrid) {
 }
 
 
-function makeLoadDimensions(selectedCube) {
+function makeloadApplications(selectedCube) {
   Logger.log('makeLoadCall....');
-  //Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
-  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
+  var lastDataRangeRow = SpreadsheetApp.getActive().getActiveSheet().getLastRow();
+  var lastDataRangeCol = SpreadsheetApp.getActive().getActiveSheet().getLastColumn();
+  if(lastDataRangeCol > 0 || lastDataRangeRow >0) {
+    showDialog();
+  }
+
+  //Logger.log(SERVICE_BASE_URL+'applications/' + selectedCube + '/defaultGrid');
+  var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'applications/' + selectedCube + '/defaultGrid');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   var resstr = response.getContentText();
   var jsonObj = JSON.parse(resstr);
@@ -694,6 +739,11 @@ function makeLoadDimensions(selectedCube) {
   var totalColNum = 0;
   var dataGrid;
   var metaDataGrid;
+
+  // store in the session storage  selected db and sheetid
+  var currentSpreadSheetId = SpreadsheetApp.getActiveSpreadsheet().getId();
+  var currentSheetId = SpreadsheetApp.getActive().getActiveSheet().getSheetId();
+
   if (jsonObj) {
     totalRowNum = jsonObj.totalRows;
     totalColNum = jsonObj.totalCols;
@@ -702,22 +752,27 @@ function makeLoadDimensions(selectedCube) {
   }
   Logger.log('totalRowNum=' + totalRowNum);
   Logger.log('totalColNUm=' + totalColNum);
+  
   if(totalRowNum > 0) {
     SpreadsheetApp.getActive().getActiveSheet().getRange(1, 1, totalRowNum, totalColNum).setValues(dataGrid);
+    documentProperties.setProperty(currentSpreadSheetId+'-'+currentSheetId+ '-selectedCube', selectedCube);
+    documentProperties.setProperty(currentSpreadSheetId+'-'+currentSheetId+ '-metaDataGrid', metaDataGrid);
+    jsonObj.selectedCubeName = currentSpreadSheetId+'-'+currentSheetId+ '-selectedCube';
+    jsonObj.selectedMetaDataGridName = currentSpreadSheetId+'-'+currentSheetId+ '-metaDataGrid';
   }
   
   // SpreadsheetApp.getActive().getActiveSheet().addDeveloperMetadata('metaDataGrid',metaDataGrid);
   //add Menu item for applications
 
-
-  return response.getContentText();
+  //return response.getContentText();
+  return JSON.stringify(jsonObj);
 
 }
 
 function makeDefaultRetrieve(selectedCube) {
-  Logger.log('makeDefaultRetrieve....');
-  //Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
-  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
+  Logger.log('makeDefaultRetrieve....'+selectedCube);
+  Logger.log(SERVICE_BASE_URL+'applications/' + selectedCube + '/defaultGrid');
+  var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'applications/' + selectedCube + '/defaultGrid');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();
   // if(SpreadsheetApp.getActive().getActiveSheet().getDeveloperMetadata()){
@@ -769,12 +824,15 @@ function showLoggedInSideBar() {
 
 function makeLogoutCall() {
   Logger.log('inside makeLogoutCall...');
-  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/logout');
+  var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'logout');
+  documentProperties.deleteAllProperties();
   SpreadsheetApp.getUi()
     .createAddonMenu()
     .addItem('Essbase Setup', 'showSidebar')
     .addToUi();
+    documentProperties.deleteAllProperties();
   Logger.log(response.getContentText());
+  
 
 }
 
@@ -798,4 +856,100 @@ function sayHello() {
   Logger.log('sayhello..');
 }
 
+function showDialog() {
+  var yesClick=false;
+  var html = HtmlService.createHtmlOutputFromFile('ContentDialog')
+      .setWidth(400)
+      .setHeight(300);
+  //SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
+    //  .showModalDialog(html, 'Clear Content dialog');
+    var ui = SpreadsheetApp.getUi(); // Same variations.
 
+   var result= ui.alert('Please Confirm', 'Clear Sheet Contents and POV',ui.ButtonSet.OK);
+  // Process the user's response.
+  if (result == ui.Button.OK) {
+    // User clicked "Yes".
+    //ui.alert('Confirmation received.');
+    clearSheetContent();
+    yesClick=true;
+  } else {
+    // User clicked "No" or X in the title bar.
+    //ui.alert('Permission denied.');
+    yesClick=false;
+  }
+  return yesClick;
+
+
+}
+
+function clearSheetContent() {
+  SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();
+}
+
+function makeSaveOptions(optionsObj) {
+  
+  Logger.log('isRepeatLabel=' + optionsObj.isRepeatLabel);
+  userProperties.setProperties(optionsObj);
+
+  // var data = {
+  //   'repeatLabel': (optionsObj.isRepeatLabel === 'true'),
+  //   'suppressMissingRows': (optionsObj.isSuppressMissingRows === 'true'),
+  //   'suppressZeroRows': (optionsObj.isSuppressZeroRows === 'true'),
+  //   'suppressMissingColumns': (optionsObj.isSuppressMissingColumns === 'true'),
+  //   'suppressZeroColumns': (optionsObj.isSuppressZeroColumns === 'true'),
+  //   'preseveFormatting': (optionsObj.isPreseveFormatting === 'true'),
+  //   'adjustColumnWidth': (optionsObj.isAdjustColumnWidth === 'true'),
+  //   'indentationGroupVal': optionsObj.indentationGroupVal,
+  //   'noDataMissingInputVal': optionsObj.noDataMissingInputVal,
+  //   'noAccessInputVal': optionsObj.noAccessInputVal,
+  //   'undoRedoCountInputVal': optionsObj.undoRedoCountInputVal,
+  //   'userId': Session.getActiveUser().getEmail()
+  // };
+  var data = {
+    'repeatLabel': (optionsObj.isRepeatLabel),
+    'suppressMissingRows': (optionsObj.isSuppressMissingRows),
+    'suppressZeroRows': (optionsObj.isSuppressZeroRows),
+    'suppressMissingColumns': (optionsObj.isSuppressMissingColumns),
+    'suppressZeroColumns': (optionsObj.isSuppressZeroColumns),
+    'preseveFormatting': (optionsObj.isPreseveFormatting),
+    'adjustColumnWidth': (optionsObj.isAdjustColumnWidth),
+    'indentationGroupVal': optionsObj.indentationGroupVal,
+    'noDataMissingInputVal': optionsObj.noDataMissingInputVal,
+    'noAccessInputVal': optionsObj.noAccessInputVal,
+    'undoRedoCountInputVal': optionsObj.undoRedoCountInputVal,
+    'userId': Session.getActiveUser().getEmail()
+  };
+
+  Logger.log('data=='+JSON.stringify(data));
+  var options = {
+    'method': 'post',
+    'contentType': 'application/json',
+    'payload': JSON.stringify(data)
+  };
+  var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'essbaseUserOptions', options);
+  Logger.log('done with call..');
+  return response.getContentText();
+
+}
+
+function getOptions() {
+  //  userProperties.getProperties();
+  // var data = {
+  //   'repeatLabel': (userProperties.getProperty('repeatLabel') === 'true'),
+  //   'suppressMissingRows': (userProperties.getProperty('suppressMissingRows') === 'true'),
+  //   'suppressZeroRows': (userProperties.getProperty('suppressZeroRows') === 'true'),
+  //   'suppressMissingColumns': (userProperties.getProperty('suppressMissingColumns') === 'true'),
+  //   'suppressZeroColumns': (userProperties.getProperty('suppressZeroColumns') === 'true'),
+  //   'preseveFormatting': (userProperties.getProperty('preseveFormatting') === 'true'),
+  //   'adjustColumnWidth': (userProperties.getProperty('adjustColumnWidth') === 'true'),
+  //   'indentationGroupVal': userProperties.getProperty('indentationGroupVal'),
+  //   'noDataMissingInputVal': userProperties.getProperty('noDataMissingInputVal'),
+  //   'noAccessInputVal': userProperties.getProperty('noAccessInputVal'),
+  //   'undoRedoCountInputVal': userProperties.getProperty('undoRedoCountInputVal'),
+  //   'userId': userProperties.getProperty('userId')
+  // };
+
+
+  // return data;
+  return userProperties.getProperties();
+}

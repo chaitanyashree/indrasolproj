@@ -5,7 +5,44 @@
   <base target="_top">
   <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
   <!-- The CSS package above applies Google styling to buttons and other elements. -->
-
+  <style>
+    .accordion {
+      background-color: #0184e3;
+      color: #FFF;
+      cursor: pointer;
+      width: 100%;
+      border: none;
+      text-align: center;
+      outline: none;
+      font-size: 15px;
+      transition: 0.4s;
+    }
+    
+    .active, .accordion:hover {
+      background-color: #0184e3;
+    }
+    
+    .accordion:after {
+      content: '\002B';
+      color: #4CAF50;
+      font-weight: bold;
+      float: right;
+      margin-left: 2px;
+    }
+    
+    .active:after {
+      content: "\2212";
+    }
+    
+    .panel {
+      padding: 0 2px;
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+    }
+    </style>
+    
   <style>
     .branding-below {
       bottom: 56px;
@@ -130,7 +167,7 @@
 
 
   <div class="sidebar branding-below">
-    <form>
+    <!--form//-->
       <div id="connectBlock">
         <div class="block form-group">
           <label for="connecturl-text"><b>Connection URL</b></label>
@@ -155,7 +192,9 @@
           <button id="cancel-button" onclick="callClose()">Cancel</button>
         </div>
       </div>
-      <div id="pluginUI" hidden>
+  <button id="operationsAccord" class="accordion green" hidden>Features:</button>
+  <div id="pluginUI" class="panel" hidden>
+      
         <label id="connectHeading" for="connecturl-text"><b>Connected Succesfully!</b></label></br></p>
         <div class="block" id="button-bar" hidden>
           <div class="block" id='loadBtnDiv'><button class="blue" id="load-button">Load</button></br></div>
@@ -177,7 +216,7 @@
                   <td><button class="blue" id="zoomInBottom-button">Zoom In Bottom</button></td>
                   <td></td>
                   <td><button class="blue" id="zoomInAll-button">Zoom In All</button></td>
-                <tr>
+                </tr>
                 <tr>
                   <td colspan=4><button class="blue" id="zoomOut-button">Zoom Out</button></td>
                 </tr>
@@ -197,24 +236,85 @@
             </div>
           </div>
 
-          <div class="block" id='logoutBtnDiv'>
+          <div class="inline" id='logoutBtnDiv'>
             <button class="blue" id="logout-button">Logout</button>
             <button id="cancel-button" onclick="callClose()">Cancel</button></br>
           </div>
-
+          <input type=hidden id='selCube' name='selCube' />
+          <input type=hidden id='metaDataGrid' name='metaDataGrid' /></p>
+    
         </div>
 
-      </div>
-
+      
+    </div>
+      
       <div class="container block">
-        <div id="content">
+      </p>
+        <div id="content" class="block">
         </div>
       </div>
-      <input type=hidden id='selCube' name='selCube' />
-      <input type=hidden id='metaDataGrid' name='metaDataGrid' />
+      <!--input type=hidden id='selCube' name='selCube' />
+      <input type=hidden id='metaDataGrid' name='metaDataGrid' /></p//-->
+      <button id="prefAccord" class="accordion green" hidden>Options:</button>
+      <div id="prefAccordPanel" class="panel" hidden>
+        <div class="block form-group">
+          <div>
+            <input type="checkbox" id="repeatLabels">
+            <label for="repeatLabels">Repeat Labels</label>
+          </div>
+          <div><label>Indentations</label></div>
+          <div>
+            <input type="radio" name="indentationGroup" id="subItemRadio" value="subItems">
+            <label for="subItemRadio">Sub Items</label>
+          </div>
+          <div>
+            <input type="radio" name="indentationGroup" id="totalRadio" value="total">
+            <label for="totalRadio">Total</label>
+          </div>
 
-    </form>
+          <div>
+            <input type="checkbox" id="suppressMissingRows">
+            <label for="suppressMissingRows">Supress Missing Rows</label>
+          </div>
+          <div>
+            <input type="checkbox" id="suppressZeroRows">
+            <label for="suppressZeroRows">Supress Zero Rows</label>
+          </div>
+          <div>
+            <input type="checkbox" id="suppressMissingColumns">
+            <label for="suppressMissingColumns">Supress Missing Columns</label>
+          </div>
+          <div>
+            <input type="checkbox" id="suppressZeroColumns">
+            <label for="suppressZeroColumns">Supress Zero Columns</label>
+          </div>
+          <div>
+            <label for="noDataMissingInput">#NoData/Mising Label</label>
+            <input type="input" id="noDataMissingInput">
+          </div>
+          <div>
+            <label for="noAccessInput">#NoAccess Label:</label>
+            <input type="input" id="noAccessInput">
+          </div>
+          <div>
+            <input type="checkbox" id="preseveFormatting" value=5 width=5>
+            <label for="preseveFormatting">Preserve Formatting</label>
+          </div>
+          <div>
+            <input type="checkbox" id="adjustColumnWidth">
+            <label for="adjustColumnWidth">Adjust Column Width</label>
+          </div> 
+          <div>
+            <label for="undoRedoCountInput">Undo Redo Count</label>
+            <input type="input" id="undoRedoCountInput">
+          </div>
+          <div>
+          </p><button class="blue" id="save-options">Save Options</button>                                                                                   
+        </div>
+      </div> 
+    <!--/form-->
   </div>
+ 
 
   <div id="msgBlock">
   </div>
@@ -226,6 +326,23 @@
   </div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      });
+    }
+    </script>
+    
   <script>
     /**
      * On document load, assign click handlers to each button and try to load the
@@ -246,6 +363,8 @@
       $('#removeOnly-button').click(callRemoveOnly);
       $('#refresh-button').click(callRefresh);
       $('#pivot-button').click(callPivot);
+
+      $('#save-options').click(callSaveOptions);
       
 
 
@@ -267,9 +386,48 @@
       //   callLoad();
 
       // }
+      
+      google.script.run
+        .withSuccessHandler(function (returnSuccess, element) {
+          alert('success--'+returnSuccess);
+          if(returnSuccess.isLoggedIn){
+            $('#connectBlock').hide();
+            alert('loading...');
+            displayUIAfterLoad();
+            updateSheetDatabase(returnSuccess);
+          }
+        }).withFailureHandler(function (returnSuccess, element) {
+          alert('failure-'+returnSuccess);
+          
+        }).isLoggedIn();
 
     });
 
+    function  updateSheetDatabase(returnSuccess) {
+      console.log("inside updateSheetDatabase.... ");
+      // var resourceUrl = window.location.href;
+      // alert(resourceUrl);
+      // var spreadsheetId = new RegExp("/spreadsheets/d/([a-zA-Z0-9-_]+)").exec(resourceUrl)[1];
+      // var sheetId = new RegExp("[#&]gid=([0-9]+)").exec(resourceUrl)[1];
+
+      var spreadsheetId = returnSuccess.currentSpreadSheetId;
+      var sheetId = returnSuccess.currentSheetId;
+
+      console.log('spreadSheetId='+spreadsheetId);
+      console.log('sheetId='+sheetId);
+      if (typeof(Storage) !== "undefined") {
+        var selectedCube = sessionStorage.getItem(spreadsheetId+"-"+sheetId+"-selectedCube");
+        var metaDataGrid = sessionStorage.getItem(spreadsheetId+"-"+sheetId+"-metaDataGrid");
+
+        console.log('selectedCube fetched-'+selectedCube);
+        console.log('metaDataGrid fetched-'+metaDataGrid);
+
+        $('input[name="selCube"]:hidden').val(selectedCube);
+        $('input[name="metaDataGrid"]:hidden').val(metaDataGrid);
+        $('#connectHeading').html("<b><a href='#' onClick='clearSelectedCube();'>" + selectedCube + "</a></b>");
+
+      }
+    }    
     function formApplicationTree(obj) {
 
       list = "<ul id='treeview'>";
@@ -302,7 +460,7 @@
       google.script.run
         .withSuccessHandler(
           function (returnSuccess, element) {
-            console.log('withsuccess' + returnSuccess);
+            console.log('callLoad withsuccess' + returnSuccess);
             //$('#connectBlock').hide();
             //displayUIAfterConnect();
             //element.disabled = false;
@@ -318,9 +476,12 @@
                 var selectedCube = e.target.id;
                 console.log('selectedCube=' + selectedCube);
                 if (selectedCube) {
-                  loadDimension(selectedCube);
+                  loadApplication(selectedCube);
                   //google.screipt.host.close();
-                }
+                } else {
+                    alert('selectedCube not found..'+selectedCube);
+                    console.log('selectedCube not found..'+selectedCube);
+                }                     
 
               } else {
                 $(this).addClass("close");
@@ -330,7 +491,7 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            //alert('withfailure');
+            alert('callLoad withfailure'+msg);
             showError(msg, $('#msgBlock'));
             //element.disabled = false;
           })
@@ -338,8 +499,36 @@
         .makeLoadCall();
 
     }
-    function loadDimension(selectedCube) {
-      console.log('inside loadDimensions');
+    function clearSelectedCube() {
+        console.log('insideclear SelectedCube...');
+        $('#connectBlock').hide();
+        displayUIAfterConnect();
+        //callLoad();
+        $('#content').show();
+       /* $("#treeview .parent").click(function (e) {
+              e.stopPropagation();
+              $(this).find(">ul").toggle("slow");
+              if ($(this).hasClass("close")) {
+                $(this).removeClass("close");
+                var selectedCube = e.target.id;
+                console.log('selectedCube=' + selectedCube);
+                if (selectedCube) {
+                  loadApplication(selectedCube);
+                  //google.screipt.host.close();
+                } else {
+                    var selectedCube = e.target.id;
+                    alert('selectedCube not found..'+selectedCube);
+                    console.log('selectedCube not found..'+selectedCube);
+                }                     
+
+              } else {
+                $(this).addClass("close");
+              }
+            });*/
+        IS_LOGGEDIN = true;        
+    }
+    function loadApplication(selectedCube) {
+      console.log('inside loadApplications');
       console.log('selectedCube' + selectedCube);
       google.script.run
         .withSuccessHandler(
@@ -357,7 +546,14 @@
             var metaGridVal = jsonObj.dataGridMetaData;
             $('input[name="selCube"]:hidden').val(selectedCube);
             $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
-            $('#connectHeading').html("<b>" + selectedCube + "</b>");
+            $('#connectHeading').html("<b><a href='#' onClick='clearSelectedCube();'>" + selectedCube + "</a></b>");
+
+            // store in sessionStorage
+            if (typeof(Storage) !== "undefined") {
+              sessionStorage.setItem(jsonObj.selectedCubeName, selectedCube);
+              sessionStorage.setItem(jsonObj.selectedMetaDataGridName, JSON.stringify(metaGridVal));
+            }
+            
 
           })
         .withFailureHandler(
@@ -368,7 +564,7 @@
             $('input[name="metaDataGrid"]:hidden').val('');
           })
         //.withUserObject(this)
-        .makeLoadDimensions(selectedCube);
+        .makeloadApplications(selectedCube);
     }
     function callLogout() {
       console.log('inside callLogout.');
@@ -377,12 +573,19 @@
         .withSuccessHandler(
           function (returnSuccess, element) {
             console.log('withsuccess' + returnSuccess);
+            $('#prefAccordPanel').hide();
+            $('#prefAccord').hide();
+            $('#operationsAccord').hide();
             $('#pluginUI').hide();
             $('#operationUI').hide();
             $('#connectBlock').show();
 
             //displayUIAfterConnect();
             //element.disabled = false;
+           // localStorage.clear();
+           if (typeof(Storage) !== "undefined") {
+             sessionStorage.clear();
+           }
 
             IS_LOGGEDIN = false;
           })
@@ -583,7 +786,7 @@
           })
         .withFailureHandler(
           function (msg, element) {
-            //alert('withfailure');
+            alert('withfailure'+msg);
             showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
@@ -646,6 +849,18 @@
         .makePivotCall(sCube, sMetaDataGrid);
 
     }    
+
+    function setCredentials(url, olapServerNameStr, userNameStr, passwordStr) {
+      if (typeof(Storage) !== "undefined") {
+        localStorage.setItem('url',url);
+        localStorage.setItem('olapServerNameStr',olapServerNameStr);
+        localStorage.setItem('userNameStr',userNameStr);
+        localStorage.setItem('passwordStr',passwordStr);
+      } else {
+        alert('Incompatible browser...');
+       // localStorage.clear();
+      }
+    }
     function onConnect() {
       //alert('hi');
       var url = $('#connecturl-text').val();
@@ -653,6 +868,7 @@
       var userNameStr = $('#userName').val();
       var passwordStr = $('#password').val();
       //alert(url);
+      //setCredentials(url, olapServerNameStr, userNameStr, passwordStr);
 
       google.script.run
         .withSuccessHandler(
@@ -660,6 +876,7 @@
             console.log('withsuccess' + returnSuccess);
             $('#connectBlock').hide();
             displayUIAfterConnect();
+            callLoad();
             //element.disabled = false;
             IS_LOGGEDIN = true;
           })
@@ -676,6 +893,173 @@
       //google.script.run.makeConnectCall(url,olapServerNameStr,userNameStr,passwordStr);
       //google.script.run.sayHello();
     }
+
+    function callSaveOptions() {
+      console.log('inside call SaveOptions ...');
+      //get form preferences
+      var isRepeatLabel = $('#repeatLabels').is(':checked');
+      var isSuppressMissingRows = $('#suppressMissingRows').is(':checked');
+      var isSuppressZeroRows = $('#suppressZeroRows').is(':checked');
+      var isSuppressMissingColumns = $('#suppressMissingColumns').is(':checked');
+      var isSuppressZeroColumns = $('#suppressZeroColumns').is(':checked');
+      var isPreseveFormatting = $('#preseveFormatting').is(':checked');
+      var isAdjustColumnWidth = $('#adjustColumnWidth').is(':checked');
+
+      var indentationGroupVal = $('input[name=indentationGroup]:checked').val();
+      var noDataMissingInputVal = $('#noDataMissingInput').val();
+      var noAccessInputVal = $('#noAccessInput').val();
+      var undoRedoCountInputVal = $('#undoRedoCountInput').val();
+
+      console.log('isRepeatLabel='+isRepeatLabel);
+      console.log('isSuppressMissingRows='+isSuppressMissingRows);
+      console.log('isSuppressZeroRows='+isSuppressZeroRows);
+      console.log('isSuppressMissingColumns='+isSuppressMissingColumns);
+      console.log('isSuppressZeroColumns='+isSuppressZeroColumns);
+      console.log('isPreseveFormatting='+isPreseveFormatting);
+      console.log('isAdjustColumnWidth='+isAdjustColumnWidth);
+      console.log('indentationGroupVal='+indentationGroupVal);
+      console.log('noDataMissingInputVal='+noDataMissingInputVal);
+      console.log('noAccessInputVal='+noAccessInputVal);
+      console.log('undoRedoCountInputVal='+undoRedoCountInputVal);
+      
+      if (typeof(Storage) !== "undefined") {
+        localStorage.setItem('isRepeatLabel',isRepeatLabel);
+        localStorage.setItem('isSuppressMissingRows',isSuppressMissingRows);
+        localStorage.setItem('isSuppressZeroRows',isSuppressZeroRows);
+        localStorage.setItem('isSuppressMissingColumns',isSuppressMissingColumns);
+        localStorage.setItem('isSuppressZeroColumns',isSuppressZeroColumns);
+        localStorage.setItem('isPreseveFormatting',isPreseveFormatting);
+        localStorage.setItem('isAdjustColumnWidth',isAdjustColumnWidth);
+        localStorage.setItem('indentationGroupVal',indentationGroupVal);
+        localStorage.setItem('noDataMissingInputVal',noDataMissingInputVal);
+        localStorage.setItem('noAccessInputVal',noAccessInputVal);
+        localStorage.setItem('undoRedoCountInputVal',undoRedoCountInputVal);
+
+        var optionsObj = {
+          'isRepeatLabel':isRepeatLabel,
+          'isSuppressMissingRows': isSuppressMissingRows,
+          'isSuppressZeroRows': isSuppressZeroRows,
+          'isSuppressMissingColumns': isSuppressMissingColumns,
+          'isSuppressZeroColumns': isSuppressZeroColumns,
+          'isPreseveFormatting': isPreseveFormatting,
+          'isAdjustColumnWidth': isAdjustColumnWidth,
+          'indentationGroupVal': indentationGroupVal,
+          'noDataMissingInputVal': noDataMissingInputVal,
+          'noAccessInputVal': noAccessInputVal,
+          'undoRedoCountInputVal': undoRedoCountInputVal
+        };
+
+        google.script.run
+        .withSuccessHandler(
+          function (returnSuccess, element) {
+            console.log('withsuccess' + returnSuccess);
+
+          })
+        .withFailureHandler(
+          function (msg, element) {
+            //alert('withfailure');
+            showError(msg, $('#msgBlock'));
+
+          })
+        .makeSaveOptions(optionsObj);
+      }
+
+    }
+
+    function callLoadOptions() {
+      console.log('inside call callLoadOptions ...');
+      var isRepeatLabel = $('#repeatLabels').is(':checked');
+      var isSuppressMissingRows = $('#suppressMissingRows').is(':checked');
+      var isSuppressZeroRows = $('#suppressZeroRows').is(':checked');
+      var isSuppressMissingColumns = $('#suppressMissingColumns').is(':checked');
+      var isSuppressZeroColumns = $('#suppressZeroColumns').is(':checked');
+      var isPreseveFormatting = $('#preseveFormatting').is(':checked');
+      var isAdjustColumnWidth = $('#adjustColumnWidth').is(':checked');
+
+      var indentationGroupVal = $('input[name=indentationGroup]:checked').val();
+      var noDataMissingInputVal = $('#noDataMissingInput').val();
+      var noAccessInputVal = $('#noAccessInput').val();
+      var undoRedoCountInputVal = $('#undoRedoCountInput').val();
+
+
+     
+      // // get from google scripts 
+      // google.script.run
+      //   .withSuccessHandler(
+      //     function (returnSuccess, element) {
+      //       console.log('callLoadOptions withsuccess' + returnSuccess);
+
+      //       if (typeof(Storage) !== "undefined") {
+      //         localStorage.setItem('isRepeatLabel', returnSuccess.repeatLabel);
+      //         localStorage.setItem('isSuppressMissingRows', returnSuccess.suppressMissingRows);
+      //         localStorage.setItem('isSuppressZeroRows',returnSuccess.suppressZeroRows);
+      //         localStorage.setItem('isSuppressMissingColumns',returnSuccess.suppressMissingColumns);
+      //         localStorage.setItem('isSuppressZeroColumns',returnSuccess.suppressZeroColumns);
+      //         localStorage.setItem('isPreseveFormatting',returnSuccess.preseveFormatting);
+      //         localStorage.setItem('isAdjustColumnWidth',returnSuccess.adjustColumnWidth);
+      //         localStorage.setItem('indentationGroupVal',returnSuccess.indentationGroupVal);
+      //         localStorage.setItem('noDataMissingInputVal',returnSuccess.noDataMissingInputVal);
+      //         localStorage.setItem('noAccessInputVal',returnSuccess.noAccessInputVal);
+      //         localStorage.setItem('undoRedoCountInputVal',returnSuccess.userId);
+      //       }
+
+      //     })
+      //   .withFailureHandler(
+      //     function (msg, element) {
+      //       //alert('withfailure');
+      //       showError(msg, $('#msgBlock'));
+
+      //     })
+      //   .getOptions();      
+
+      if (typeof(Storage) !== "undefined") {
+        isRepeatLabel = localStorage.getItem('isRepeatLabel');
+        isSuppressMissingRows = localStorage.getItem('isSuppressMissingRows');
+        isSuppressZeroRows = localStorage.getItem('isSuppressZeroRows');
+        isSuppressMissingColumns = localStorage.getItem('isSuppressMissingColumns');
+        isSuppressZeroColumns = localStorage.getItem('isSuppressZeroColumns');
+        isPreseveFormatting = localStorage.getItem('isPreseveFormatting');
+        isAdjustColumnWidth = localStorage.getItem('isAdjustColumnWidth');
+        indentationGroupVal = localStorage.getItem('indentationGroupVal');
+        noDataMissingInputVal = localStorage.getItem('noDataMissingInputVal');
+        noAccessInputVal = localStorage.getItem('noAccessInputVal');
+        undoRedoCountInputVal = localStorage.getItem('undoRedoCountInputVal');
+      }
+
+
+      console.log("callLoadOptions-->");
+      console.log("---------");
+      console.log('isRepeatLabel='+isRepeatLabel);
+      console.log('isSuppressMissingRows='+isSuppressMissingRows);
+      console.log('isSuppressZeroRows='+isSuppressZeroRows);
+      console.log('isSuppressMissingColumns='+isSuppressMissingColumns);
+      console.log('isSuppressZeroColumns='+isSuppressZeroColumns);
+      console.log('isPreseveFormatting='+isPreseveFormatting);
+      console.log('isAdjustColumnWidth='+isAdjustColumnWidth);
+      console.log('indentationGroupVal='+indentationGroupVal);
+      console.log('noDataMissingInputVal='+noDataMissingInputVal);
+      console.log('noAccessInputVal='+noAccessInputVal);
+      console.log('undoRedoCountInputVal='+undoRedoCountInputVal);      
+
+      //set form preferences
+      $('#repeatLabels').prop('checked',(isRepeatLabel === 'true'));
+      $('#suppressMissingRows').prop('checked', (isSuppressMissingRows === 'true'));
+      $('#suppressZeroRows').prop('checked', (isSuppressZeroRows === 'true'));
+      $('#suppressMissingColumns').prop('checked', (isSuppressMissingColumns === 'true'));
+      $('#suppressZeroColumns').prop('checked', (isSuppressZeroColumns === 'true'));
+      $('#preseveFormatting').prop('checked', (isPreseveFormatting === 'true'));
+      $('#adjustColumnWidth').prop('checked', (isAdjustColumnWidth === 'true'));
+      if(indentationGroupVal === 'subItems'){
+        $('#subItemRadio').prop('checked',true);  
+      }
+      if(indentationGroupVal === 'total') {
+        $('#totalRadio').prop('checked',true);    
+      }
+      $('#noDataMissingInput').val(noDataMissingInputVal);
+      $('#noAccessInput').val(noAccessInputVal);
+      $('#undoRedoCountInput').val(undoRedoCountInputVal);
+
+    }    
     /**
      * Inserts a div that contains an error message after a given element.
      *
@@ -690,12 +1074,17 @@
     }
 
     function displayUIAfterConnect() {
-      $('#loadBtnDiv').show();
+      //$('#loadBtnDiv').show();
+      $('#loadBtnDiv').hide();
       $('#zoomInBtnDiv').hide();
       //$('#zoomOutBtnDiv').hide();
       $('#logoutBtnDiv').show();
       //$('#cancelBtnDiv').show();
+      $('#prefAccordPanel').hide();
+      $('#prefAccord').hide();
+      $('#operationsAccord').show();
       $('#pluginUI').show();
+      
     }
     function displayUIAfterLoad() {
       $('#loadBtnDiv').hide();
@@ -703,7 +1092,11 @@
       //$('#zoomOutBtnDiv').show();
       $('#logoutBtnDiv').show();
       //$('#cancelBtnDiv').show();
+      $('#prefAccordPanel').show();
+      $('#prefAccord').show();
+      $('#operationsAccord').show();
       $('#pluginUI').show();
+      callLoadOptions();
     }
 
   </script>
