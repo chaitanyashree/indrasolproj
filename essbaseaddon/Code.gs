@@ -1,11 +1,13 @@
 /** Essbase Plugin */
+/** v22 **/
 
 var IS_LOGGEDIN = false;
 // Set a property in each of the three property stores.
 var scriptProperties = PropertiesService.getScriptProperties();
 var userProperties = PropertiesService.getUserProperties();
 var documentProperties = PropertiesService.getDocumentProperties();
-
+var SERVICE_BASE_URL='http://35.184.51.106:8080/essbase/';
+scriptProperties.setProperty('SERVICE_BASE_URL', SERVICE_BASE_URL);
 
 
 function onInstall(e) {
@@ -13,7 +15,7 @@ function onInstall(e) {
 }
 function onOpen(e) {
 
-    Logger.log('onOpen');
+    Logger.log('onOpen ');
     SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
     //.createMenu('Essbase Connector')
     .createAddonMenu()
@@ -25,13 +27,24 @@ function onOpen(e) {
 }
 
 function isLoggedIn() {
+  // store in the session storage  selected db and sheetid
+  var currentSpreadSheetId = SpreadsheetApp.getActiveSpreadsheet().getId();
+  var currentSheetId = SpreadsheetApp.getActive().getActiveSheet().getSheetId();
+  var returnData = {
+    "currentSpreadSheetId" : currentSpreadSheetId,
+    "currentSheetId": currentSheetId
+  };
+
   var isLoggedIn = documentProperties.getProperty('isLoggedIn');
   if(isLoggedIn == 'TRUE') {
-    return true;
+    returnData.isLoggedIn = true;
+    return returnData;
   } else {
-    return false;
+    returnData.isLoggedIn = false;
+    return returnData;
   }
 }
+
 
 function showSidebar() {
   var html = HtmlService.createHtmlOutputFromFile('EssbasePage')
@@ -42,7 +55,7 @@ function showSidebar() {
   Logger.log('showsidebar...');
 }
 
-//var SERVICE_BASE_URL = 'http://35.184.51.106:8080/essbase/hello';
+//var SERVICE_BASE_URL = SERVICE_BASE_URL+'hello';
 
 function makeConnectCall(connecturl, olapServerName, userName, password) {
   // Make a POST request with form data.
@@ -70,7 +83,8 @@ function makeConnectCall(connecturl, olapServerName, userName, password) {
       'contentType': 'application/json',
       'payload': JSON.stringify(data)
     };
-    var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/login', options);
+    //var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'login', options);
+    var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'login', options);
     // Logger.log(response.getContentText());
     Logger.log(response);
 
@@ -88,7 +102,8 @@ function makeConnectCall(connecturl, olapServerName, userName, password) {
 
 function makeLoadCall() {
   Logger.log('makeLoadCall....');
-  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications');
+  //var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'applications');
+  var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'applications');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   return response.getContentText();
 
@@ -130,7 +145,7 @@ function makeZoomInNextCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/zoomIn/' + selCelRow + '/' + selCelCol;
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/zoomIn/' + selCelRow + '/' + selCelCol;
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -197,7 +212,7 @@ function makeZoomInBottomCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/zoomInBottom/' + selCelRow + '/' + selCelCol;
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/zoomInBottom/' + selCelRow + '/' + selCelCol;
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -262,7 +277,7 @@ function makeZoomInAllCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/zoomInAll/' + selCelRow + '/' + selCelCol;
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/zoomInAll/' + selCelRow + '/' + selCelCol;
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -330,7 +345,7 @@ function makeZoomOutCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/zoomOut/' + selCelRow + '/' + selCelCol;
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/zoomOut/' + selCelRow + '/' + selCelCol;
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -401,7 +416,7 @@ function makeRefreshCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/refresh';
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/refresh';
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -467,7 +482,7 @@ function makePivotCall(selectedCube, sMetaDataGrid) {
   }
   Logger.log('activecell - ' + selCelRow + "\t" + selCelCol);
 
-  var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/pivot/' + selCelRow + '/' + selCelCol;
+  var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/pivot/' + selCelRow + '/' + selCelCol;
 
   var response = UrlFetchApp.fetch(zoomUrl, options);
   if(response.getResponseCode() == 500) {
@@ -575,7 +590,7 @@ function makeKeepOnlyCall(selectedCube, sMetaDataGrid) {
     };
 
 
-    var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/keepOnly';
+    var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/keepOnly';
 
     var response = UrlFetchApp.fetch(zoomUrl, options);
     //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -672,7 +687,7 @@ function makeRemoveOnlyCall(selectedCube, sMetaDataGrid) {
       'payload': JSON.stringify(data)
     };
 
-    var zoomUrl = 'http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/removeOnly';
+    var zoomUrl = SERVICE_BASE_URL+'applications/' + selectedCube + '/removeOnly';
 
     var response = UrlFetchApp.fetch(zoomUrl, options);
     //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
@@ -716,8 +731,8 @@ function makeloadApplications(selectedCube) {
     showDialog();
   }
 
-  //Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
-  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
+  //Logger.log(SERVICE_BASE_URL+'applications/' + selectedCube + '/defaultGrid');
+  var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'applications/' + selectedCube + '/defaultGrid');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   var resstr = response.getContentText();
   var jsonObj = JSON.parse(resstr);
@@ -725,6 +740,11 @@ function makeloadApplications(selectedCube) {
   var totalColNum = 0;
   var dataGrid;
   var metaDataGrid;
+
+  // store in the session storage  selected db and sheetid
+  var currentSpreadSheetId = SpreadsheetApp.getActiveSpreadsheet().getId();
+  var currentSheetId = SpreadsheetApp.getActive().getActiveSheet().getSheetId();
+
   if (jsonObj) {
     totalRowNum = jsonObj.totalRows;
     totalColNum = jsonObj.totalCols;
@@ -733,22 +753,27 @@ function makeloadApplications(selectedCube) {
   }
   Logger.log('totalRowNum=' + totalRowNum);
   Logger.log('totalColNUm=' + totalColNum);
+  
   if(totalRowNum > 0) {
     SpreadsheetApp.getActive().getActiveSheet().getRange(1, 1, totalRowNum, totalColNum).setValues(dataGrid);
+    documentProperties.setProperty(currentSpreadSheetId+'-'+currentSheetId+ '-selectedCube', selectedCube);
+    documentProperties.setProperty(currentSpreadSheetId+'-'+currentSheetId+ '-metaDataGrid', metaDataGrid);
+    jsonObj.selectedCubeName = currentSpreadSheetId+'-'+currentSheetId+ '-selectedCube';
+    jsonObj.selectedMetaDataGridName = currentSpreadSheetId+'-'+currentSheetId+ '-metaDataGrid';
   }
   
   // SpreadsheetApp.getActive().getActiveSheet().addDeveloperMetadata('metaDataGrid',metaDataGrid);
   //add Menu item for applications
 
-
-  return response.getContentText();
+  //return response.getContentText();
+  return JSON.stringify(jsonObj);
 
 }
 
 function makeDefaultRetrieve(selectedCube) {
   Logger.log('makeDefaultRetrieve....'+selectedCube);
-  Logger.log('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
-  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/applications/' + selectedCube + '/defaultGrid');
+  Logger.log(SERVICE_BASE_URL+'applications/' + selectedCube + '/defaultGrid');
+  var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'applications/' + selectedCube + '/defaultGrid');
   //SpreadsheetApp.getActive().getActiveCell().setValue(response.getContentText());
   SpreadsheetApp.getActive().getActiveSheet().getDataRange().clear();
   // if(SpreadsheetApp.getActive().getActiveSheet().getDeveloperMetadata()){
@@ -800,13 +825,15 @@ function showLoggedInSideBar() {
 
 function makeLogoutCall() {
   Logger.log('inside makeLogoutCall...');
-  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/logout');
+  var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'logout');
   documentProperties.deleteAllProperties();
   SpreadsheetApp.getUi()
     .createAddonMenu()
     .addItem('Essbase Setup', 'showSidebar')
     .addToUi();
+    documentProperties.deleteAllProperties();
   Logger.log(response.getContentText());
+  
 
 }
 
@@ -900,7 +927,7 @@ function makeSaveOptions(optionsObj) {
     'contentType': 'application/json',
     'payload': JSON.stringify(data)
   };
-  var response = UrlFetchApp.fetch('http://35.184.51.106:8080/essbase/essbaseUserOptions', options);
+  var response = UrlFetchApp.fetch(SERVICE_BASE_URL+'essbaseUserOptions', options);
   Logger.log('done with call..');
   return response.getContentText();
 

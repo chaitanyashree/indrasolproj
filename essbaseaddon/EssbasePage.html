@@ -240,7 +240,9 @@
             <button class="blue" id="logout-button">Logout</button>
             <button id="cancel-button" onclick="callClose()">Cancel</button></br>
           </div>
-
+          <input type=hidden id='selCube' name='selCube' />
+          <input type=hidden id='metaDataGrid' name='metaDataGrid' /></p>
+    
         </div>
 
       
@@ -251,8 +253,8 @@
         <div id="content" class="block">
         </div>
       </div>
-      <input type=hidden id='selCube' name='selCube' />
-      <input type=hidden id='metaDataGrid' name='metaDataGrid' /></p>
+      <!--input type=hidden id='selCube' name='selCube' />
+      <input type=hidden id='metaDataGrid' name='metaDataGrid' /></p//-->
       <button id="prefAccord" class="accordion green" hidden>Options:</button>
       <div id="prefAccordPanel" class="panel" hidden>
         <div class="block form-group">
@@ -384,21 +386,48 @@
       //   callLoad();
 
       // }
-      /*
+      
       google.script.run
         .withSuccessHandler(function (returnSuccess, element) {
           alert('success--'+returnSuccess);
-          if(returnSuccess){
+          if(returnSuccess.isLoggedIn){
             $('#connectBlock').hide();
+            alert('loading...');
             displayUIAfterLoad();
+            updateSheetDatabase(returnSuccess);
           }
         }).withFailureHandler(function (returnSuccess, element) {
           alert('failure-'+returnSuccess);
           
-        }).isLoggedIn();*/
+        }).isLoggedIn();
 
     });
 
+    function  updateSheetDatabase(returnSuccess) {
+      console.log("inside updateSheetDatabase.... ");
+      // var resourceUrl = window.location.href;
+      // alert(resourceUrl);
+      // var spreadsheetId = new RegExp("/spreadsheets/d/([a-zA-Z0-9-_]+)").exec(resourceUrl)[1];
+      // var sheetId = new RegExp("[#&]gid=([0-9]+)").exec(resourceUrl)[1];
+
+      var spreadsheetId = returnSuccess.currentSpreadSheetId;
+      var sheetId = returnSuccess.currentSheetId;
+
+      console.log('spreadSheetId='+spreadsheetId);
+      console.log('sheetId='+sheetId);
+      if (typeof(Storage) !== "undefined") {
+        var selectedCube = sessionStorage.getItem(spreadsheetId+"-"+sheetId+"-selectedCube");
+        var metaDataGrid = sessionStorage.getItem(spreadsheetId+"-"+sheetId+"-metaDataGrid");
+
+        console.log('selectedCube fetched-'+selectedCube);
+        console.log('metaDataGrid fetched-'+metaDataGrid);
+
+        $('input[name="selCube"]:hidden').val(selectedCube);
+        $('input[name="metaDataGrid"]:hidden').val(metaDataGrid);
+        $('#connectHeading').html("<b><a href='#' onClick='clearSelectedCube();'>" + selectedCube + "</a></b>");
+
+      }
+    }    
     function formApplicationTree(obj) {
 
       list = "<ul id='treeview'>";
@@ -519,6 +548,13 @@
             $('input[name="metaDataGrid"]:hidden').val(JSON.stringify(metaGridVal));
             $('#connectHeading').html("<b><a href='#' onClick='clearSelectedCube();'>" + selectedCube + "</a></b>");
 
+            // store in sessionStorage
+            if (typeof(Storage) !== "undefined") {
+              sessionStorage.setItem(jsonObj.selectedCubeName, selectedCube);
+              sessionStorage.setItem(jsonObj.selectedMetaDataGridName, JSON.stringify(metaGridVal));
+            }
+            
+
           })
         .withFailureHandler(
           function (msg, element) {
@@ -547,6 +583,9 @@
             //displayUIAfterConnect();
             //element.disabled = false;
            // localStorage.clear();
+           if (typeof(Storage) !== "undefined") {
+             sessionStorage.clear();
+           }
 
             IS_LOGGEDIN = false;
           })
