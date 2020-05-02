@@ -342,7 +342,32 @@
       });
     }
     </script>
-    
+    <script>
+      function poll(interval){
+        interval = interval || 2000;
+        setTimeout(function(){
+          google.script.run
+          .withSuccessHandler(
+            function(returnSuccess) {
+              console.log('success--'+returnSuccess);
+              // if(returnSuccess.isLoggedIn){
+              //   $('#connectBlock').hide();
+              //   //alert('loading...');
+              //   displayUIAfterLoad();
+              //  updateSheetDatabase(returnSuccess);
+              // }              
+              $('#connectHeading').html("<b><a href='#' onClick='clearSelectedCube();'>" + returnSuccess + "</a></b>");
+              poll(interval);
+            })
+          .withFailureHandler(
+            function(msg, element) {
+              //showError(msg, $('#button-bar'));
+              //element.disabled = false;
+            })
+          .getActiveSheetSelectedCube();
+        }, interval);
+      };
+    </script>
   <script>
     /**
      * On document load, assign click handlers to each button and try to load the
@@ -387,20 +412,20 @@
 
       // }
       
-      google.script.run
-        .withSuccessHandler(function (returnSuccess, element) {
-          alert('success--'+returnSuccess);
-          if(returnSuccess.isLoggedIn){
-            $('#connectBlock').hide();
-            alert('loading...');
-            displayUIAfterLoad();
-            updateSheetDatabase(returnSuccess);
-          }
-        }).withFailureHandler(function (returnSuccess, element) {
-          alert('failure-'+returnSuccess);
+      // google.script.run
+      //   .withSuccessHandler(function (returnSuccess, element) {
+      //     alert('success--'+returnSuccess);
+      //     if(returnSuccess.isLoggedIn){
+      //       $('#connectBlock').hide();
+      //       alert('loading...');
+      //       displayUIAfterLoad();
+      //       updateSheetDatabase(returnSuccess);
+      //     }
+      //   }).withFailureHandler(function (returnSuccess, element) {
+      //     alert('failure-'+returnSuccess);
           
-        }).isLoggedIn();
-
+      //   }).isLoggedIn();
+        poll(1000);
     });
 
     function  updateSheetDatabase(returnSuccess) {
@@ -425,7 +450,7 @@
         $('input[name="selCube"]:hidden').val(selectedCube);
         $('input[name="metaDataGrid"]:hidden').val(metaDataGrid);
         $('#connectHeading').html("<b><a href='#' onClick='clearSelectedCube();'>" + selectedCube + "</a></b>");
-
+        //window.location.reload();
       }
     }    
     function formApplicationTree(obj) {
@@ -562,6 +587,12 @@
             showError(msg, $('#msgBlock'));
             //element.disabled = false;
             $('input[name="metaDataGrid"]:hidden').val('');
+            // store in sessionStorage
+            if (typeof(Storage) !== "undefined") {
+              sessionStorage.setItem(jsonObj.selectedCubeName, selectedCube);
+              sessionStorage.setItem(jsonObj.selectedMetaDataGridName, '');
+            }
+
           })
         //.withUserObject(this)
         .makeloadApplications(selectedCube);
